@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import { User, Service, Negotiation } from '../types';
 import { userAPI, serviceAPI, negotiationAPI, notificationAPI } from '../services/api';
+import { useError } from '../context/ErrorContext';
 
 // Composants admin
 const UserManagement: React.FC = () => {
+  const { addError } = useError();
   const [users, setUsers] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
@@ -27,8 +29,12 @@ const UserManagement: React.FC = () => {
     try {
       const data = await userAPI.getAllUsers();
       setUsers(data);
-    } catch (error) {
-      console.error('Erreur:', error);
+    } catch (error: any) {
+      addError(
+        error.userMessage || 'Erreur lors du chargement des utilisateurs',
+        'error',
+        error.userDetails
+      );
     } finally {
       setIsLoading(false);
     }
@@ -39,15 +45,19 @@ const UserManagement: React.FC = () => {
     try {
       if (editingUser) {
         await userAPI.updateUser(editingUser.id, formData);
-        alert('Utilisateur modifié avec succès !');
+        addError('Utilisateur modifié avec succès !', 'success');
       } else {
         await userAPI.createUser(formData);
-        alert('Utilisateur créé avec succès !');
+        addError('Utilisateur créé avec succès !', 'success');
       }
       resetForm();
       fetchUsers();
     } catch (error: any) {
-      alert(error.response?.data?.message || 'Erreur lors de l\'opération');
+      addError(
+        error.userMessage || 'Erreur lors de l\'opération',
+        'error',
+        error.userDetails
+      );
     }
   };
 
@@ -55,10 +65,14 @@ const UserManagement: React.FC = () => {
     if (window.confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) {
       try {
         await userAPI.deleteUser(userId);
-        alert('Utilisateur supprimé avec succès !');
+        addError('Utilisateur supprimé avec succès !', 'success');
         fetchUsers();
       } catch (error: any) {
-        alert(error.response?.data?.message || 'Erreur lors de la suppression');
+        addError(
+          error.userMessage || 'Erreur lors de la suppression',
+          'error',
+          error.userDetails
+        );
       }
     }
   };
@@ -242,7 +256,7 @@ const UserManagement: React.FC = () => {
                   {user.isAdmin && <span style={{ marginLeft: '0.5rem', backgroundColor: '#e74c3c', color: 'white', padding: '0.2rem 0.4rem', borderRadius: '4px', fontSize: '0.8rem' }}>Admin</span>}
                 </td>
                 <td style={{ padding: '1rem', borderBottom: '1px solid #eee' }}>{user.email}</td>
-                <td style={{ padding: '1rem', borderBottom: '1px solid #eee' }}>{user.balance?.toFixed(2)} radis</td>
+                <td style={{ padding: '1rem', borderBottom: '1px solid #eee' }}>{(Number(user.balance) || 0).toFixed(2)} radis</td>
                 <td style={{ padding: '1rem', borderBottom: '1px solid #eee' }}>
                   <span style={{
                     backgroundColor: user.isActive ? '#27ae60' : '#e74c3c',
@@ -293,6 +307,7 @@ const UserManagement: React.FC = () => {
 };
 
 const BalanceManagement: React.FC = () => {
+  const { addError } = useError();
   const [users, setUsers] = useState<User[]>([]);
   const [selectedUser, setSelectedUser] = useState<number | ''>('');
   const [amount, setAmount] = useState('');
@@ -306,8 +321,12 @@ const BalanceManagement: React.FC = () => {
     try {
       const data = await userAPI.getAllUsers();
       setUsers(data);
-    } catch (error) {
-      console.error('Erreur:', error);
+    } catch (error: any) {
+      addError(
+        error.userMessage || 'Erreur lors du chargement des utilisateurs',
+        'error',
+        error.userDetails
+      );
     }
   };
 
@@ -317,13 +336,17 @@ const BalanceManagement: React.FC = () => {
 
     try {
       await userAPI.adjustBalance(selectedUser as number, parseFloat(amount), description);
-      alert('Solde ajusté avec succès !');
+      addError('Solde ajusté avec succès !', 'success');
       setSelectedUser('');
       setAmount('');
       setDescription('');
       fetchUsers();
     } catch (error: any) {
-      alert(error.response?.data?.message || 'Erreur lors de l\'ajustement');
+      addError(
+        error.userMessage || 'Erreur lors de l\'ajustement',
+        'error',
+        error.userDetails
+      );
     }
   };
 
@@ -351,7 +374,7 @@ const BalanceManagement: React.FC = () => {
               <option value="">Sélectionnez un utilisateur</option>
               {users.map(user => (
                 <option key={user.id} value={user.id}>
-                  {user.firstName} {user.lastName} (Solde actuel: {user.balance?.toFixed(2)} radis)
+                  {user.firstName} {user.lastName} (Solde actuel: {(Number(user.balance) || 0).toFixed(2)} radis)
                 </option>
               ))}
             </select>
@@ -410,9 +433,9 @@ const BalanceManagement: React.FC = () => {
               <span>{user.firstName} {user.lastName}</span>
               <span style={{
                 fontWeight: 'bold',
-                color: (user.balance || 0) >= 0 ? '#27ae60' : '#e74c3c'
+                color: (Number(user.balance) || 0) >= 0 ? '#27ae60' : '#e74c3c'
               }}>
-                {user.balance?.toFixed(2)} radis
+                {(Number(user.balance) || 0).toFixed(2)} radis
               </span>
             </div>
           ))}
@@ -423,6 +446,7 @@ const BalanceManagement: React.FC = () => {
 };
 
 const NotificationManagement: React.FC = () => {
+  const { addError } = useError();
   const [users, setUsers] = useState<User[]>([]);
   const [selectedUser, setSelectedUser] = useState<number | 'all' | ''>('');
   const [title, setTitle] = useState('');
@@ -436,8 +460,12 @@ const NotificationManagement: React.FC = () => {
     try {
       const data = await userAPI.getAllUsers();
       setUsers(data.filter(user => user.isActive));
-    } catch (error) {
-      console.error('Erreur:', error);
+    } catch (error: any) {
+      addError(
+        error.userMessage || 'Erreur lors du chargement des utilisateurs',
+        'error',
+        error.userDetails
+      );
     }
   };
 
@@ -448,17 +476,21 @@ const NotificationManagement: React.FC = () => {
     try {
       if (selectedUser === 'all') {
         await notificationAPI.broadcast(title, message);
-        alert('Notification diffusée à tous les utilisateurs !');
+        addError('Notification diffusée à tous les utilisateurs !', 'success');
       } else {
         await notificationAPI.sendToUser(selectedUser as number, title, message);
-        alert('Notification envoyée !');
+        addError('Notification envoyée !', 'success');
       }
       
       setSelectedUser('');
       setTitle('');
       setMessage('');
     } catch (error: any) {
-      alert(error.response?.data?.message || 'Erreur lors de l\'envoi');
+      addError(
+        error.userMessage || 'Erreur lors de l\'envoi',
+        'error',
+        error.userDetails
+      );
     }
   };
 

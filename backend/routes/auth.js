@@ -27,19 +27,8 @@ router.post('/login', async (req, res) => {
 
     const user = users[0];
 
-    // Vérifier le mot de passe (pour l'admin, on compare directement)
-    let isPasswordValid = false;
-    if (user.username === 'admin' && password === '1234') {
-      isPasswordValid = true;
-      // Hasher le mot de passe pour la prochaine fois
-      const hashedPassword = await bcrypt.hash('1234', 10);
-      await db.execute(
-        'UPDATE users SET password_hash = ? WHERE id = ?',
-        [hashedPassword, user.id]
-      );
-    } else {
-      isPasswordValid = await bcrypt.compare(password, user.password_hash);
-    }
+    // Vérifier le mot de passe
+    const isPasswordValid = await bcrypt.compare(password, user.password_hash);
 
     if (!isPasswordValid) {
       return res.status(401).json({ message: 'Identifiants invalides' });

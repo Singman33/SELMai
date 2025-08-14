@@ -25,9 +25,9 @@ const Community: React.FC = () => {
   const sortedMembers = [...members].sort((a, b) => {
     switch (sortBy) {
       case 'rating':
-        return (b.rating || 0) - (a.rating || 0);
+        return (Number(b.rating) || 0) - (Number(a.rating) || 0);
       case 'balance':
-        return (b.balance || 0) - (a.balance || 0);
+        return (Number(b.balance) || 0) - (Number(a.balance) || 0);
       case 'name':
         return `${a.firstName} ${a.lastName}`.localeCompare(`${b.firstName} ${b.lastName}`);
       default:
@@ -203,13 +203,13 @@ const Community: React.FC = () => {
                   color: '#f39c12',
                   marginBottom: '0.25rem'
                 }}>
-                  {getRatingStars(member.rating || 0)}
+                  {getRatingStars(Number(member.rating) || 0)}
                 </div>
                 <div style={{
                   fontSize: '0.9rem',
                   color: '#7f8c8d'
                 }}>
-                  {(member.rating || 0).toFixed(1)} / 5.0
+                  {(Number(member.rating) || 0).toFixed(1)} / 5.0
                 </div>
                 <div style={{
                   fontSize: '0.8rem',
@@ -223,10 +223,10 @@ const Community: React.FC = () => {
                 <div style={{
                   fontSize: '1.5rem',
                   fontWeight: 'bold',
-                  color: getBalanceColor(member.balance || 0),
+                  color: getBalanceColor(Number(member.balance) || 0),
                   marginBottom: '0.25rem'
                 }}>
-                  {(member.balance || 0).toFixed(0)}
+                  {(Number(member.balance) || 0).toFixed(0)}
                 </div>
                 <div style={{
                   fontSize: '0.9rem',
@@ -294,14 +294,14 @@ const Community: React.FC = () => {
           
           <div>
             <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#27ae60' }}>
-              {members.reduce((sum, member) => sum + (member.balance || 0), 0).toFixed(0)}
+              {members.reduce((sum, member) => sum + (Number(member.balance) || 0), 0).toFixed(0)}
             </div>
             <div style={{ color: '#7f8c8d' }}>Total radis en circulation</div>
           </div>
           
           <div>
             <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#f39c12' }}>
-              {members.length > 0 ? (members.reduce((sum, member) => sum + (member.rating || 0), 0) / members.length).toFixed(1) : '0.0'}
+              {members.length > 0 ? (members.reduce((sum, member) => sum + (Number(member.rating) || 0), 0) / members.length).toFixed(1) : '0.0'}
             </div>
             <div style={{ color: '#7f8c8d' }}>Note moyenne</div>
           </div>

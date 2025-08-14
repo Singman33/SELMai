@@ -233,7 +233,7 @@ L'application inclut :
 
 ## 📝 Changelog
 
-### Version 1.0.0 (2024)
+### Version 1.0.0 (2025)
 - ✅ Système d'authentification complet
 - ✅ Gestion des services et annonces
 - ✅ Négociations entre utilisateurs

@@ -144,7 +144,7 @@ const Marketplace: React.FC = () => {
               margin: '0 0 0.5rem 0'
             }}>
               Par {service.firstName} {service.lastName} 
-              {service.userRating ? ` (${service.userRating.toFixed(1)} ⭐)` : ''}
+              {service.userRating ? ` (${(Number(service.userRating) || 0).toFixed(1)} ⭐)` : ''}
             </p>
             
             <p style={{ margin: '0 0 1rem 0' }}>

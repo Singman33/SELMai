@@ -27,7 +27,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       
       if (token && savedUser) {
         try {
-          setUser(JSON.parse(savedUser));
+          const parsedUser = JSON.parse(savedUser);
+          // S'assurer que balance et rating sont des nombres
+          parsedUser.balance = Number(parsedUser.balance) || 0;
+          parsedUser.rating = Number(parsedUser.rating) || 0;
+          
+          setUser(parsedUser);
           // Vérifier la validité du token
           await authAPI.verify();
         } catch (error) {
@@ -47,9 +52,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       const response = await authAPI.login(username, password);
       
+      // S'assurer que balance et rating sont des nombres
+      const user = {
+        ...response.user,
+        balance: Number(response.user.balance) || 0,
+        rating: Number(response.user.rating) || 0
+      };
+      
       localStorage.setItem('token', response.token);
-      localStorage.setItem('user', JSON.stringify(response.user));
-      setUser(response.user);
+      localStorage.setItem('user', JSON.stringify(user));
+      setUser(user);
     } catch (error: any) {
       throw new Error(error.response?.data?.message || 'Erreur de connexion');
     }

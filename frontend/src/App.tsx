@@ -1,8 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { ErrorProvider } from './context/ErrorContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
+import ErrorDisplay from './components/ErrorDisplay';
 import Login from './pages/Login';
 import Marketplace from './pages/Marketplace';
 
@@ -16,9 +18,11 @@ const Admin = React.lazy(() => import('./pages/Admin'));
 
 function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <Routes>
+    <ErrorProvider>
+      <AuthProvider>
+        <Router>
+          <ErrorDisplay />
+          <Routes>
           <Route path="/login" element={<Login />} />
           
           <Route path="/" element={
@@ -101,6 +105,7 @@ function App() {
         </Routes>
       </Router>
     </AuthProvider>
+    </ErrorProvider>
   );
 }
 

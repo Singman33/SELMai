@@ -114,9 +114,9 @@ INSERT INTO categories (name, description) VALUES
 ('Bien-être', 'Massage, relaxation, sport...'),
 ('Autre', 'Services divers');
 
--- Création de l'utilisateur admin par défaut
+-- Création de l'utilisateur admin par défaut (mot de passe: 1234)
 INSERT INTO users (username, email, password_hash, first_name, last_name, balance, is_admin, is_active) VALUES
-('admin', 'admin@selmai.local', '$2b$10$rQZ8kJz8k8k8k8k8k8k8kuO8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8', 'Admin', 'Système', 1000.00, TRUE, TRUE);
+('admin', 'admin@selmai.local', '$2a$10$oCxk.vmb3antkOIiS/35DOozB1ANkc2VDvXlkW0LI8TugbmY0f4la', 'Admin', 'Système', 1000.00, TRUE, TRUE);
 
 -- Création de quelques utilisateurs de test
 INSERT INTO users (username, email, password_hash, first_name, last_name, balance, is_admin, is_active) VALUES

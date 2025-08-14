@@ -19,7 +19,46 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Intercepteur pour gérer les erreurs d'authentification
+// Fonction pour extraire le message d'erreur
+const getErrorMessage = (error: any): { message: string; details?: string } => {
+  if (error.response) {
+    // Erreur du serveur avec réponse
+    const data = error.response.data;
+    if (typeof data === 'string') {
+      return { message: data };
+    }
+    if (data && data.message) {
+      return { 
+        message: data.message,
+        details: data.details || `Erreur ${error.response.status}: ${error.response.statusText}`
+      };
+    }
+    if (data && data.error) {
+      return { 
+        message: data.error,
+        details: `Erreur ${error.response.status}: ${error.response.statusText}`
+      };
+    }
+    return { 
+      message: `Erreur ${error.response.status}`,
+      details: error.response.statusText || 'Erreur inconnue du serveur'
+    };
+  } else if (error.request) {
+    // Erreur de réseau
+    return { 
+      message: 'Erreur de connexion',
+      details: 'Impossible de joindre le serveur. Vérifiez votre connexion internet.'
+    };
+  } else {
+    // Autre erreur
+    return { 
+      message: 'Erreur inattendue',
+      details: error.message || 'Une erreur inattendue s\'est produite'
+    };
+  }
+};
+
+// Intercepteur pour gérer les erreurs d'authentification et améliorer les messages d'erreur
 api.interceptors.response.use(
   (response) => response,
   (error) => {
@@ -28,6 +67,12 @@ api.interceptors.response.use(
       localStorage.removeItem('user');
       window.location.href = '/login';
     }
+    
+    // Enrichir l'erreur avec des informations plus détaillées
+    const errorInfo = getErrorMessage(error);
+    error.userMessage = errorInfo.message;
+    error.userDetails = errorInfo.details;
+    
     return Promise.reject(error);
   }
 );

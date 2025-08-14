@@ -87,14 +87,14 @@ const Wallet: React.FC = () => {
         }}>
           <div>
             <h2 style={{ margin: '0 0 0.5rem 0', color: '#27ae60', fontSize: '2rem' }}>
-              {user?.balance?.toFixed(2)} radis
+              {(Number(user?.balance) || 0).toFixed(2)} radis
             </h2>
             <p style={{ margin: 0, color: '#7f8c8d' }}>Solde actuel</p>
           </div>
           
           <div>
             <h2 style={{ margin: '0 0 0.5rem 0', color: '#f39c12', fontSize: '2rem' }}>
-              {user?.rating?.toFixed(1) || '0.0'} ⭐
+              {(Number(user?.rating) || 0).toFixed(1)} ⭐
             </h2>
             <p style={{ margin: 0, color: '#7f8c8d' }}>Note d'appréciation</p>
           </div>
@@ -176,7 +176,7 @@ const Wallet: React.FC = () => {
                       fontWeight: 'bold',
                       color: isCredit ? '#27ae60' : '#e74c3c'
                     }}>
-                      {isCredit ? '+' : '-'}{transaction.amount.toFixed(2)} radis
+                      {isCredit ? '+' : '-'}{(Number(transaction.amount) || 0).toFixed(2)} radis
                     </div>
                     
                     {transaction.balanceAfter !== undefined && (
@@ -184,7 +184,7 @@ const Wallet: React.FC = () => {
                         fontSize: '0.9rem',
                         color: '#7f8c8d'
                       }}>
-                        Solde : {transaction.balanceAfter.toFixed(2)} radis
+                        Solde : {(Number(transaction.balanceAfter) || 0).toFixed(2)} radis
                       </div>
                     )}
                   </div>
