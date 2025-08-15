@@ -27,6 +27,7 @@ const UserManagement: React.FC = () => {
     isAdmin: false,
     isActive: true
   });
+  const [changePassword, setChangePassword] = useState(false);
 
   useEffect(() => {
     fetchUsers();
@@ -51,7 +52,9 @@ const UserManagement: React.FC = () => {
     e.preventDefault();
     try {
       if (editingUser) {
-        await userAPI.updateUser(editingUser.id, formData);
+        const { password, ...baseData } = formData;
+        const updateData = changePassword ? { ...baseData, password } : baseData;
+        await userAPI.updateUser(editingUser.id, updateData);
         addError('Utilisateur modifié avec succès !', 'success');
       } else {
         await userAPI.createUser(formData);
@@ -95,6 +98,7 @@ const UserManagement: React.FC = () => {
       isAdmin: user.isAdmin || false,
       isActive: user.isActive || true
     });
+    setChangePassword(false);
     setShowForm(true);
   };
 
@@ -109,6 +113,7 @@ const UserManagement: React.FC = () => {
       isActive: true
     });
     setEditingUser(null);
+    setChangePassword(false);
     setShowForm(false);
   };
 
@@ -184,7 +189,7 @@ const UserManagement: React.FC = () => {
               />
             </div>
             
-            {!editingUser && (
+            {!editingUser ? (
               <div>
                 <label>Mot de passe *</label>
                 <input
@@ -194,6 +199,30 @@ const UserManagement: React.FC = () => {
                   required
                   style={{ width: '100%', padding: '0.5rem', border: '1px solid #ddd', borderRadius: '4px' }}
                 />
+              </div>
+            ) : (
+              <div>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={changePassword}
+                    onChange={(e) => setChangePassword(e.target.checked)}
+                    style={{ marginRight: '0.5rem' }}
+                  />
+                  Changer le mot de passe
+                </label>
+                {changePassword && (
+                  <div style={{ marginTop: '0.5rem' }}>
+                    <label>Nouveau mot de passe *</label>
+                    <input
+                      type="password"
+                      value={formData.password}
+                      onChange={(e) => setFormData({...formData, password: e.target.value})}
+                      required={changePassword}
+                      style={{ width: '100%', padding: '0.5rem', border: '1px solid #ddd', borderRadius: '4px' }}
+                    />
+                  </div>
+                )}
               </div>
             )}
             

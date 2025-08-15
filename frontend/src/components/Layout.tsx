@@ -45,7 +45,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const isActive = (path: string) => location.pathname === path;
 
   const navItems = [
-    { path: '/marketplace', label: 'Place marché' },
+    { path: '/marketplace', label: 'Place du marché' },
     { path: '/my-services', label: 'Mes services' },
     { path: '/negotiations', label: 'Négociations' },
     { path: '/wallet', label: 'Porte-monnaie' },
@@ -76,9 +76,19 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           justifyContent: 'space-between',
           alignItems: 'center'
         }}>
-          <h1 style={{ margin: 0, fontSize: '1.5rem' }}>
-            SELMai - Système d'échange local
-          </h1>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <img 
+              src="/logo.svg" 
+              alt="SELMai Logo" 
+              style={{ 
+                height: '40px',
+                width: '40px'
+              }}
+            />
+            <h1 style={{ margin: 0, fontSize: '1.5rem' }}>
+              SELMai - Système d'échange local
+            </h1>
+          </div>
           {user && (
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
               <span>

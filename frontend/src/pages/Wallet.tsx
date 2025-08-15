@@ -175,7 +175,7 @@ const Wallet: React.FC = () => {
                       fontWeight: 'bold',
                       color: isCredit ? '#27ae60' : '#e74c3c'
                     }}>
-                      {isCredit ? '+' : '-'}{(Number(transaction.amount) || 0).toFixed(2)} radis
+                      {isCredit ? '+' : ''}{(isCredit ? Number(transaction.amount) : -Math.abs(Number(transaction.amount))).toFixed(2)} radis
                     </div>
                     
                     {transaction.balanceAfter !== undefined && (
