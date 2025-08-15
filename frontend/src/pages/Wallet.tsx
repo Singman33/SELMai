@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Transaction, User } from '../types';
 import { transactionAPI, userAPI } from '../services/api';
+import { useAuth } from '../context/AuthContext';
 
 const Wallet: React.FC = () => {
+  const { user, refreshUser } = useAuth();
   const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -13,12 +14,10 @@ const Wallet: React.FC = () => {
 
   const fetchData = async () => {
     try {
-      const [transactionsData, userData] = await Promise.all([
-        transactionAPI.getAll(),
-        userAPI.getProfile()
-      ]);
+      const transactionsData = await transactionAPI.getAll();
       setTransactions(transactionsData);
-      setUser(userData);
+      // Rafraîchir le profil utilisateur pour mettre à jour le solde
+      await refreshUser();
     } catch (error) {
       console.error('Erreur lors du chargement:', error);
     } finally {
@@ -27,7 +26,7 @@ const Wallet: React.FC = () => {
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('fr-FR', {
+    return new Date(dateString || new Date()).toLocaleDateString('fr-FR', {
       year: 'numeric',
       month: 'long',
       day: 'numeric',
@@ -54,12 +53,12 @@ const Wallet: React.FC = () => {
     
     if (type === 'credit') {
       if (transaction.fromUserId) {
-        return `Paiement reçu de ${transaction.fromFirstName} ${transaction.fromLastName}`;
+        return `Paiement reçu de ${transaction.fromFirstName || ''} ${transaction.fromLastName || ''}`;
       } else {
         return transaction.description || 'Crédit';
       }
     } else {
-      return `Paiement envoyé à ${transaction.toFirstName} ${transaction.toLastName}`;
+      return `Paiement envoyé à ${transaction.toFirstName || ''} ${transaction.toLastName || ''}`;
     }
   };
 
@@ -155,7 +154,7 @@ const Wallet: React.FC = () => {
                         color: '#7f8c8d',
                         marginBottom: '0.25rem'
                       }}>
-                        Service : {transaction.serviceTitle}
+                        Service : {transaction.serviceTitle || 'Service non spécifié'}
                       </div>
                     )}
                     
@@ -163,7 +162,7 @@ const Wallet: React.FC = () => {
                       fontSize: '0.8rem',
                       color: '#95a5a6'
                     }}>
-                      {formatDate(transaction.createdAt)}
+                      {formatDate(transaction.createdAt || new Date().toISOString())}
                     </div>
                   </div>
                   

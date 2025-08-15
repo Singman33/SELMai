@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
-import { User, Service, Negotiation } from '../types';
+import { User, UserDisplay, Service, Negotiation } from '../types';
 import { userAPI, serviceAPI, negotiationAPI, notificationAPI } from '../services/api';
 import { useError } from '../context/ErrorContext';
+import { useAuth } from '../context/AuthContext';
+
+// Helper pour formater les noms d'utilisateur
+const formatUserName = (firstName?: string, lastName?: string, username?: string) => {
+  const fullName = `${firstName || ''} ${lastName || ''}`.trim();
+  return fullName || `@${username || 'utilisateur'}`;
+};
 
 // Composants admin
 const UserManagement: React.FC = () => {
   const { addError } = useError();
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<UserDisplay[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
-  const [editingUser, setEditingUser] = useState<User | null>(null);
+  const [editingUser, setEditingUser] = useState<UserDisplay | null>(null);
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -77,15 +84,15 @@ const UserManagement: React.FC = () => {
     }
   };
 
-  const handleEdit = (user: User) => {
+  const handleEdit = (user: UserDisplay) => {
     setEditingUser(user);
     setFormData({
-      username: user.username,
-      email: user.email,
+      username: user.username || '',
+      email: user.email || '',
       password: '',
-      firstName: user.firstName,
-      lastName: user.lastName,
-      isAdmin: user.isAdmin,
+      firstName: user.firstName || '',
+      lastName: user.lastName || '',
+      isAdmin: user.isAdmin || false,
       isActive: user.isActive || true
     });
     setShowForm(true);
@@ -252,10 +259,10 @@ const UserManagement: React.FC = () => {
             {users.map(user => (
               <tr key={user.id}>
                 <td style={{ padding: '1rem', borderBottom: '1px solid #eee' }}>
-                  {user.firstName} {user.lastName} (@{user.username})
-                  {user.isAdmin && <span style={{ marginLeft: '0.5rem', backgroundColor: '#e74c3c', color: 'white', padding: '0.2rem 0.4rem', borderRadius: '4px', fontSize: '0.8rem' }}>Admin</span>}
+                  {formatUserName(user.firstName, user.lastName, user.username)}
+                  {Boolean(user.isAdmin) && <span style={{ marginLeft: '0.5rem', backgroundColor: '#e74c3c', color: 'white', padding: '0.2rem 0.4rem', borderRadius: '4px', fontSize: '0.8rem' }}>Admin</span>}
                 </td>
-                <td style={{ padding: '1rem', borderBottom: '1px solid #eee' }}>{user.email}</td>
+                <td style={{ padding: '1rem', borderBottom: '1px solid #eee' }}>{user.email || 'N/A'}</td>
                 <td style={{ padding: '1rem', borderBottom: '1px solid #eee' }}>{(Number(user.balance) || 0).toFixed(2)} radis</td>
                 <td style={{ padding: '1rem', borderBottom: '1px solid #eee' }}>
                   <span style={{
@@ -308,7 +315,8 @@ const UserManagement: React.FC = () => {
 
 const BalanceManagement: React.FC = () => {
   const { addError } = useError();
-  const [users, setUsers] = useState<User[]>([]);
+  const { refreshUser } = useAuth();
+  const [users, setUsers] = useState<UserDisplay[]>([]);
   const [selectedUser, setSelectedUser] = useState<number | ''>('');
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
@@ -335,13 +343,19 @@ const BalanceManagement: React.FC = () => {
     if (!selectedUser || !amount) return;
 
     try {
+      console.log('💰 Ajustement du solde pour l\'utilisateur:', selectedUser, 'montant:', amount);
       await userAPI.adjustBalance(selectedUser as number, parseFloat(amount), description);
       addError('Solde ajusté avec succès !', 'success');
       setSelectedUser('');
       setAmount('');
       setDescription('');
-      fetchUsers();
+      await fetchUsers();
+      
+      // Rafraîchir immédiatement le profil utilisateur
+      console.log('🔄 Rafraîchissement du profil après ajustement...');
+      await refreshUser();
     } catch (error: any) {
+      console.error('❌ Erreur lors de l\'ajustement:', error);
       addError(
         error.userMessage || 'Erreur lors de l\'ajustement',
         'error',
@@ -364,8 +378,10 @@ const BalanceManagement: React.FC = () => {
         
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '500px' }}>
           <div>
-            <label>Utilisateur</label>
+            <label htmlFor="balance-user-select">Utilisateur</label>
             <select
+              id="balance-user-select"
+              name="selectedUser"
               value={selectedUser}
               onChange={(e) => setSelectedUser(e.target.value ? parseInt(e.target.value) : '')}
               required
@@ -374,15 +390,17 @@ const BalanceManagement: React.FC = () => {
               <option value="">Sélectionnez un utilisateur</option>
               {users.map(user => (
                 <option key={user.id} value={user.id}>
-                  {user.firstName} {user.lastName} (Solde actuel: {(Number(user.balance) || 0).toFixed(2)} radis)
+                  {formatUserName(user.firstName, user.lastName, user.username)} (Solde actuel: {(Number(user.balance) || 0).toFixed(2)} radis)
                 </option>
               ))}
             </select>
           </div>
           
           <div>
-            <label>Montant (positif pour crédit, négatif pour débit)</label>
+            <label htmlFor="balance-amount-input">Montant (positif pour crédit, négatif pour débit)</label>
             <input
+              id="balance-amount-input"
+              name="amount"
               type="number"
               step="0.01"
               value={amount}
@@ -393,8 +411,10 @@ const BalanceManagement: React.FC = () => {
           </div>
           
           <div>
-            <label>Description</label>
+            <label htmlFor="balance-description-input">Description</label>
             <input
+              id="balance-description-input"
+              name="description"
               type="text"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -430,7 +450,7 @@ const BalanceManagement: React.FC = () => {
               justifyContent: 'space-between',
               alignItems: 'center'
             }}>
-              <span>{user.firstName} {user.lastName}</span>
+              <span>{formatUserName(user.firstName, user.lastName, user.username)}</span>
               <span style={{
                 fontWeight: 'bold',
                 color: (Number(user.balance) || 0) >= 0 ? '#27ae60' : '#e74c3c'
@@ -447,7 +467,7 @@ const BalanceManagement: React.FC = () => {
 
 const NotificationManagement: React.FC = () => {
   const { addError } = useError();
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<UserDisplay[]>([]);
   const [selectedUser, setSelectedUser] = useState<number | 'all' | ''>('');
   const [title, setTitle] = useState('');
   const [message, setMessage] = useState('');
@@ -518,7 +538,7 @@ const NotificationManagement: React.FC = () => {
               <option value="all">🌍 Tous les utilisateurs</option>
               {users.map(user => (
                 <option key={user.id} value={user.id}>
-                  {user.firstName} {user.lastName} (@{user.username})
+                  {formatUserName(user.firstName, user.lastName, user.username)}
                 </option>
               ))}
             </select>

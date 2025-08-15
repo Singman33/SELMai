@@ -80,7 +80,7 @@ const Notifications: React.FC = () => {
   const unreadCount = notifications.filter(n => !n.isRead).length;
 
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
+    const date = new Date(dateString || new Date());
     const now = new Date();
     const diffInHours = (now.getTime() - date.getTime()) / (1000 * 60 * 60);
     
@@ -175,7 +175,8 @@ const Notifications: React.FC = () => {
               borderRadius: '8px',
               boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
               border: '1px solid #e0e0e0',
-              borderLeft: `4px solid ${getNotificationColor(notification.notificationType)}`,
+              borderLeft: `4px solid ${getNotificationColor(notification.notificationType || 'system')}`,
+
               cursor: !notification.isRead ? 'pointer' : 'default',
               opacity: notification.isRead ? 0.7 : 1,
               transition: 'opacity 0.3s'
@@ -190,7 +191,7 @@ const Notifications: React.FC = () => {
                 fontSize: '2rem',
                 flexShrink: 0
               }}>
-                {getNotificationIcon(notification.notificationType)}
+                {getNotificationIcon(notification.notificationType || 'system')}
               </div>
               
               <div style={{ flex: 1 }}>
@@ -206,7 +207,7 @@ const Notifications: React.FC = () => {
                     fontSize: '1.1rem',
                     fontWeight: notification.isRead ? 'normal' : 'bold'
                   }}>
-                    {notification.title}
+                    {notification.title || 'Notification'}
                   </h3>
                   
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -224,7 +225,7 @@ const Notifications: React.FC = () => {
                       color: '#95a5a6',
                       whiteSpace: 'nowrap'
                     }}>
-                      {formatDate(notification.createdAt)}
+                      {formatDate(notification.createdAt || new Date().toISOString())}
                     </span>
                   </div>
                 </div>
@@ -234,7 +235,7 @@ const Notifications: React.FC = () => {
                   color: '#7f8c8d',
                   lineHeight: '1.5'
                 }}>
-                  {notification.message}
+                  {notification.message || 'Aucun message'}
                 </p>
                 
                 <div style={{
@@ -242,7 +243,7 @@ const Notifications: React.FC = () => {
                   fontSize: '0.8rem',
                   color: '#95a5a6'
                 }}>
-                  Type: {notification.notificationType}
+                  Type: {notification.notificationType || 'system'}
                 </div>
               </div>
             </div>

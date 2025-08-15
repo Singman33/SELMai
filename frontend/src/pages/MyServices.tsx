@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Service, Category } from '../types';
+import { Service, ServiceDisplay, Category } from '../types';
 import { serviceAPI, categoryAPI } from '../services/api';
 
 const MyServices: React.FC = () => {
-  const [services, setServices] = useState<Service[]>([]);
+  const [services, setServices] = useState<ServiceDisplay[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
-  const [editingService, setEditingService] = useState<Service | null>(null);
+  const [editingService, setEditingService] = useState<ServiceDisplay | null>(null);
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -62,13 +62,13 @@ const MyServices: React.FC = () => {
     }
   };
 
-  const handleEdit = (service: Service) => {
+  const handleEdit = (service: ServiceDisplay) => {
     setEditingService(service);
     setFormData({
-      title: service.title,
-      description: service.description,
-      categoryId: service.categoryId.toString(),
-      price: service.price.toString(),
+      title: service.title || '',
+      description: service.description || '',
+      categoryId: (service.categoryId || '').toString(),
+      price: (service.price || 0).toString(),
       duration: service.duration || ''
     });
     setShowForm(true);
@@ -172,7 +172,7 @@ const MyServices: React.FC = () => {
                 <option value="">Sélectionnez une catégorie</option>
                 {categories.map(category => (
                   <option key={category.id} value={category.id}>
-                    {category.name}
+                    {category.name || 'Catégorie sans nom'}
                   </option>
                 ))}
               </select>
@@ -287,7 +287,7 @@ const MyServices: React.FC = () => {
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '1rem' }}>
               <h3 style={{ margin: 0, color: '#2c3e50' }}>
-                {service.title}
+                {service.title || 'Service sans titre'}
               </h3>
               <span style={{
                 backgroundColor: service.isActive ? '#27ae60' : '#e74c3c',
@@ -301,7 +301,7 @@ const MyServices: React.FC = () => {
             </div>
             
             <p style={{ margin: '0 0 1rem 0' }}>
-              {service.description}
+              {service.description || 'Aucune description'}
             </p>
             
             <div style={{
@@ -317,7 +317,7 @@ const MyServices: React.FC = () => {
                 fontSize: '0.8rem',
                 color: '#7f8c8d'
               }}>
-                {service.categoryName}
+                {service.categoryName || 'Catégorie inconnue'}
               </span>
               
               <span style={{
@@ -325,7 +325,7 @@ const MyServices: React.FC = () => {
                 fontWeight: 'bold',
                 color: '#27ae60'
               }}>
-                {service.price} radis
+                {(Number(service.price) || 0).toFixed(2)} radis
               </span>
             </div>
             

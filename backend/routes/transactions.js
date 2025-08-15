@@ -20,7 +20,7 @@ router.get('/', authenticateToken, async (req, res) => {
       ORDER BY t.created_at DESC
     `, [req.user.id, req.user.id]);
 
-    // Calculer le solde à chaque transaction
+    // Calculer le solde à chaque transaction et mapper les propriétés
     let runningBalance = 0;
     const transactionsWithBalance = transactions.map(transaction => {
       if (transaction.to_user_id === req.user.id) {
@@ -30,8 +30,22 @@ router.get('/', authenticateToken, async (req, res) => {
       }
       
       return {
-        ...transaction,
-        balance_after: runningBalance
+        id: transaction.id,
+        fromUserId: transaction.from_user_id,
+        toUserId: transaction.to_user_id,
+        amount: transaction.amount,
+        description: transaction.description,
+        transactionType: transaction.transaction_type,
+        serviceId: transaction.service_id,
+        serviceTitle: transaction.service_title,
+        fromUsername: transaction.from_username,
+        fromFirstName: transaction.from_first_name,
+        fromLastName: transaction.from_last_name,
+        toUsername: transaction.to_username,
+        toFirstName: transaction.to_first_name,
+        toLastName: transaction.to_last_name,
+        balanceAfter: runningBalance,
+        createdAt: transaction.created_at
       };
     }).reverse();
 

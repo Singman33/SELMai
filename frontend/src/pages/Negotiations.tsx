@@ -148,28 +148,28 @@ const Negotiations: React.FC = () => {
             }}>
               <div>
                 <h3 style={{ margin: '0 0 0.5rem 0', color: '#2c3e50' }}>
-                  {negotiation.serviceTitle}
+                  {negotiation.serviceTitle || 'Service sans titre'}
                 </h3>
                 
                 <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
                   <span style={{ color: '#7f8c8d' }}>
-                    <strong>Acheteur :</strong> {negotiation.buyerFirstName} {negotiation.buyerLastName}
+                    <strong>Acheteur :</strong> {negotiation.buyerFirstName || ''} {negotiation.buyerLastName || ''}
                   </span>
                   <span style={{ color: '#7f8c8d' }}>
-                    <strong>Vendeur :</strong> {negotiation.sellerFirstName} {negotiation.sellerLastName}
+                    <strong>Vendeur :</strong> {negotiation.sellerFirstName || ''} {negotiation.sellerLastName || ''}
                   </span>
                 </div>
               </div>
               
               <span style={{
-                backgroundColor: getStatusColor(negotiation.status),
+                backgroundColor: getStatusColor(negotiation.status || 'pending'),
                 color: 'white',
                 padding: '0.5rem 1rem',
                 borderRadius: '20px',
                 fontSize: '0.9rem',
                 fontWeight: 'bold'
               }}>
-                {getStatusText(negotiation.status)}
+                {getStatusText(negotiation.status || 'pending')}
               </span>
             </div>
 
@@ -180,15 +180,15 @@ const Negotiations: React.FC = () => {
               marginBottom: '1rem'
             }}>
               <div>
-                <strong>Prix initial :</strong> {negotiation.servicePrice} radis
+                <strong>Prix initial :</strong> {(Number(negotiation.servicePrice) || 0).toFixed(2)} radis
               </div>
               {negotiation.proposedPrice && (
                 <div>
-                  <strong>Prix proposé :</strong> {negotiation.proposedPrice} radis
+                  <strong>Prix proposé :</strong> {(Number(negotiation.proposedPrice) || 0).toFixed(2)} radis
                 </div>
               )}
               <div>
-                <strong>Date :</strong> {new Date(negotiation.createdAt).toLocaleDateString('fr-FR')}
+                <strong>Date :</strong> {new Date(negotiation.createdAt || new Date()).toLocaleDateString('fr-FR')}
               </div>
             </div>
 
@@ -200,7 +200,7 @@ const Negotiations: React.FC = () => {
                 marginBottom: '1rem',
                 borderLeft: '4px solid #3498db'
               }}>
-                <strong>Message :</strong> {negotiation.message}
+                <strong>Message :</strong> {negotiation.message || 'Aucun message'}
               </div>
             )}
 

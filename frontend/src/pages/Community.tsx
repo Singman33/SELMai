@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { User } from '../types';
+import { UserDisplay } from '../types';
 import { userAPI } from '../services/api';
 
+// Helper pour formater les noms d'utilisateur
+const formatUserName = (firstName?: string, lastName?: string, username?: string) => {
+  const fullName = `${firstName || ''} ${lastName || ''}`.trim();
+  return fullName || `@${username || 'utilisateur'}`;
+};
+
 const Community: React.FC = () => {
-  const [members, setMembers] = useState<User[]>([]);
+  const [members, setMembers] = useState<UserDisplay[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [sortBy, setSortBy] = useState<'rating' | 'balance' | 'name'>('rating');
 
@@ -29,7 +35,7 @@ const Community: React.FC = () => {
       case 'balance':
         return (Number(b.balance) || 0) - (Number(a.balance) || 0);
       case 'name':
-        return `${a.firstName} ${a.lastName}`.localeCompare(`${b.firstName} ${b.lastName}`);
+        return `${a.firstName || ''} ${a.lastName || ''}`.localeCompare(`${b.firstName || ''} ${b.lastName || ''}`);
       default:
         return 0;
     }
@@ -169,24 +175,24 @@ const Community: React.FC = () => {
                 width: '50px',
                 height: '50px',
                 borderRadius: '50%',
-                backgroundColor: '#3498db',
+                backgroundColor: member.isAdmin ? '#e74c3c' : '#3498db',
                 color: 'white',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: '1.2rem',
+                fontSize: '1.5rem',
                 fontWeight: 'bold',
                 marginRight: '1rem'
               }}>
-                {member.firstName.charAt(0)}{member.lastName.charAt(0)}
+                {member.isAdmin ? 'A' : 'U'}
               </div>
               
               <div>
                 <h3 style={{ margin: '0 0 0.25rem 0', color: '#2c3e50' }}>
-                  {member.firstName} {member.lastName}
+                  {formatUserName(member.firstName, member.lastName, member.username)}
                 </h3>
                 <p style={{ margin: 0, color: '#7f8c8d', fontSize: '0.9rem' }}>
-                  @{member.username}
+                  @{member.username || 'username'}
                 </p>
               </div>
             </div>
@@ -250,7 +256,7 @@ const Community: React.FC = () => {
               paddingTop: '1rem',
               borderTop: '1px solid #ecf0f1'
             }}>
-              Membre depuis {new Date(member.createdAt || '').toLocaleDateString('fr-FR', {
+              Membre depuis {new Date(member.createdAt || new Date()).toLocaleDateString('fr-FR', {
                 month: 'long',
                 year: 'numeric'
               })}

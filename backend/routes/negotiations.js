@@ -20,7 +20,27 @@ router.get('/', authenticateToken, async (req, res) => {
       ORDER BY n.created_at DESC
     `, [req.user.id, req.user.id]);
 
-    res.json(negotiations);
+    const mappedNegotiations = negotiations.map(nego => ({
+      id: nego.id,
+      serviceId: nego.service_id,
+      serviceTitle: nego.service_title,
+      servicePrice: nego.service_price,
+      buyerId: nego.buyer_id,
+      sellerId: nego.seller_id,
+      proposedPrice: nego.proposed_price,
+      message: nego.message,
+      status: nego.status,
+      buyerUsername: nego.buyer_username,
+      buyerFirstName: nego.buyer_first_name,
+      buyerLastName: nego.buyer_last_name,
+      sellerUsername: nego.seller_username,
+      sellerFirstName: nego.seller_first_name,
+      sellerLastName: nego.seller_last_name,
+      createdAt: nego.created_at,
+      updatedAt: nego.updated_at
+    }));
+
+    res.json(mappedNegotiations);
   } catch (error) {
     console.error('Erreur lors de la récupération des négociations:', error);
     res.status(500).json({ message: 'Erreur interne du serveur' });

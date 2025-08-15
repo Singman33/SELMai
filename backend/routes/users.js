@@ -8,6 +8,8 @@ const router = express.Router();
 // Obtenir le profil de l'utilisateur connecté
 router.get('/profile', authenticateToken, async (req, res) => {
   try {
+    console.log('👤 Récupération du profil pour l\'utilisateur ID:', req.user.id);
+    
     const [users] = await db.execute(
       'SELECT id, username, email, first_name, last_name, balance, rating, is_admin, created_at FROM users WHERE id = ?',
       [req.user.id]
@@ -17,7 +19,21 @@ router.get('/profile', authenticateToken, async (req, res) => {
       return res.status(404).json({ message: 'Utilisateur non trouvé' });
     }
 
-    res.json(users[0]);
+    const user = users[0];
+    const profileData = {
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      firstName: user.first_name,
+      lastName: user.last_name,
+      balance: user.balance,
+      rating: user.rating,
+      isAdmin: user.is_admin,
+      createdAt: user.created_at
+    };
+    
+    console.log('📤 Profil envoyé:', profileData);
+    res.json(profileData);
   } catch (error) {
     console.error('Erreur lors de la récupération du profil:', error);
     res.status(500).json({ message: 'Erreur interne du serveur' });
@@ -28,10 +44,21 @@ router.get('/profile', authenticateToken, async (req, res) => {
 router.get('/community', authenticateToken, async (req, res) => {
   try {
     const [users] = await db.execute(
-      'SELECT id, username, first_name, last_name, balance, rating, created_at FROM users WHERE is_active = TRUE ORDER BY rating DESC, username'
+      'SELECT id, username, first_name, last_name, balance, rating, is_admin, created_at FROM users WHERE is_active = TRUE ORDER BY rating DESC, username'
     );
 
-    res.json(users);
+    const mappedUsers = users.map(user => ({
+      id: user.id,
+      username: user.username,
+      firstName: user.first_name,
+      lastName: user.last_name,
+      balance: user.balance,
+      rating: user.rating,
+      isAdmin: user.is_admin,
+      createdAt: user.created_at
+    }));
+
+    res.json(mappedUsers);
   } catch (error) {
     console.error('Erreur lors de la récupération de la communauté:', error);
     res.status(500).json({ message: 'Erreur interne du serveur' });
@@ -45,7 +72,20 @@ router.get('/admin/all', authenticateToken, requireAdmin, async (req, res) => {
       'SELECT id, username, email, first_name, last_name, balance, rating, is_admin, is_active, created_at FROM users ORDER BY created_at DESC'
     );
 
-    res.json(users);
+    const mappedUsers = users.map(user => ({
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      firstName: user.first_name,
+      lastName: user.last_name,
+      balance: user.balance,
+      rating: user.rating,
+      isAdmin: user.is_admin,
+      isActive: user.is_active,
+      createdAt: user.created_at
+    }));
+
+    res.json(mappedUsers);
   } catch (error) {
     console.error('Erreur lors de la récupération des utilisateurs (admin):', error);
     res.status(500).json({ message: 'Erreur interne du serveur' });
@@ -94,10 +134,22 @@ router.put('/admin/:id', authenticateToken, requireAdmin, async (req, res) => {
     const userId = req.params.id;
     const { username, email, firstName, lastName, isAdmin, isActive } = req.body;
 
+    console.log('🔧 Modification utilisateur:', {
+      userId,
+      username,
+      email,
+      firstName,
+      lastName,
+      isAdmin,
+      isActive
+    });
+
     const [result] = await db.execute(
       'UPDATE users SET username = ?, email = ?, first_name = ?, last_name = ?, is_admin = ?, is_active = ? WHERE id = ?',
       [username, email, firstName, lastName, isAdmin, isActive, userId]
     );
+
+    console.log('✅ Résultat UPDATE:', result.affectedRows, 'lignes affectées');
 
     if (result.affectedRows === 0) {
       return res.status(404).json({ message: 'Utilisateur non trouvé' });

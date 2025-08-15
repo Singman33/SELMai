@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { User, AuthContextType } from '../types';
-import { authAPI } from '../services/api';
+import { authAPI, userAPI } from '../services/api';
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -73,10 +73,40 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     setUser(null);
   };
 
+  const updateUser = (userData: Partial<User>) => {
+    if (user) {
+      const updatedUser = { ...user, ...userData };
+      setUser(updatedUser);
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+    }
+  };
+
+  const refreshUser = async () => {
+    try {
+      console.log('🔄 Rafraîchissement du profil utilisateur...');
+      const response = await userAPI.getProfile();
+      console.log('📥 Données reçues du serveur:', response);
+      
+      const updatedUser = {
+        ...response,
+        balance: Number(response.balance) || 0,
+        rating: Number(response.rating) || 0
+      };
+      
+      console.log('✅ Utilisateur mis à jour:', updatedUser);
+      setUser(updatedUser);
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+    } catch (error) {
+      console.error('❌ Erreur lors de la mise à jour du profil:', error);
+    }
+  };
+
   const value: AuthContextType = {
     user,
     login,
     logout,
+    updateUser,
+    refreshUser,
     isLoading,
   };
 

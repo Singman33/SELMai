@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Service, Category } from '../types';
+import { Service, ServiceDisplay, Category } from '../types';
 import { serviceAPI, categoryAPI, negotiationAPI } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 
 const Marketplace: React.FC = () => {
   const { user } = useAuth();
-  const [services, setServices] = useState<Service[]>([]);
+  const [services, setServices] = useState<ServiceDisplay[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const [selectedService, setSelectedService] = useState<ServiceDisplay | null>(null);
   const [negotiationForm, setNegotiationForm] = useState({
     proposedPrice: '',
     message: ''
@@ -38,8 +38,8 @@ const Marketplace: React.FC = () => {
   const filteredServices = services.filter(service => {
     const matchesCategory = !selectedCategory || service.categoryId === selectedCategory;
     const matchesSearch = !searchTerm || 
-      service.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      service.description.toLowerCase().includes(searchTerm.toLowerCase());
+      (service.title || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (service.description || '').toLowerCase().includes(searchTerm.toLowerCase());
     
     // Ne pas afficher ses propres services
     const notOwnService = service.userId !== user?.id;
@@ -47,10 +47,10 @@ const Marketplace: React.FC = () => {
     return matchesCategory && matchesSearch && notOwnService && service.isActive;
   });
 
-  const handleNegotiate = async (service: Service) => {
+  const handleNegotiate = async (service: ServiceDisplay) => {
     setSelectedService(service);
     setNegotiationForm({
-      proposedPrice: service.price.toString(),
+      proposedPrice: (service.price || 0).toString(),
       message: ''
     });
   };
@@ -114,7 +114,7 @@ const Marketplace: React.FC = () => {
           <option value="">Toutes les catégories</option>
           {categories.map(category => (
             <option key={category.id} value={category.id}>
-              {category.name}
+              {category.name || 'Catégorie sans nom'}
             </option>
           ))}
         </select>
@@ -135,7 +135,7 @@ const Marketplace: React.FC = () => {
             border: '1px solid #e0e0e0'
           }}>
             <h3 style={{ margin: '0 0 0.5rem 0', color: '#2c3e50' }}>
-              {service.title}
+              {service.title || 'Service sans titre'}
             </h3>
             
             <p style={{ 
@@ -143,12 +143,12 @@ const Marketplace: React.FC = () => {
               fontSize: '0.9rem',
               margin: '0 0 0.5rem 0'
             }}>
-              Par {service.firstName} {service.lastName} 
+              Par {service.firstName || ''} {service.lastName || ''} 
               {service.userRating ? ` (${(Number(service.userRating) || 0).toFixed(1)} ⭐)` : ''}
             </p>
             
             <p style={{ margin: '0 0 1rem 0' }}>
-              {service.description}
+              {service.description || 'Aucune description disponible'}
             </p>
             
             <div style={{
@@ -164,7 +164,7 @@ const Marketplace: React.FC = () => {
                 fontSize: '0.8rem',
                 color: '#7f8c8d'
               }}>
-                {service.categoryName}
+                {service.categoryName || 'Catégorie inconnue'}
               </span>
               
               <span style={{
@@ -172,7 +172,7 @@ const Marketplace: React.FC = () => {
                 fontWeight: 'bold',
                 color: '#27ae60'
               }}>
-                {service.price} radis
+                {(Number(service.price) || 0).toFixed(2)} radis
               </span>
             </div>
             

@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { notificationAPI } from '../services/api';
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { user, logout } = useAuth();
+  const { user, logout, refreshUser } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const [unreadCount, setUnreadCount] = useState(0);
@@ -12,11 +12,21 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   useEffect(() => {
     if (user) {
       fetchUnreadCount();
-      // Actualiser le compteur toutes les 30 secondes
-      const interval = setInterval(fetchUnreadCount, 30000);
+      // Actualiser le compteur et le profil toutes les 30 secondes
+      const interval = setInterval(() => {
+        fetchUnreadCount();
+        refreshUser();
+      }, 30000);
       return () => clearInterval(interval);
     }
-  }, [user]);
+  }, [user, refreshUser]);
+
+  // Rafraîchir le profil quand l'utilisateur navigue vers certaines pages
+  useEffect(() => {
+    if (user && (location.pathname === '/wallet' || location.pathname === '/admin/balances')) {
+      refreshUser();
+    }
+  }, [location.pathname, user, refreshUser]);
 
   const fetchUnreadCount = async () => {
     try {

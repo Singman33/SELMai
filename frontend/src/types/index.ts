@@ -85,9 +85,43 @@ export interface Notification {
   createdAt: string;
 }
 
+// Types pour l'affichage (avec propriétés optionnelles pour gérer les données incomplètes)
+export interface UserDisplay {
+  id: number;
+  username?: string;
+  email?: string;
+  firstName?: string;
+  lastName?: string;
+  balance?: number;
+  rating?: number;
+  isAdmin?: boolean;
+  isActive?: boolean;
+  createdAt?: string;
+}
+
+export interface ServiceDisplay {
+  id: number;
+  userId?: number;
+  title?: string;
+  description?: string;
+  categoryId?: number;
+  categoryName?: string;
+  price?: number;
+  duration?: string;
+  isActive?: boolean;
+  username?: string;
+  firstName?: string;
+  lastName?: string;
+  userRating?: number;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
 export interface AuthContextType {
   user: User | null;
   login: (username: string, password: string) => Promise<void>;
   logout: () => void;
+  updateUser: (userData: Partial<User>) => void;
+  refreshUser: () => Promise<void>;
   isLoading: boolean;
 }
