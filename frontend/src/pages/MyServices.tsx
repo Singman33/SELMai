@@ -78,13 +78,13 @@ const MyServices: React.FC = () => {
   };
 
   const handleDelete = async (serviceId: number) => {
-    if (window.confirm('Êtes-vous sûr de vouloir supprimer ce service ?')) {
+    if (window.confirm('Êtes-vous sûr de vouloir désactiver ce service ? Il ne sera plus visible sur la place du marché.')) {
       try {
         await serviceAPI.delete(serviceId);
-        alert('Service supprimé avec succès !');
+        alert('Service désactivé avec succès !');
         fetchData();
       } catch (error: any) {
-        alert(error.response?.data?.message || 'Erreur lors de la suppression');
+        alert(error.response?.data?.message || 'Erreur lors de la désactivation');
       }
     }
   };
@@ -409,7 +409,7 @@ const MyServices: React.FC = () => {
                   cursor: 'pointer'
                 }}
               >
-                Supprimer
+                Désactiver
               </button>
             </div>
           </div>

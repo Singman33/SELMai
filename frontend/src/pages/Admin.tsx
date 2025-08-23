@@ -328,7 +328,7 @@ const UserManagement: React.FC = () => {
                         cursor: 'pointer',
                         fontSize: '0.8rem'
                       }}>
-                        Supprimer
+                        Désactiver
                       </button>
                     )}
                   </div>
@@ -773,7 +773,7 @@ const ServiceManagement: React.FC = () => {
   };
 
   const handleDelete = async (serviceId: number, serviceTitle: string) => {
-    if (window.confirm(`Êtes-vous sûr de vouloir supprimer le service "${serviceTitle}" ?`)) {
+    if (window.confirm(`Êtes-vous sûr de vouloir désactiver le service "${serviceTitle}" ? Il ne sera plus visible sur la place du marché.`)) {
       try {
         const response = await fetch(`/api/services/${serviceId}`, {
           method: 'DELETE',
@@ -783,14 +783,14 @@ const ServiceManagement: React.FC = () => {
         });
 
         if (!response.ok) {
-          throw new Error('Erreur lors de la suppression');
+          throw new Error('Erreur lors de la désactivation');
         }
         
-        addError('Service supprimé avec succès !', 'success');
+        addError('Service désactivé avec succès !', 'success');
         fetchData();
       } catch (error: any) {
         addError(
-          error.message || 'Erreur lors de la suppression',
+          error.message || 'Erreur lors de la désactivation',
           'error'
         );
       }
@@ -1215,7 +1215,7 @@ const ServiceManagement: React.FC = () => {
                         cursor: 'pointer',
                         fontSize: '0.8rem'
                       }}>
-                        Supprimer
+                        Désactiver
                       </button>
                     </div>
                   </td>

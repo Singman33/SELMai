@@ -154,7 +154,7 @@ router.put('/:id', authenticateToken, async (req, res) => {
   }
 });
 
-// Supprimer un service
+// Désactiver un service (suppression logique)
 router.delete('/:id', authenticateToken, async (req, res) => {
   try {
     const serviceId = req.params.id;
@@ -173,11 +173,15 @@ router.delete('/:id', authenticateToken, async (req, res) => {
       return res.status(403).json({ message: 'Accès non autorisé' });
     }
 
-    await db.execute('DELETE FROM services WHERE id = ?', [serviceId]);
+    // Désactiver le service au lieu de le supprimer pour éviter les problèmes de contraintes
+    await db.execute(
+      'UPDATE services SET is_active = FALSE, updated_at = CURRENT_TIMESTAMP WHERE id = ?', 
+      [serviceId]
+    );
 
-    res.json({ message: 'Service supprimé avec succès' });
+    res.json({ message: 'Service désactivé avec succès' });
   } catch (error) {
-    console.error('Erreur lors de la suppression du service:', error);
+    console.error('Erreur lors de la désactivation du service:', error);
     res.status(500).json({ message: 'Erreur interne du serveur' });
   }
 });
