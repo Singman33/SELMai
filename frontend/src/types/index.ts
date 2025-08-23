@@ -26,6 +26,7 @@ export interface Service {
   categoryName?: string;
   price: number;
   duration?: string;
+  serviceType: 'renewable' | 'consumable';
   isActive: boolean;
   username?: string;
   firstName?: string;
@@ -124,6 +125,7 @@ export interface ServiceDisplay {
   categoryName?: string;
   price?: number;
   duration?: string;
+  serviceType?: 'renewable' | 'consumable';
   isActive?: boolean;
   username?: string;
   firstName?: string;
@@ -131,6 +133,7 @@ export interface ServiceDisplay {
   userRating?: number;
   createdAt?: string;
   updatedAt?: string;
+  isConsumedByUser?: boolean;
 }
 
 export interface AuthContextType {

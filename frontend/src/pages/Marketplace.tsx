@@ -195,15 +195,26 @@ const Marketplace: React.FC = () => {
               alignItems: 'center',
               marginBottom: '1rem'
             }}>
-              <span style={{
-                backgroundColor: '#ecf0f1',
-                padding: '0.25rem 0.5rem',
-                borderRadius: '4px',
-                fontSize: '0.8rem',
-                color: '#7f8c8d'
-              }}>
-                {service.categoryName || 'Catégorie inconnue'}
-              </span>
+              <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                <span style={{
+                  backgroundColor: '#ecf0f1',
+                  padding: '0.25rem 0.5rem',
+                  borderRadius: '4px',
+                  fontSize: '0.8rem',
+                  color: '#7f8c8d'
+                }}>
+                  {service.categoryName || 'Catégorie inconnue'}
+                </span>
+                <span style={{
+                  backgroundColor: service.serviceType === 'consumable' ? '#e74c3c' : '#3498db',
+                  color: 'white',
+                  padding: '0.25rem 0.5rem',
+                  borderRadius: '4px',
+                  fontSize: '0.8rem'
+                }}>
+                  {service.serviceType === 'consumable' ? 'Consommable' : 'Renouvelable'}
+                </span>
+              </div>
               
               <span style={{
                 fontSize: '1.2rem',
@@ -225,21 +236,36 @@ const Marketplace: React.FC = () => {
             )}
             
             <div style={{ display: 'flex', gap: '0.5rem' }}>
-              <button
-                onClick={() => handleNegotiate(service)}
-                style={{
+              {service.serviceType === 'consumable' && service.isConsumedByUser ? (
+                <div style={{
                   flex: 1,
                   padding: '0.75rem',
-                  backgroundColor: '#3498db',
+                  backgroundColor: '#95a5a6',
                   color: 'white',
                   border: 'none',
                   borderRadius: '4px',
-                  cursor: 'pointer',
-                  fontSize: '1rem'
-                }}
-              >
-                Négocier
-              </button>
+                  fontSize: '1rem',
+                  textAlign: 'center'
+                }}>
+                  Service déjà utilisé
+                </div>
+              ) : (
+                <button
+                  onClick={() => handleNegotiate(service)}
+                  style={{
+                    flex: 1,
+                    padding: '0.75rem',
+                    backgroundColor: '#3498db',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                    fontSize: '1rem'
+                  }}
+                >
+                  Négocier
+                </button>
+              )}
               
               <button
                 onClick={() => handleRateUser(service)}

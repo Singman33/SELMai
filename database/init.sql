@@ -36,6 +36,7 @@ CREATE TABLE services (
     category_id INT NOT NULL,
     price DECIMAL(10,2) NOT NULL,
     duration VARCHAR(100),
+    service_type ENUM('renewable', 'consumable') DEFAULT 'consumable' COMMENT 'Type de service: renewable (renouvelable), consumable (consommable - une seule utilisation)',
     is_active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -99,6 +100,21 @@ CREATE TABLE ratings (
     FOREIGN KEY (rater_id) REFERENCES users(id),
     FOREIGN KEY (rated_id) REFERENCES users(id),
     FOREIGN KEY (service_id) REFERENCES services(id)
+);
+
+-- Table pour tracker les services consommés
+CREATE TABLE service_consumptions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    service_id INT NOT NULL,
+    buyer_id INT NOT NULL,
+    negotiation_id INT,
+    consumed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (service_id) REFERENCES services(id) ON DELETE CASCADE,
+    FOREIGN KEY (buyer_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (negotiation_id) REFERENCES negotiations(id) ON DELETE SET NULL,
+    UNIQUE KEY unique_service_consumption (service_id, buyer_id),
+    INDEX idx_service_consumptions_service (service_id),
+    INDEX idx_service_consumptions_buyer (buyer_id)
 );
 
 -- Insertion des catégories par défaut

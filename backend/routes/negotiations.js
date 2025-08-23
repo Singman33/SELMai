@@ -153,11 +153,26 @@ router.put('/:id/respond', authenticateToken, async (req, res) => {
           [negotiation.buyer_id, negotiation.seller_id, amount, `Paiement pour le service`, negotiation.service_id]
         );
 
-        // Marquer le service comme inactif
-        await db.execute(
-          'UPDATE services SET is_active = FALSE WHERE id = ?',
+        // Vérifier le type de service et gérer la consommation
+        const [services] = await db.execute(
+          'SELECT service_type FROM services WHERE id = ?',
           [negotiation.service_id]
         );
+
+        if (services.length > 0 && services[0].service_type === 'consumable') {
+          // Pour les services consommables, ajouter une entrée dans service_consumptions
+          await db.execute(
+            'INSERT INTO service_consumptions (service_id, buyer_id, negotiation_id) VALUES (?, ?, ?)',
+            [negotiation.service_id, negotiation.buyer_id, negotiationId]
+          );
+          
+          // Désactiver le service consommable après la première vente
+          await db.execute(
+            'UPDATE services SET is_active = FALSE WHERE id = ?',
+            [negotiation.service_id]
+          );
+        }
+        // Les services renouvelables restent actifs et disponibles
       } else {
         // Rejeter la négociation
         await db.execute(

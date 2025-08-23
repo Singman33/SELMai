@@ -8,13 +8,16 @@ const router = express.Router();
 router.get('/', authenticateToken, async (req, res) => {
   try {
     const [services] = await db.execute(`
-      SELECT s.*, u.username, u.first_name, u.last_name, u.rating as user_rating, c.name as category_name
+      SELECT s.*, u.username, u.first_name, u.last_name, u.rating as user_rating, c.name as category_name,
+             sc.buyer_id as consumed_by_user
       FROM services s
       JOIN users u ON s.user_id = u.id
       JOIN categories c ON s.category_id = c.id
+      LEFT JOIN service_consumptions sc ON s.id = sc.service_id AND sc.buyer_id = ?
       WHERE s.is_active = TRUE AND u.is_active = TRUE
+        AND (s.service_type = 'renewable' OR (s.service_type = 'consumable' AND sc.buyer_id IS NULL))
       ORDER BY s.created_at DESC
-    `);
+    `, [req.user.id]);
 
     const mappedServices = services.map(service => ({
       id: service.id,
@@ -25,13 +28,15 @@ router.get('/', authenticateToken, async (req, res) => {
       categoryName: service.category_name,
       price: service.price,
       duration: service.duration,
+      serviceType: service.service_type,
       isActive: service.is_active,
       username: service.username,
       firstName: service.first_name,
       lastName: service.last_name,
       userRating: service.user_rating,
       createdAt: service.created_at,
-      updatedAt: service.updated_at
+      updatedAt: service.updated_at,
+      isConsumedByUser: service.consumed_by_user !== null
     }));
 
     res.json(mappedServices);
@@ -61,6 +66,7 @@ router.get('/my-services', authenticateToken, async (req, res) => {
       categoryName: service.category_name,
       price: service.price,
       duration: service.duration,
+      serviceType: service.service_type,
       isActive: service.is_active,
       createdAt: service.created_at,
       updatedAt: service.updated_at
@@ -76,15 +82,18 @@ router.get('/my-services', authenticateToken, async (req, res) => {
 // Créer un nouveau service
 router.post('/', authenticateToken, async (req, res) => {
   try {
-    const { title, description, category_id, price, duration } = req.body;
+    const { title, description, category_id, price, duration, service_type } = req.body;
 
     if (!title || !description || !category_id || !price) {
       return res.status(400).json({ message: 'Titre, description, catégorie et prix sont obligatoires' });
     }
 
+    // Validation du type de service
+    const validServiceType = service_type === 'renewable' ? 'renewable' : 'consumable';
+
     const [result] = await db.execute(
-      'INSERT INTO services (user_id, title, description, category_id, price, duration) VALUES (?, ?, ?, ?, ?, ?)',
-      [req.user.id, title, description, category_id, price, duration || null]
+      'INSERT INTO services (user_id, title, description, category_id, price, duration, service_type) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      [req.user.id, title, description, category_id, price, duration || null, validServiceType]
     );
 
     res.status(201).json({
@@ -101,7 +110,7 @@ router.post('/', authenticateToken, async (req, res) => {
 router.put('/:id', authenticateToken, async (req, res) => {
   try {
     const serviceId = req.params.id;
-    const { title, description, category_id, price, duration } = req.body;
+    const { title, description, category_id, price, duration, service_type } = req.body;
 
     // Vérifier que le service appartient à l'utilisateur ou que l'utilisateur est admin
     const [services] = await db.execute(
@@ -117,9 +126,12 @@ router.put('/:id', authenticateToken, async (req, res) => {
       return res.status(403).json({ message: 'Accès non autorisé' });
     }
 
+    // Validation du type de service
+    const validServiceType = service_type === 'renewable' ? 'renewable' : 'consumable';
+
     await db.execute(
-      'UPDATE services SET title = ?, description = ?, category_id = ?, price = ?, duration = ? WHERE id = ?',
-      [title, description, category_id, price, duration || null, serviceId]
+      'UPDATE services SET title = ?, description = ?, category_id = ?, price = ?, duration = ?, service_type = ? WHERE id = ?',
+      [title, description, category_id, price, duration || null, validServiceType, serviceId]
     );
 
     res.json({ message: 'Service modifié avec succès' });

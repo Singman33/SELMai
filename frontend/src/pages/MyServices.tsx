@@ -13,7 +13,8 @@ const MyServices: React.FC = () => {
     description: '',
     categoryId: '',
     price: '',
-    duration: ''
+    duration: '',
+    serviceType: 'consumable' as 'renewable' | 'consumable'
   });
 
   useEffect(() => {
@@ -44,7 +45,8 @@ const MyServices: React.FC = () => {
         description: formData.description,
         category_id: parseInt(formData.categoryId),
         price: parseFloat(formData.price),
-        duration: formData.duration || undefined
+        duration: formData.duration || undefined,
+        service_type: formData.serviceType
       };
 
       if (editingService) {
@@ -69,7 +71,8 @@ const MyServices: React.FC = () => {
       description: service.description || '',
       categoryId: (service.categoryId || '').toString(),
       price: (service.price || 0).toString(),
-      duration: service.duration || ''
+      duration: service.duration || '',
+      serviceType: service.serviceType || 'consumable'
     });
     setShowForm(true);
   };
@@ -92,7 +95,8 @@ const MyServices: React.FC = () => {
       description: '',
       categoryId: '',
       price: '',
-      duration: ''
+      duration: '',
+      serviceType: 'consumable'
     });
     setEditingService(null);
     setShowForm(false);
@@ -200,6 +204,31 @@ const MyServices: React.FC = () => {
 
             <div style={{ marginBottom: '1rem' }}>
               <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
+                Type de service *
+              </label>
+              <select
+                value={formData.serviceType}
+                onChange={(e) => setFormData({ ...formData, serviceType: e.target.value as 'renewable' | 'consumable' })}
+                required
+                style={{
+                  width: '100%',
+                  padding: '0.5rem',
+                  border: '1px solid #ddd',
+                  borderRadius: '4px',
+                  boxSizing: 'border-box'
+                }}
+              >
+                <option value="consumable">Consommable - Une seule utilisation (par défaut)</option>
+                <option value="renewable">Renouvelable - Peut être accepté plusieurs fois</option>
+              </select>
+              <small style={{ color: '#666', fontSize: '0.8rem', marginTop: '0.25rem', display: 'block' }}>
+                <strong>Consommable :</strong> Ne peut être acheté qu'une seule fois par client et devient indisponible après.<br/>
+                <strong>Renouvelable :</strong> Peut être négocié et accepté plusieurs fois par différents clients.
+              </small>
+            </div>
+
+            <div style={{ marginBottom: '1rem' }}>
+              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
                 Durée (optionnel)
               </label>
               <input
@@ -289,15 +318,26 @@ const MyServices: React.FC = () => {
               <h3 style={{ margin: 0, color: '#2c3e50' }}>
                 {service.title || 'Service sans titre'}
               </h3>
-              <span style={{
-                backgroundColor: service.isActive ? '#27ae60' : '#e74c3c',
-                color: 'white',
-                padding: '0.25rem 0.5rem',
-                borderRadius: '4px',
-                fontSize: '0.8rem'
-              }}>
-                {service.isActive ? 'Actif' : 'Inactif'}
-              </span>
+              <div style={{ display: 'flex', gap: '0.5rem' }}>
+                <span style={{
+                  backgroundColor: service.serviceType === 'consumable' ? '#e74c3c' : '#3498db',
+                  color: 'white',
+                  padding: '0.25rem 0.5rem',
+                  borderRadius: '4px',
+                  fontSize: '0.8rem'
+                }}>
+                  {service.serviceType === 'consumable' ? 'Consommable' : 'Renouvelable'}
+                </span>
+                <span style={{
+                  backgroundColor: service.isActive ? '#27ae60' : '#95a5a6',
+                  color: 'white',
+                  padding: '0.25rem 0.5rem',
+                  borderRadius: '4px',
+                  fontSize: '0.8rem'
+                }}>
+                  {service.isActive ? 'Actif' : 'Inactif'}
+                </span>
+              </div>
             </div>
             
             <p style={{ margin: '0 0 1rem 0' }}>
