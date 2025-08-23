@@ -122,7 +122,7 @@ router.post('/', authenticateToken, async (req, res) => {
 router.put('/:id', authenticateToken, async (req, res) => {
   try {
     const serviceId = req.params.id;
-    const { title, description, category_id, price, duration, service_type } = req.body;
+    const { title, description, category_id, price, duration, service_type, is_active } = req.body;
 
     // Vérifier que le service appartient à l'utilisateur ou que l'utilisateur est admin
     const [services] = await db.execute(
@@ -140,10 +140,11 @@ router.put('/:id', authenticateToken, async (req, res) => {
 
     // Validation du type de service
     const validServiceType = service_type === 'renewable' ? 'renewable' : 'consumable';
+    const serviceIsActive = is_active !== undefined ? is_active : services[0].is_active;
 
     await db.execute(
-      'UPDATE services SET title = ?, description = ?, category_id = ?, price = ?, duration = ?, service_type = ? WHERE id = ?',
-      [title, description, category_id, price, duration || null, validServiceType, serviceId]
+      'UPDATE services SET title = ?, description = ?, category_id = ?, price = ?, duration = ?, service_type = ?, is_active = ? WHERE id = ?',
+      [title, description, category_id, price, duration || null, validServiceType, serviceIsActive, serviceId]
     );
 
     res.json({ message: 'Service modifié avec succès' });
@@ -185,7 +186,13 @@ router.delete('/:id', authenticateToken, async (req, res) => {
 router.get('/admin/all', authenticateToken, requireAdmin, async (req, res) => {
   try {
     const [services] = await db.execute(`
-      SELECT s.*, u.username, u.first_name, u.last_name, c.name as category_name
+      SELECT s.*, u.username, u.first_name, u.last_name, u.rating, c.name as category_name,
+             CASE 
+               WHEN s.service_type = 'consumable' AND EXISTS(
+                 SELECT 1 FROM service_consumptions sc WHERE sc.service_id = s.id
+               ) THEN TRUE
+               ELSE FALSE
+             END as is_consumed
       FROM services s
       JOIN users u ON s.user_id = u.id
       JOIN categories c ON s.category_id = c.id

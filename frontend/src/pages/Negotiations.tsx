@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { Negotiation } from '../types';
 import { negotiationAPI } from '../services/api';
 import { useAuth } from '../context/AuthContext';
+import TransactionRating from '../components/TransactionRating';
 
 const Negotiations: React.FC = () => {
   const { user } = useAuth();
   const [negotiations, setNegotiations] = useState<Negotiation[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [filter, setFilter] = useState<'all' | 'buying' | 'selling'>('all');
+  const [showRatingModal, setShowRatingModal] = useState<Negotiation | null>(null);
 
   useEffect(() => {
     fetchNegotiations();
@@ -32,6 +34,19 @@ const Negotiations: React.FC = () => {
     } catch (error: any) {
       alert(error.response?.data?.message || 'Erreur lors de la réponse');
     }
+  };
+
+  const handleStartRating = (negotiation: Negotiation) => {
+    setShowRatingModal(negotiation);
+  };
+
+  const handleRatingComplete = () => {
+    setShowRatingModal(null);
+    fetchNegotiations();
+  };
+
+  const handleRatingCancel = () => {
+    setShowRatingModal(null);
   };
 
   const filteredNegotiations = negotiations.filter(negotiation => {
@@ -249,6 +264,61 @@ const Negotiations: React.FC = () => {
                 En attente de la réponse du vendeur...
               </div>
             )}
+
+            {/* Actions pour finaliser la transaction (statut accepté) */}
+            {negotiation.status === 'accepted' && (
+              <div style={{
+                backgroundColor: '#d4edda',
+                border: '1px solid #c3e6cb',
+                padding: '1rem',
+                borderRadius: '4px',
+                marginTop: '1rem'
+              }}>
+                <div style={{ marginBottom: '0.75rem' }}>
+                  <strong style={{ color: '#155724' }}>Transaction acceptée !</strong>
+                  <p style={{ margin: '0.5rem 0 0 0', color: '#155724', fontSize: '0.9rem' }}>
+                    {negotiation.buyerId === user?.id 
+                      ? 'Le vendeur a accepté votre proposition. Vous pouvez maintenant finaliser la transaction.'
+                      : 'Vous avez accepté cette proposition. L\'acheteur peut maintenant finaliser la transaction.'
+                    }
+                  </p>
+                </div>
+                
+                <button
+                  onClick={() => handleStartRating(negotiation)}
+                  style={{
+                    padding: '0.75rem 1.5rem',
+                    backgroundColor: '#28a745',
+                    color: 'white',
+                    border: 'none',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                    fontWeight: 'bold'
+                  }}
+                >
+                  {negotiation.buyerId === user?.id 
+                    ? '✅ Finaliser et évaluer le vendeur'
+                    : '✅ Finaliser et évaluer l\'acheteur'
+                  }
+                </button>
+              </div>
+            )}
+
+            {/* Indication pour les transactions terminées */}
+            {negotiation.status === 'completed' && (
+              <div style={{
+                backgroundColor: '#f8f9fa',
+                border: '1px solid #dee2e6',
+                padding: '1rem',
+                borderRadius: '4px',
+                marginTop: '1rem'
+              }}>
+                <strong style={{ color: '#6c757d' }}>✅ Transaction terminée</strong>
+                <p style={{ margin: '0.5rem 0 0 0', color: '#6c757d', fontSize: '0.9rem' }}>
+                  Cette transaction a été finalisée avec succès.
+                </p>
+              </div>
+            )}
           </div>
         ))}
       </div>
@@ -263,6 +333,22 @@ const Negotiations: React.FC = () => {
           {filter === 'buying' && 'Aucune négociation d\'achat en cours.'}
           {filter === 'selling' && 'Aucune négociation de vente en cours.'}
         </div>
+      )}
+
+      {/* Modal d'évaluation */}
+      {showRatingModal && (
+        <TransactionRating
+          negotiationId={showRatingModal.id}
+          serviceTitle={showRatingModal.serviceTitle || 'Service'}
+          otherUserName={
+            showRatingModal.buyerId === user?.id
+              ? `${showRatingModal.sellerFirstName || ''} ${showRatingModal.sellerLastName || ''}`.trim() || showRatingModal.sellerUsername || 'Vendeur'
+              : `${showRatingModal.buyerFirstName || ''} ${showRatingModal.buyerLastName || ''}`.trim() || showRatingModal.buyerUsername || 'Acheteur'
+          }
+          isUserBuyer={showRatingModal.buyerId === user?.id}
+          onComplete={handleRatingComplete}
+          onCancel={handleRatingCancel}
+        />
       )}
     </div>
   );

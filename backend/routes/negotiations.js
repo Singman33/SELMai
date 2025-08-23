@@ -228,6 +228,90 @@ router.get('/admin/all', authenticateToken, requireAdmin, async (req, res) => {
   }
 });
 
+// Marquer une négociation comme terminée après évaluation
+router.put('/:id/complete', authenticateToken, async (req, res) => {
+  try {
+    const negotiationId = req.params.id;
+    const { rating, comment } = req.body;
+
+    // Vérifier que la négociation existe et est acceptée
+    const [negotiations] = await db.execute(
+      `SELECT n.*, s.title as service_title, s.user_id as seller_user_id
+       FROM negotiations n 
+       JOIN services s ON n.service_id = s.id 
+       WHERE n.id = ? AND (n.buyer_id = ? OR n.seller_id = ?)`,
+      [negotiationId, req.user.id, req.user.id]
+    );
+
+    if (negotiations.length === 0) {
+      return res.status(404).json({ message: 'Négociation non trouvée' });
+    }
+
+    const negotiation = negotiations[0];
+
+    if (negotiation.status !== 'accepted') {
+      return res.status(400).json({ message: 'Cette négociation doit être acceptée avant d\'être terminée' });
+    }
+
+    // Commencer une transaction
+    await db.execute('START TRANSACTION');
+
+    try {
+      // Marquer la négociation comme terminée
+      await db.execute(
+        'UPDATE negotiations SET status = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?',
+        ['completed', negotiationId]
+      );
+
+      // Si un rating est fourni, l'enregistrer
+      if (rating && (rating >= 1 && rating <= 5)) {
+        // Déterminer qui évalue qui
+        let raterId, ratedId;
+        
+        if (req.user.id === negotiation.buyer_id) {
+          // L'acheteur évalue le vendeur
+          raterId = negotiation.buyer_id;
+          ratedId = negotiation.seller_id;
+        } else if (req.user.id === negotiation.seller_id) {
+          // Le vendeur évalue l'acheteur
+          raterId = negotiation.seller_id;
+          ratedId = negotiation.buyer_id;
+        }
+
+        if (raterId && ratedId) {
+          await db.execute(
+            'INSERT INTO ratings (rater_id, rated_id, service_id, rating, comment) VALUES (?, ?, ?, ?, ?)',
+            [raterId, ratedId, negotiation.service_id, rating, comment || null]
+          );
+
+          // Recalculer la note moyenne de l'utilisateur évalué
+          const [avgResult] = await db.execute(
+            'SELECT AVG(rating) as avg_rating FROM ratings WHERE rated_id = ?',
+            [ratedId]
+          );
+
+          if (avgResult.length > 0 && avgResult[0].avg_rating !== null) {
+            await db.execute(
+              'UPDATE users SET rating = ? WHERE id = ?',
+              [avgResult[0].avg_rating, ratedId]
+            );
+          }
+        }
+      }
+
+      await db.execute('COMMIT');
+
+      res.json({ message: 'Transaction terminée avec succès' });
+    } catch (error) {
+      await db.execute('ROLLBACK');
+      throw error;
+    }
+  } catch (error) {
+    console.error('Erreur lors de la finalisation de la négociation:', error);
+    res.status(500).json({ message: 'Erreur interne du serveur' });
+  }
+});
+
 // Admin: Supprimer une négociation
 router.delete('/admin/:id', authenticateToken, requireAdmin, async (req, res) => {
   try {

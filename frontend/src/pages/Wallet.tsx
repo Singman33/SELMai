@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Transaction, User } from '../types';
-import { transactionAPI, userAPI } from '../services/api';
+import { Transaction, User, Rating } from '../types';
+import { transactionAPI, userAPI, ratingAPI } from '../services/api';
 import { useAuth } from '../context/AuthContext';
+import RatingList from '../components/RatingList';
 
 const Wallet: React.FC = () => {
   const { user, refreshUser } = useAuth();
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [activeTab, setActiveTab] = useState<'transactions' | 'ratings'>('transactions');
 
   useEffect(() => {
     fetchData();
@@ -107,20 +109,73 @@ const Wallet: React.FC = () => {
         </div>
       </div>
 
-      {/* Historique des transactions */}
+      {/* Onglets */}
       <div style={{
         backgroundColor: 'white',
         borderRadius: '8px',
         boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        marginBottom: '0'
       }}>
         <div style={{
-          padding: '1.5rem',
-          borderBottom: '1px solid #e0e0e0',
-          backgroundColor: '#f8f9fa'
+          display: 'flex',
+          borderBottom: '1px solid #e0e0e0'
         }}>
-          <h2 style={{ margin: 0 }}>Historique des transactions</h2>
+          <button
+            onClick={() => setActiveTab('transactions')}
+            style={{
+              flex: 1,
+              padding: '1rem 1.5rem',
+              backgroundColor: activeTab === 'transactions' ? '#f8f9fa' : 'white',
+              color: activeTab === 'transactions' ? '#2c3e50' : '#7f8c8d',
+              border: 'none',
+              borderBottom: activeTab === 'transactions' ? '3px solid #3498db' : '3px solid transparent',
+              cursor: 'pointer',
+              fontSize: '1rem',
+              fontWeight: activeTab === 'transactions' ? 'bold' : 'normal',
+              transition: 'all 0.3s'
+            }}
+          >
+            💳 Historique des transactions ({transactions.length})
+          </button>
+          
+          <button
+            onClick={() => setActiveTab('ratings')}
+            style={{
+              flex: 1,
+              padding: '1rem 1.5rem',
+              backgroundColor: activeTab === 'ratings' ? '#f8f9fa' : 'white',
+              color: activeTab === 'ratings' ? '#2c3e50' : '#7f8c8d',
+              border: 'none',
+              borderBottom: activeTab === 'ratings' ? '3px solid #3498db' : '3px solid transparent',
+              cursor: 'pointer',
+              fontSize: '1rem',
+              fontWeight: activeTab === 'ratings' ? 'bold' : 'normal',
+              transition: 'all 0.3s'
+            }}
+          >
+            ⭐ Mes évaluations
+          </button>
         </div>
+      </div>
+
+      {/* Contenu des onglets */}
+      <div style={{
+        backgroundColor: 'white',
+        borderRadius: '8px',
+        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+        overflow: 'hidden',
+        marginTop: '0'
+      }}>
+        {activeTab === 'transactions' && (
+          <>
+            <div style={{
+              padding: '1.5rem',
+              borderBottom: '1px solid #e0e0e0',
+              backgroundColor: '#f8f9fa'
+            }}>
+              <h2 style={{ margin: 0 }}>Historique des transactions</h2>
+            </div>
 
         {transactions.length > 0 ? (
           <div>
@@ -198,6 +253,20 @@ const Wallet: React.FC = () => {
             color: '#7f8c8d'
           }}>
             Aucune transaction enregistrée.
+          </div>
+        )}
+          </>
+        )}
+
+        {activeTab === 'ratings' && (
+          <div style={{ padding: '1.5rem' }}>
+            <div style={{ marginBottom: '2rem' }}>
+              <h2 style={{ margin: '0 0 1rem 0', color: '#2c3e50' }}>Évaluations reçues</h2>
+              <p style={{ margin: '0 0 1rem 0', color: '#7f8c8d', fontSize: '0.9rem' }}>
+                Voici les évaluations que vous avez reçues après vos transactions
+              </p>
+              <RatingList userId={user?.id || 0} />
+            </div>
           </div>
         )}
       </div>

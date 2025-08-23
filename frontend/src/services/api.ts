@@ -209,6 +209,18 @@ export const negotiationAPI = {
     return response.data;
   },
   
+  complete: async (
+    negotiationId: number,
+    rating?: number,
+    comment?: string
+  ) => {
+    const response = await api.put(`/negotiations/${negotiationId}/complete`, {
+      rating,
+      comment,
+    });
+    return response.data;
+  },
+  
   // Admin
   getAllNegotiations: async (): Promise<Negotiation[]> => {
     const response = await api.get('/negotiations/admin/all');
