@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Service, ServiceDisplay, Category } from '../types';
-import { serviceAPI, categoryAPI, negotiationAPI } from '../services/api';
+import { serviceAPI, categoryAPI, negotiationAPI, ratingAPI } from '../services/api';
 import { useAuth } from '../context/AuthContext';
+import StarRating from '../components/StarRating';
+import RatingModal from '../components/RatingModal';
 
 const Marketplace: React.FC = () => {
   const { user } = useAuth();
@@ -15,6 +17,8 @@ const Marketplace: React.FC = () => {
     proposedPrice: '',
     message: ''
   });
+  const [showRatingModal, setShowRatingModal] = useState(false);
+  const [serviceToRate, setServiceToRate] = useState<ServiceDisplay | null>(null);
 
   useEffect(() => {
     fetchData();
@@ -70,6 +74,30 @@ const Marketplace: React.FC = () => {
       setNegotiationForm({ proposedPrice: '', message: '' });
     } catch (error: any) {
       alert(error.response?.data?.message || 'Erreur lors de l\'envoi de la négociation');
+    }
+  };
+
+  const handleRateUser = (service: ServiceDisplay) => {
+    setServiceToRate(service);
+    setShowRatingModal(true);
+  };
+
+  const submitRating = async (rating: number, comment?: string) => {
+    if (!serviceToRate) return;
+
+    try {
+      await ratingAPI.create({
+        rated_id: serviceToRate.userId!,
+        service_id: serviceToRate.id,
+        rating,
+        comment
+      });
+
+      alert('Évaluation envoyée avec succès !');
+      setShowRatingModal(false);
+      setServiceToRate(null);
+    } catch (error: any) {
+      alert(error.response?.data?.message || 'Erreur lors de l\'envoi de l\'évaluation');
     }
   };
 
@@ -138,14 +166,24 @@ const Marketplace: React.FC = () => {
               {service.title || 'Service sans titre'}
             </h3>
             
-            <p style={{ 
+            <div style={{ 
               color: '#7f8c8d', 
               fontSize: '0.9rem',
-              margin: '0 0 0.5rem 0'
+              margin: '0 0 0.5rem 0',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem'
             }}>
-              Par {service.firstName || ''} {service.lastName || ''} 
-              {service.userRating ? ` (${(Number(service.userRating) || 0).toFixed(1)} ⭐)` : ''}
-            </p>
+              <span>Par {service.firstName || ''} {service.lastName || ''}</span>
+              {service.userRating && service.userRating > 0 && (
+                <StarRating
+                  rating={Number(service.userRating)}
+                  readonly
+                  size="small"
+                  showValue
+                />
+              )}
+            </div>
             
             <p style={{ margin: '0 0 1rem 0' }}>
               {service.description || 'Aucune description disponible'}
@@ -186,21 +224,40 @@ const Marketplace: React.FC = () => {
               </p>
             )}
             
-            <button
-              onClick={() => handleNegotiate(service)}
-              style={{
-                width: '100%',
-                padding: '0.75rem',
-                backgroundColor: '#3498db',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer',
-                fontSize: '1rem'
-              }}
-            >
-              Négocier
-            </button>
+            <div style={{ display: 'flex', gap: '0.5rem' }}>
+              <button
+                onClick={() => handleNegotiate(service)}
+                style={{
+                  flex: 1,
+                  padding: '0.75rem',
+                  backgroundColor: '#3498db',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  fontSize: '1rem'
+                }}
+              >
+                Négocier
+              </button>
+              
+              <button
+                onClick={() => handleRateUser(service)}
+                style={{
+                  padding: '0.75rem',
+                  backgroundColor: '#f39c12',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  fontSize: '1rem',
+                  minWidth: '40px'
+                }}
+                title="Évaluer ce prestataire"
+              >
+                ⭐
+              </button>
+            </div>
           </div>
         ))}
       </div>
@@ -319,6 +376,18 @@ const Marketplace: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* Modal d'évaluation */}
+      <RatingModal
+        isOpen={showRatingModal}
+        onClose={() => {
+          setShowRatingModal(false);
+          setServiceToRate(null);
+        }}
+        onSubmit={submitRating}
+        targetUserName={serviceToRate ? `${serviceToRate.firstName} ${serviceToRate.lastName}` : undefined}
+        serviceTitle={serviceToRate?.title}
+      />
     </div>
   );
 };

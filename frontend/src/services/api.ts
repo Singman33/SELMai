@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { User, Service, Category, Negotiation, Transaction, Notification } from '../types';
+import { User, Service, Category, Negotiation, Transaction, Notification, Rating } from '../types';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 
@@ -271,6 +271,44 @@ export const notificationAPI = {
       title,
       message,
     });
+    return response.data;
+  },
+};
+
+// Évaluations
+export const ratingAPI = {
+  create: async (ratingData: {
+    rated_id: number;
+    service_id?: number;
+    rating: number;
+    comment?: string;
+  }) => {
+    const response = await api.post('/ratings', ratingData);
+    return response.data;
+  },
+  
+  getUserRatings: async (userId: number): Promise<Rating[]> => {
+    const response = await api.get(`/ratings/user/${userId}`);
+    return response.data;
+  },
+  
+  getMyRatings: async (userId: number): Promise<Rating[]> => {
+    const response = await api.get(`/ratings/by-user/${userId}`);
+    return response.data;
+  },
+  
+  getServiceRatings: async (serviceId: number): Promise<Rating[]> => {
+    const response = await api.get(`/ratings/service/${serviceId}`);
+    return response.data;
+  },
+  
+  update: async (ratingId: number, ratingData: { rating: number; comment?: string }) => {
+    const response = await api.put(`/ratings/${ratingId}`, ratingData);
+    return response.data;
+  },
+  
+  delete: async (ratingId: number) => {
+    const response = await api.delete(`/ratings/${ratingId}`);
     return response.data;
   },
 };

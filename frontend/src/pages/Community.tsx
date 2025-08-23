@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { UserDisplay } from '../types';
 import { userAPI } from '../services/api';
+import StarRating from '../components/StarRating';
 
 // Helper pour formater les noms d'utilisateur
 const formatUserName = (firstName?: string, lastName?: string, username?: string) => {
@@ -188,9 +190,18 @@ const Community: React.FC = () => {
               </div>
               
               <div>
-                <h3 style={{ margin: '0 0 0.25rem 0', color: '#2c3e50' }}>
-                  {formatUserName(member.firstName, member.lastName, member.username)}
-                </h3>
+                <Link 
+                  to={`/user/${member.id}`} 
+                  style={{ textDecoration: 'none', color: 'inherit' }}
+                >
+                  <h3 style={{ 
+                    margin: '0 0 0.25rem 0', 
+                    color: '#2c3e50',
+                    cursor: 'pointer'
+                  }}>
+                    {formatUserName(member.firstName, member.lastName, member.username)}
+                  </h3>
+                </Link>
                 <p style={{ margin: 0, color: '#7f8c8d', fontSize: '0.9rem' }}>
                   @{member.username || 'username'}
                 </p>
@@ -205,17 +216,14 @@ const Community: React.FC = () => {
             }}>
               <div style={{ textAlign: 'center' }}>
                 <div style={{
-                  fontSize: '1.5rem',
-                  color: '#f39c12',
                   marginBottom: '0.25rem'
                 }}>
-                  {getRatingStars(Number(member.rating) || 0)}
-                </div>
-                <div style={{
-                  fontSize: '0.9rem',
-                  color: '#7f8c8d'
-                }}>
-                  {(Number(member.rating) || 0).toFixed(1)} / 5.0
+                  <StarRating
+                    rating={Number(member.rating) || 0}
+                    readonly
+                    size="medium"
+                    showValue
+                  />
                 </div>
                 <div style={{
                   fontSize: '0.8rem',

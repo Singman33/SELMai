@@ -85,6 +85,22 @@ export interface Notification {
   createdAt: string;
 }
 
+export interface Rating {
+  id: number;
+  raterId: number;
+  ratedId: number;
+  serviceId?: number;
+  rating: number; // 1 à 5
+  comment?: string;
+  createdAt: string;
+  // Informations du rater pour l'affichage
+  raterUsername?: string;
+  raterFirstName?: string;
+  raterLastName?: string;
+  // Informations du service pour l'affichage
+  serviceTitle?: string;
+}
+
 // Types pour l'affichage (avec propriétés optionnelles pour gérer les données incomplètes)
 export interface UserDisplay {
   id: number;

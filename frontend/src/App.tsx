@@ -15,6 +15,7 @@ const Wallet = React.lazy(() => import('./pages/Wallet'));
 const Community = React.lazy(() => import('./pages/Community'));
 const Notifications = React.lazy(() => import('./pages/Notifications'));
 const Admin = React.lazy(() => import('./pages/Admin'));
+const UserProfile = React.lazy(() => import('./pages/UserProfile'));
 
 function App() {
   return (
@@ -96,6 +97,16 @@ function App() {
               <Layout>
                 <React.Suspense fallback={<div>Chargement...</div>}>
                   <Admin />
+                </React.Suspense>
+              </Layout>
+            </ProtectedRoute>
+          } />
+          
+          <Route path="/user/:userId" element={
+            <ProtectedRoute>
+              <Layout>
+                <React.Suspense fallback={<div>Chargement...</div>}>
+                  <UserProfile />
                 </React.Suspense>
               </Layout>
             </ProtectedRoute>
