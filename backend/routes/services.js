@@ -50,11 +50,22 @@ router.get('/', authenticateToken, async (req, res) => {
 router.get('/my-services', authenticateToken, async (req, res) => {
   try {
     const [services] = await db.execute(`
-      SELECT s.*, c.name as category_name
+      SELECT s.*, c.name as category_name,
+             CASE 
+               WHEN s.service_type = 'consumable' AND EXISTS(
+                 SELECT 1 FROM service_consumptions sc WHERE sc.service_id = s.id
+               ) THEN TRUE
+               ELSE FALSE
+             END as is_consumed
       FROM services s
       JOIN categories c ON s.category_id = c.id
       WHERE s.user_id = ?
-      ORDER BY s.created_at DESC
+      ORDER BY 
+        CASE 
+          WHEN s.service_type = 'renewable' OR (s.service_type = 'consumable' AND s.is_active = TRUE) THEN 0
+          ELSE 1
+        END,
+        s.created_at DESC
     `, [req.user.id]);
 
     const mappedServices = services.map(service => ({
@@ -68,6 +79,7 @@ router.get('/my-services', authenticateToken, async (req, res) => {
       duration: service.duration,
       serviceType: service.service_type,
       isActive: service.is_active,
+      isConsumed: service.is_consumed === 1,
       createdAt: service.created_at,
       updatedAt: service.updated_at
     }));

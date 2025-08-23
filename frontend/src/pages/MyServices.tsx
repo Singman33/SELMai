@@ -300,20 +300,22 @@ const MyServices: React.FC = () => {
         </div>
       )}
 
-      {/* Liste des services */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-        gap: '1rem'
-      }}>
-        {services.map(service => (
-          <div key={service.id} style={{
-            backgroundColor: 'white',
-            padding: '1.5rem',
-            borderRadius: '8px',
-            boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-            border: '1px solid #e0e0e0'
-          }}>
+      {/* Services actifs */}
+      <div style={{ marginBottom: '2rem' }}>
+        <h2 style={{ marginBottom: '1rem', color: '#2c3e50' }}>Services actifs</h2>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+          gap: '1rem'
+        }}>
+          {services.filter(service => !service.isConsumed).map(service => (
+            <div key={service.id} style={{
+              backgroundColor: 'white',
+              padding: '1.5rem',
+              borderRadius: '8px',
+              boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+              border: '1px solid #e0e0e0'
+            }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '1rem' }}>
               <h3 style={{ margin: 0, color: '#2c3e50' }}>
                 {service.title || 'Service sans titre'}
@@ -411,8 +413,122 @@ const MyServices: React.FC = () => {
               </button>
             </div>
           </div>
-        ))}
+          ))}
+        </div>
+
+        {services.filter(service => !service.isConsumed).length === 0 && (
+          <div style={{
+            textAlign: 'center',
+            padding: '2rem',
+            color: '#7f8c8d',
+            backgroundColor: 'white',
+            borderRadius: '8px',
+            boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+          }}>
+            Aucun service actif pour le moment.
+          </div>
+        )}
       </div>
+
+      {/* Services consommés */}
+      {services.filter(service => service.isConsumed).length > 0 && (
+        <div>
+          <h2 style={{ marginBottom: '1rem', color: '#7f8c8d' }}>Services consommés</h2>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+            gap: '1rem'
+          }}>
+            {services.filter(service => service.isConsumed).map(service => (
+              <div key={service.id} style={{
+                backgroundColor: '#f8f9fa',
+                padding: '1.5rem',
+                borderRadius: '8px',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                border: '1px solid #e9ecef',
+                opacity: 0.8
+              }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '1rem' }}>
+                  <h3 style={{ margin: 0, color: '#6c757d' }}>
+                    {service.title || 'Service sans titre'}
+                  </h3>
+                  <div style={{ display: 'flex', gap: '0.5rem' }}>
+                    <span style={{
+                      backgroundColor: '#6c757d',
+                      color: 'white',
+                      padding: '0.25rem 0.5rem',
+                      borderRadius: '4px',
+                      fontSize: '0.8rem'
+                    }}>
+                      Consommé
+                    </span>
+                    <span style={{
+                      backgroundColor: '#dc3545',
+                      color: 'white',
+                      padding: '0.25rem 0.5rem',
+                      borderRadius: '4px',
+                      fontSize: '0.8rem'
+                    }}>
+                      Inactif
+                    </span>
+                  </div>
+                </div>
+                
+                <p style={{ margin: '0 0 1rem 0', color: '#6c757d' }}>
+                  {service.description || 'Aucune description'}
+                </p>
+                
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginBottom: '1rem'
+                }}>
+                  <span style={{
+                    backgroundColor: '#dee2e6',
+                    padding: '0.25rem 0.5rem',
+                    borderRadius: '4px',
+                    fontSize: '0.8rem',
+                    color: '#6c757d'
+                  }}>
+                    {service.categoryName || 'Catégorie inconnue'}
+                  </span>
+                  
+                  <span style={{
+                    fontSize: '1.2rem',
+                    fontWeight: 'bold',
+                    color: '#6c757d'
+                  }}>
+                    {(Number(service.price) || 0).toFixed(2)} radis
+                  </span>
+                </div>
+                
+                {service.duration && (
+                  <p style={{
+                    fontSize: '0.9rem',
+                    color: '#6c757d',
+                    margin: '0 0 1rem 0'
+                  }}>
+                    Durée : {service.duration}
+                  </p>
+                )}
+
+                <div style={{
+                  padding: '0.5rem',
+                  backgroundColor: '#e9ecef',
+                  borderRadius: '4px',
+                  textAlign: 'center',
+                  fontSize: '0.9rem',
+                  color: '#6c757d',
+                  fontStyle: 'italic'
+                }}>
+                  Ce service consommable a été utilisé et n'est plus disponible
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {services.length === 0 && (
         <div style={{

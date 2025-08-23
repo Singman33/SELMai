@@ -134,6 +134,7 @@ export interface ServiceDisplay {
   createdAt?: string;
   updatedAt?: string;
   isConsumedByUser?: boolean;
+  isConsumed?: boolean;
 }
 
 export interface AuthContextType {
