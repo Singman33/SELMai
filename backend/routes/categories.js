@@ -4,8 +4,8 @@ const { authenticateToken } = require('../middleware/auth');
 
 const router = express.Router();
 
-// Obtenir toutes les catégories
-router.get('/', authenticateToken, async (req, res) => {
+// Obtenir toutes les catégories (endpoint public)
+router.get('/', async (req, res) => {
   try {
     const [categories] = await db.execute(
       'SELECT * FROM categories ORDER BY name'
