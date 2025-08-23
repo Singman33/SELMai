@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { User, Rating } from '../types';
-import { userAPI, ratingAPI } from '../services/api';
+import { userAPI } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import StarRating from '../components/StarRating';
 import RatingList from '../components/RatingList';
-import RatingModal from '../components/RatingModal';
 
 const UserProfile: React.FC = () => {
   const { userId } = useParams<{ userId: string }>();
@@ -13,7 +12,6 @@ const UserProfile: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [showRatingModal, setShowRatingModal] = useState(false);
 
   useEffect(() => {
     if (userId) {
@@ -44,26 +42,6 @@ const UserProfile: React.FC = () => {
     }
   };
 
-  const handleRateUser = () => {
-    setShowRatingModal(true);
-  };
-
-  const submitRating = async (rating: number, comment?: string) => {
-    if (!user) return;
-
-    try {
-      await ratingAPI.create({
-        rated_id: user.id,
-        rating,
-        comment
-      });
-
-      alert('Évaluation envoyée avec succès !');
-      setShowRatingModal(false);
-    } catch (error: any) {
-      alert(error.response?.data?.message || 'Erreur lors de l\'envoi de l\'évaluation');
-    }
-  };
 
   if (loading) {
     return <div>Chargement...</div>;
@@ -77,7 +55,6 @@ const UserProfile: React.FC = () => {
     return <div>Utilisateur non trouvé</div>;
   }
 
-  const canRate = currentUser && currentUser.id !== user.id;
 
   return (
     <div>
@@ -114,25 +91,6 @@ const UserProfile: React.FC = () => {
             )}
           </div>
 
-          {canRate && (
-            <button
-              onClick={handleRateUser}
-              style={{
-                padding: '0.75rem 1.5rem',
-                backgroundColor: '#f39c12',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer',
-                fontSize: '1rem',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem'
-              }}
-            >
-              ⭐ Évaluer
-            </button>
-          )}
         </div>
 
         <div style={{
@@ -160,13 +118,6 @@ const UserProfile: React.FC = () => {
         <RatingList userId={user.id} />
       </div>
 
-      {/* Modal d'évaluation */}
-      <RatingModal
-        isOpen={showRatingModal}
-        onClose={() => setShowRatingModal(false)}
-        onSubmit={submitRating}
-        targetUserName={`${user.firstName} ${user.lastName}`}
-      />
     </div>
   );
 };
