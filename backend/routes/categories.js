@@ -11,7 +11,15 @@ router.get('/', async (req, res) => {
       'SELECT * FROM categories ORDER BY name'
     );
 
-    res.json(categories);
+    // Mapper les catégories au format camelCase pour le frontend
+    const mappedCategories = categories.map(category => ({
+      id: category.id,
+      name: category.name,
+      description: category.description,
+      createdAt: category.created_at
+    }));
+
+    res.json(mappedCategories);
   } catch (error) {
     console.error('Erreur lors de la récupération des catégories:', error);
     res.status(500).json({ message: 'Erreur interne du serveur' });

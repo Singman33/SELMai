@@ -221,7 +221,23 @@ router.get('/admin/all', authenticateToken, requireAdmin, async (req, res) => {
       ORDER BY n.created_at DESC
     `);
 
-    res.json(negotiations);
+    // Mapper les négociations au format camelCase pour le frontend
+    const mappedNegotiations = negotiations.map(nego => ({
+      id: nego.id,
+      serviceId: nego.service_id,
+      serviceTitle: nego.service_title,
+      buyerId: nego.buyer_id,
+      sellerId: nego.seller_id,
+      proposedPrice: nego.proposed_price,
+      message: nego.message,
+      status: nego.status,
+      buyerUsername: nego.buyer_username,
+      sellerUsername: nego.seller_username,
+      createdAt: nego.created_at,
+      updatedAt: nego.updated_at
+    }));
+
+    res.json(mappedNegotiations);
   } catch (error) {
     console.error('Erreur lors de la récupération des négociations (admin):', error);
     res.status(500).json({ message: 'Erreur interne du serveur' });

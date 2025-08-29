@@ -12,7 +12,19 @@ router.get('/', authenticateToken, async (req, res) => {
       [req.user.id]
     );
 
-    res.json(notifications);
+    // Mapper les données pour le format frontend (camelCase)
+    const mappedNotifications = notifications.map(notification => ({
+      id: notification.id,
+      userId: notification.user_id,
+      title: notification.title,
+      message: notification.message,
+      isRead: Boolean(notification.is_read),
+      notificationType: notification.notification_type,
+      relatedId: notification.related_id,
+      createdAt: notification.created_at
+    }));
+
+    res.json(mappedNotifications);
   } catch (error) {
     console.error('Erreur lors de la récupération des notifications:', error);
     res.status(500).json({ message: 'Erreur interne du serveur' });

@@ -210,7 +210,29 @@ router.get('/admin/all', authenticateToken, requireAdmin, async (req, res) => {
       ORDER BY s.created_at DESC
     `);
 
-    res.json(services);
+    // Mapper les services au format camelCase pour l'admin frontend
+    const mappedServices = services.map(service => ({
+      id: service.id,
+      userId: service.user_id,
+      title: service.title,
+      description: service.description,
+      categoryId: service.category_id,
+      categoryName: service.category_name,
+      price: service.price,
+      duration: service.duration,
+      serviceType: service.service_type,
+      serviceCategory: service.service_category,
+      isActive: service.is_active,
+      username: service.username,
+      firstName: service.first_name,
+      lastName: service.last_name,
+      userRating: service.rating,
+      isConsumed: Boolean(service.is_consumed),
+      createdAt: service.created_at,
+      updatedAt: service.updated_at
+    }));
+
+    res.json(mappedServices);
   } catch (error) {
     console.error('Erreur lors de la récupération des services (admin):', error);
     res.status(500).json({ message: 'Erreur interne du serveur' });
