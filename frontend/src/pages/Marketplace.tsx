@@ -130,11 +130,11 @@ const Marketplace: React.FC = () => {
       }}>
         {filteredServices.map(service => (
           <div key={service.id} style={{
-            backgroundColor: 'white',
+            backgroundColor: service.serviceCategory === 'offer' ? '#e8f4fd' : '#fde8f4',
             padding: '1.5rem',
             borderRadius: '8px',
             boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-            border: '1px solid #e0e0e0'
+            border: `2px solid ${service.serviceCategory === 'offer' ? '#3498db' : '#e91e63'}`
           }}>
             <h3 style={{ margin: '0 0 0.5rem 0', color: '#2c3e50' }}>
               {service.title || 'Service sans titre'}
@@ -169,7 +169,17 @@ const Marketplace: React.FC = () => {
               alignItems: 'center',
               marginBottom: '1rem'
             }}>
-              <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+              <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
+                <span style={{
+                  backgroundColor: service.serviceCategory === 'offer' ? '#3498db' : '#e91e63',
+                  color: 'white',
+                  padding: '0.25rem 0.5rem',
+                  borderRadius: '4px',
+                  fontSize: '0.8rem',
+                  fontWeight: 'bold'
+                }}>
+                  {service.serviceCategory === 'offer' ? 'OFFRE' : 'DEMANDE'}
+                </span>
                 <span style={{
                   backgroundColor: '#ecf0f1',
                   padding: '0.25rem 0.5rem',

@@ -14,7 +14,8 @@ const MyServices: React.FC = () => {
     categoryId: '',
     price: '',
     duration: '',
-    serviceType: 'consumable' as 'renewable' | 'consumable'
+    serviceType: 'consumable' as 'renewable' | 'consumable',
+    serviceCategory: 'offer' as 'offer' | 'request'
   });
 
   useEffect(() => {
@@ -46,7 +47,8 @@ const MyServices: React.FC = () => {
         category_id: parseInt(formData.categoryId),
         price: parseFloat(formData.price),
         duration: formData.duration || undefined,
-        service_type: formData.serviceType
+        service_type: formData.serviceType,
+        service_category: formData.serviceCategory
       };
 
       if (editingService) {
@@ -72,7 +74,8 @@ const MyServices: React.FC = () => {
       categoryId: (service.categoryId || '').toString(),
       price: (service.price || 0).toString(),
       duration: service.duration || '',
-      serviceType: service.serviceType || 'consumable'
+      serviceType: service.serviceType || 'consumable',
+      serviceCategory: service.serviceCategory || 'offer'
     });
     setShowForm(true);
   };
@@ -96,7 +99,8 @@ const MyServices: React.FC = () => {
       categoryId: '',
       price: '',
       duration: '',
-      serviceType: 'consumable'
+      serviceType: 'consumable',
+      serviceCategory: 'offer'
     });
     setEditingService(null);
     setShowForm(false);
@@ -200,6 +204,31 @@ const MyServices: React.FC = () => {
                   boxSizing: 'border-box'
                 }}
               />
+            </div>
+
+            <div style={{ marginBottom: '1rem' }}>
+              <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'bold' }}>
+                Catégorie de service *
+              </label>
+              <select
+                value={formData.serviceCategory}
+                onChange={(e) => setFormData({ ...formData, serviceCategory: e.target.value as 'offer' | 'request' })}
+                required
+                style={{
+                  width: '100%',
+                  padding: '0.5rem',
+                  border: '1px solid #ddd',
+                  borderRadius: '4px',
+                  boxSizing: 'border-box'
+                }}
+              >
+                <option value="offer">Offre - Je propose ce service</option>
+                <option value="request">Demande - Je cherche ce service</option>
+              </select>
+              <small style={{ color: '#666', fontSize: '0.8rem', marginTop: '0.25rem', display: 'block' }}>
+                <strong>Offre :</strong> Vous proposez ce service à d'autres utilisateurs.<br/>
+                <strong>Demande :</strong> Vous recherchez quelqu'un qui peut fournir ce service.
+              </small>
             </div>
 
             <div style={{ marginBottom: '1rem' }}>
@@ -310,17 +339,27 @@ const MyServices: React.FC = () => {
         }}>
           {services.filter(service => !service.isConsumed).map(service => (
             <div key={service.id} style={{
-              backgroundColor: 'white',
+              backgroundColor: service.serviceCategory === 'offer' ? '#e8f4fd' : '#fde8f4',
               padding: '1.5rem',
               borderRadius: '8px',
               boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-              border: '1px solid #e0e0e0'
+              border: `1px solid ${service.serviceCategory === 'offer' ? '#3498db' : '#e91e63'}`
             }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '1rem' }}>
               <h3 style={{ margin: 0, color: '#2c3e50' }}>
                 {service.title || 'Service sans titre'}
               </h3>
-              <div style={{ display: 'flex', gap: '0.5rem' }}>
+              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                <span style={{
+                  backgroundColor: service.serviceCategory === 'offer' ? '#3498db' : '#e91e63',
+                  color: 'white',
+                  padding: '0.25rem 0.5rem',
+                  borderRadius: '4px',
+                  fontSize: '0.8rem',
+                  fontWeight: 'bold'
+                }}>
+                  {service.serviceCategory === 'offer' ? 'OFFRE' : 'DEMANDE'}
+                </span>
                 <span style={{
                   backgroundColor: service.serviceType === 'consumable' ? '#e74c3c' : '#3498db',
                   color: 'white',

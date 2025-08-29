@@ -637,6 +637,7 @@ const ServiceManagement: React.FC = () => {
     price: '',
     duration: '',
     serviceType: 'consumable' as 'renewable' | 'consumable',
+    serviceCategory: 'offer' as 'offer' | 'request',
     isActive: true
   });
 
@@ -672,6 +673,7 @@ const ServiceManagement: React.FC = () => {
         price: service.price,
         duration: service.duration,
         serviceType: service.service_type,
+        serviceCategory: service.service_category,
         isActive: service.is_active,
         username: service.username,
         firstName: service.first_name,
@@ -727,6 +729,7 @@ const ServiceManagement: React.FC = () => {
         price: parseFloat(formData.price),
         duration: formData.duration || null,
         service_type: formData.serviceType,
+        service_category: formData.serviceCategory,
         is_active: formData.isActive
       };
 
@@ -806,6 +809,7 @@ const ServiceManagement: React.FC = () => {
       price: service.price?.toString() || '',
       duration: service.duration || '',
       serviceType: service.serviceType || 'consumable',
+      serviceCategory: service.serviceCategory || 'offer',
       isActive: service.isActive ?? true
     });
     setShowForm(true);
@@ -819,6 +823,7 @@ const ServiceManagement: React.FC = () => {
       price: '',
       duration: '',
       serviceType: 'consumable',
+      serviceCategory: 'offer',
       isActive: true
     });
     setEditingService(null);
@@ -1052,6 +1057,18 @@ const ServiceManagement: React.FC = () => {
             </div>
             
             <div>
+              <label>Catégorie de service</label>
+              <select
+                value={formData.serviceCategory}
+                onChange={(e) => setFormData({...formData, serviceCategory: e.target.value as 'offer' | 'request'})}
+                style={{ width: '100%', padding: '0.5rem', border: '1px solid #ddd', borderRadius: '4px' }}
+              >
+                <option value="offer">Offre</option>
+                <option value="request">Demande</option>
+              </select>
+            </div>
+            
+            <div>
               <label>Type de service</label>
               <select
                 value={formData.serviceType}
@@ -1115,6 +1132,7 @@ const ServiceManagement: React.FC = () => {
                 <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #ddd', fontWeight: 'bold' }}>Service</th>
                 <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #ddd', fontWeight: 'bold' }}>Utilisateur</th>
                 <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #ddd', fontWeight: 'bold' }}>Prix</th>
+                <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #ddd', fontWeight: 'bold' }}>Catégorie</th>
                 <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #ddd', fontWeight: 'bold' }}>Type</th>
                 <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #ddd', fontWeight: 'bold' }}>Statut</th>
                 <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #ddd', fontWeight: 'bold' }}>Créé le</th>
@@ -1123,7 +1141,9 @@ const ServiceManagement: React.FC = () => {
             </thead>
             <tbody>
               {filteredServices.map(service => (
-                <tr key={service.id}>
+                <tr key={service.id} style={{ 
+                  backgroundColor: service.serviceCategory === 'offer' ? '#f0f8ff' : '#fff0f8'
+                }}>
                   <td style={{ padding: '1rem', borderBottom: '1px solid #eee', verticalAlign: 'top' }}>
                     <div>
                       <div style={{ fontWeight: 'bold', marginBottom: '0.25rem' }}>{service.title}</div>
@@ -1153,6 +1173,18 @@ const ServiceManagement: React.FC = () => {
                   </td>
                   <td style={{ padding: '1rem', borderBottom: '1px solid #eee' }}>
                     <strong>{service.price} radis</strong>
+                  </td>
+                  <td style={{ padding: '1rem', borderBottom: '1px solid #eee' }}>
+                    <span style={{
+                      backgroundColor: service.serviceCategory === 'offer' ? '#3498db' : '#e91e63',
+                      color: 'white',
+                      padding: '0.2rem 0.4rem',
+                      borderRadius: '4px',
+                      fontSize: '0.8rem',
+                      fontWeight: 'bold'
+                    }}>
+                      {service.serviceCategory === 'offer' ? 'OFFRE' : 'DEMANDE'}
+                    </span>
                   </td>
                   <td style={{ padding: '1rem', borderBottom: '1px solid #eee' }}>
                     <span style={{

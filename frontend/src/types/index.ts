@@ -27,6 +27,7 @@ export interface Service {
   price: number;
   duration?: string;
   serviceType: 'renewable' | 'consumable';
+  serviceCategory: 'offer' | 'request';
   isActive: boolean;
   username?: string;
   firstName?: string;
@@ -126,6 +127,7 @@ export interface ServiceDisplay {
   price?: number;
   duration?: string;
   serviceType?: 'renewable' | 'consumable';
+  serviceCategory?: 'offer' | 'request';
   isActive?: boolean;
   username?: string;
   firstName?: string;
