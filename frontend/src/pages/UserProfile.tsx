@@ -99,7 +99,7 @@ const UserProfile: React.FC = () => {
           marginTop: '1rem'
         }}>
           <div>
-            <strong>Solde :</strong> {user.balance?.toFixed(2)} radis
+            <strong>Solde :</strong> {user.balance} radis
           </div>
           <div>
             <strong>Membre depuis :</strong> {new Date(user.createdAt!).toLocaleDateString('fr-FR')}

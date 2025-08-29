@@ -45,7 +45,7 @@ const MyServices: React.FC = () => {
         title: formData.title,
         description: formData.description,
         category_id: parseInt(formData.categoryId),
-        price: parseFloat(formData.price),
+        price: parseInt(formData.price),
         duration: formData.duration || undefined,
         service_type: formData.serviceType,
         service_category: formData.serviceCategory
@@ -406,7 +406,7 @@ const MyServices: React.FC = () => {
                 fontWeight: 'bold',
                 color: '#27ae60'
               }}>
-                {(Number(service.price) || 0).toFixed(2)} radis
+                {Number(service.price) || 0} radis
               </span>
             </div>
             
@@ -538,7 +538,7 @@ const MyServices: React.FC = () => {
                     fontWeight: 'bold',
                     color: '#6c757d'
                   }}>
-                    {(Number(service.price) || 0).toFixed(2)} radis
+                    {Number(service.price) || 0} radis
                   </span>
                 </div>
                 

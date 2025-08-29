@@ -92,7 +92,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           {user && (
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
               <span>
-                Bonjour, {user.firstName} ({(Number(user.balance) || 0).toFixed(2)} radis)
+                Bonjour, {user.firstName} ({Number(user.balance) || 0} radis)
               </span>
               <button
                 onClick={handleLogout}

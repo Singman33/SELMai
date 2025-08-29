@@ -205,7 +205,7 @@ const Marketplace: React.FC = () => {
                 fontWeight: 'bold',
                 color: '#27ae60'
               }}>
-                {(Number(service.price) || 0).toFixed(2)} radis
+                {Number(service.price) || 0} radis
               </span>
             </div>
             

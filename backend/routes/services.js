@@ -9,13 +9,15 @@ router.get('/', authenticateToken, async (req, res) => {
   try {
     const [services] = await db.execute(`
       SELECT s.*, u.username, u.first_name, u.last_name, u.rating as user_rating, c.name as category_name,
-             sc.buyer_id as consumed_by_user
+             sc_user.buyer_id as consumed_by_user,
+             CASE WHEN sc_any.service_id IS NOT NULL THEN TRUE ELSE FALSE END as is_consumed_by_anyone
       FROM services s
       JOIN users u ON s.user_id = u.id
       JOIN categories c ON s.category_id = c.id
-      LEFT JOIN service_consumptions sc ON s.id = sc.service_id AND sc.buyer_id = ?
+      LEFT JOIN service_consumptions sc_user ON s.id = sc_user.service_id AND sc_user.buyer_id = ?
+      LEFT JOIN service_consumptions sc_any ON s.id = sc_any.service_id
       WHERE s.is_active = TRUE AND u.is_active = TRUE
-        AND (s.service_type = 'renewable' OR (s.service_type = 'consumable' AND sc.buyer_id IS NULL))
+        AND (s.service_type = 'renewable' OR (s.service_type = 'consumable' AND sc_any.service_id IS NULL))
       ORDER BY s.created_at DESC
     `, [req.user.id]);
 
@@ -29,6 +31,7 @@ router.get('/', authenticateToken, async (req, res) => {
       price: service.price,
       duration: service.duration,
       serviceType: service.service_type,
+      serviceCategory: service.service_category,
       isActive: service.is_active,
       username: service.username,
       firstName: service.first_name,
@@ -36,7 +39,8 @@ router.get('/', authenticateToken, async (req, res) => {
       userRating: service.user_rating,
       createdAt: service.created_at,
       updatedAt: service.updated_at,
-      isConsumedByUser: service.consumed_by_user !== null
+      isConsumedByUser: service.consumed_by_user !== null,
+      isConsumedByAnyone: service.is_consumed_by_anyone
     }));
 
     res.json(mappedServices);
@@ -78,6 +82,7 @@ router.get('/my-services', authenticateToken, async (req, res) => {
       price: service.price,
       duration: service.duration,
       serviceType: service.service_type,
+      serviceCategory: service.service_category,
       isActive: service.is_active,
       isConsumed: service.is_consumed === 1,
       createdAt: service.created_at,
@@ -94,18 +99,19 @@ router.get('/my-services', authenticateToken, async (req, res) => {
 // Créer un nouveau service
 router.post('/', authenticateToken, async (req, res) => {
   try {
-    const { title, description, category_id, price, duration, service_type } = req.body;
+    const { title, description, category_id, price, duration, service_type, service_category } = req.body;
 
     if (!title || !description || !category_id || !price) {
       return res.status(400).json({ message: 'Titre, description, catégorie et prix sont obligatoires' });
     }
 
-    // Validation du type de service
+    // Validation du type de service et de la catégorie
     const validServiceType = service_type === 'renewable' ? 'renewable' : 'consumable';
+    const validServiceCategory = service_category === 'request' ? 'request' : 'offer';
 
     const [result] = await db.execute(
-      'INSERT INTO services (user_id, title, description, category_id, price, duration, service_type) VALUES (?, ?, ?, ?, ?, ?, ?)',
-      [req.user.id, title, description, category_id, price, duration || null, validServiceType]
+      'INSERT INTO services (user_id, title, description, category_id, price, duration, service_type, service_category) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+      [req.user.id, title, description, category_id, price, duration || null, validServiceType, validServiceCategory]
     );
 
     res.status(201).json({
@@ -122,7 +128,7 @@ router.post('/', authenticateToken, async (req, res) => {
 router.put('/:id', authenticateToken, async (req, res) => {
   try {
     const serviceId = req.params.id;
-    const { title, description, category_id, price, duration, service_type, is_active } = req.body;
+    const { title, description, category_id, price, duration, service_type, service_category, is_active } = req.body;
 
     // Vérifier que le service appartient à l'utilisateur ou que l'utilisateur est admin
     const [services] = await db.execute(
@@ -138,13 +144,14 @@ router.put('/:id', authenticateToken, async (req, res) => {
       return res.status(403).json({ message: 'Accès non autorisé' });
     }
 
-    // Validation du type de service
+    // Validation du type de service et de la catégorie
     const validServiceType = service_type === 'renewable' ? 'renewable' : 'consumable';
+    const validServiceCategory = service_category === 'request' ? 'request' : 'offer';
     const serviceIsActive = is_active !== undefined ? is_active : services[0].is_active;
 
     await db.execute(
-      'UPDATE services SET title = ?, description = ?, category_id = ?, price = ?, duration = ?, service_type = ?, is_active = ? WHERE id = ?',
-      [title, description, category_id, price, duration || null, validServiceType, serviceIsActive, serviceId]
+      'UPDATE services SET title = ?, description = ?, category_id = ?, price = ?, duration = ?, service_type = ?, service_category = ?, is_active = ? WHERE id = ?',
+      [title, description, category_id, price, duration || null, validServiceType, validServiceCategory, serviceIsActive, serviceId]
     );
 
     res.json({ message: 'Service modifié avec succès' });

@@ -240,7 +240,7 @@ const Community: React.FC = () => {
                   color: getBalanceColor(Number(member.balance) || 0),
                   marginBottom: '0.25rem'
                 }}>
-                  {(Number(member.balance) || 0).toFixed(0)}
+                  {Number(member.balance) || 0}
                 </div>
                 <div style={{
                   fontSize: '0.9rem',
@@ -308,7 +308,7 @@ const Community: React.FC = () => {
           
           <div>
             <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#27ae60' }}>
-              {members.reduce((sum, member) => sum + (Number(member.balance) || 0), 0).toFixed(0)}
+              {members.reduce((sum, member) => sum + (Number(member.balance) || 0), 0)}
             </div>
             <div style={{ color: '#7f8c8d' }}>Total radis en circulation</div>
           </div>

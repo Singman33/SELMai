@@ -24,9 +24,9 @@ router.get('/', authenticateToken, async (req, res) => {
     let runningBalance = 0;
     const transactionsWithBalance = transactions.map(transaction => {
       if (transaction.to_user_id === req.user.id) {
-        runningBalance += parseFloat(transaction.amount);
+        runningBalance += parseInt(transaction.amount);
       } else if (transaction.from_user_id === req.user.id) {
-        runningBalance -= parseFloat(transaction.amount);
+        runningBalance -= parseInt(transaction.amount);
       }
       
       return {

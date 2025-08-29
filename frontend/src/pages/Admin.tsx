@@ -292,7 +292,7 @@ const UserManagement: React.FC = () => {
                   {Boolean(user.isAdmin) && <span style={{ marginLeft: '0.5rem', backgroundColor: '#e74c3c', color: 'white', padding: '0.2rem 0.4rem', borderRadius: '4px', fontSize: '0.8rem' }}>Admin</span>}
                 </td>
                 <td style={{ padding: '1rem', borderBottom: '1px solid #eee' }}>{user.email || 'N/A'}</td>
-                <td style={{ padding: '1rem', borderBottom: '1px solid #eee' }}>{(Number(user.balance) || 0).toFixed(2)} radis</td>
+                <td style={{ padding: '1rem', borderBottom: '1px solid #eee' }}>{Number(user.balance) || 0} radis</td>
                 <td style={{ padding: '1rem', borderBottom: '1px solid #eee' }}>
                   <span style={{
                     backgroundColor: user.isActive ? '#27ae60' : '#e74c3c',
@@ -419,7 +419,7 @@ const BalanceManagement: React.FC = () => {
               <option value="">Sélectionnez un utilisateur</option>
               {users.map(user => (
                 <option key={user.id} value={user.id}>
-                  {formatUserName(user.firstName, user.lastName, user.username)} (Solde actuel: {(Number(user.balance) || 0).toFixed(2)} radis)
+                  {formatUserName(user.firstName, user.lastName, user.username)} (Solde actuel: {Number(user.balance) || 0} radis)
                 </option>
               ))}
             </select>
@@ -484,7 +484,7 @@ const BalanceManagement: React.FC = () => {
                 fontWeight: 'bold',
                 color: (Number(user.balance) || 0) >= 0 ? '#27ae60' : '#e74c3c'
               }}>
-                {(Number(user.balance) || 0).toFixed(2)} radis
+                {Number(user.balance) || 0} radis
               </span>
             </div>
           ))}
@@ -726,7 +726,7 @@ const ServiceManagement: React.FC = () => {
         title: formData.title,
         description: formData.description,
         category_id: parseInt(formData.categoryId),
-        price: parseFloat(formData.price),
+        price: parseInt(formData.price),
         duration: formData.duration || null,
         service_type: formData.serviceType,
         service_category: formData.serviceCategory,
@@ -1164,9 +1164,9 @@ const ServiceManagement: React.FC = () => {
                     <div>
                       <div>{formatUserName(service.firstName, service.lastName, service.username)}</div>
                       <div style={{ fontSize: '0.8rem', color: '#7f8c8d' }}>@{service.username}</div>
-                      {service.userRating && (
+                      {service.userRating && Number(service.userRating) > 0 && (
                         <div style={{ fontSize: '0.8rem', color: '#f39c12' }}>
-                          ⭐ {service.userRating.toFixed(1)}
+                          ⭐ {Number(service.userRating).toFixed(1)}
                         </div>
                       )}
                     </div>

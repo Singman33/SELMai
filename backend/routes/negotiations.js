@@ -72,7 +72,7 @@ router.post('/', authenticateToken, async (req, res) => {
 
     const [result] = await db.execute(
       'INSERT INTO negotiations (service_id, buyer_id, seller_id, proposed_price, message) VALUES (?, ?, ?, ?, ?)',
-      [service_id, req.user.id, services[0].user_id, proposed_price || services[0].price, message]
+      [service_id, req.user.id, services[0].user_id, proposed_price || services[0].price, message || null]
     );
 
     // Créer une notification pour le vendeur

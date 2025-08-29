@@ -195,11 +195,11 @@ const Negotiations: React.FC = () => {
               marginBottom: '1rem'
             }}>
               <div>
-                <strong>Prix initial :</strong> {(Number(negotiation.servicePrice) || 0).toFixed(2)} radis
+                <strong>Prix initial :</strong> {Number(negotiation.servicePrice) || 0} radis
               </div>
               {negotiation.proposedPrice && (
                 <div>
-                  <strong>Prix proposé :</strong> {(Number(negotiation.proposedPrice) || 0).toFixed(2)} radis
+                  <strong>Prix proposé :</strong> {Number(negotiation.proposedPrice) || 0} radis
                 </div>
               )}
               <div>
