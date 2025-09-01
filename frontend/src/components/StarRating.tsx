@@ -88,7 +88,7 @@ const StarRating: React.FC<StarRatingProps> = ({
           color: '#666',
           fontWeight: '500'
         }}>
-          {rating.toFixed(1)}
+          {(rating || 0).toFixed(1)}
         </span>
       )}
     </div>
