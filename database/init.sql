@@ -11,7 +11,7 @@ CREATE TABLE users (
     password_hash VARCHAR(255) NOT NULL,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
-    balance DECIMAL(10,2) DEFAULT 0.00,
+    balance INT DEFAULT 0 COMMENT 'Solde en radis (entier)',
     rating DECIMAL(3,2) DEFAULT 0.00,
     is_admin BOOLEAN DEFAULT FALSE,
     is_active BOOLEAN DEFAULT TRUE,
@@ -34,9 +34,10 @@ CREATE TABLE services (
     title VARCHAR(200) NOT NULL,
     description TEXT NOT NULL,
     category_id INT NOT NULL,
-    price DECIMAL(10,2) NOT NULL,
+    price INT NOT NULL COMMENT 'Prix en radis (entier)',
     duration VARCHAR(100),
     service_type ENUM('renewable', 'consumable') DEFAULT 'consumable' COMMENT 'Type de service: renewable (renouvelable), consumable (consommable - une seule utilisation)',
+    service_category ENUM('offer', 'request') DEFAULT 'offer' COMMENT 'Catégorie de service: offer (offre de service), request (demande de service)',
     is_active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -50,7 +51,7 @@ CREATE TABLE negotiations (
     service_id INT NOT NULL,
     buyer_id INT NOT NULL,
     seller_id INT NOT NULL,
-    proposed_price DECIMAL(10,2),
+    proposed_price INT COMMENT 'Prix proposé en radis (entier)',
     message TEXT,
     status ENUM('pending', 'accepted', 'rejected', 'completed') DEFAULT 'pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -65,7 +66,7 @@ CREATE TABLE transactions (
     id INT AUTO_INCREMENT PRIMARY KEY,
     from_user_id INT,
     to_user_id INT NOT NULL,
-    amount DECIMAL(10,2) NOT NULL,
+    amount INT NOT NULL COMMENT 'Montant en radis (entier)',
     description TEXT,
     transaction_type ENUM('payment', 'admin_adjustment', 'refund') DEFAULT 'payment',
     service_id INT,
@@ -132,10 +133,10 @@ INSERT INTO categories (name, description) VALUES
 
 -- Création de l'utilisateur admin par défaut (mot de passe: 1234)
 INSERT INTO users (username, email, password_hash, first_name, last_name, balance, is_admin, is_active) VALUES
-('admin', 'admin@selmai.local', '$2a$10$oCxk.vmb3antkOIiS/35DOozB1ANkc2VDvXlkW0LI8TugbmY0f4la', 'Admin', 'Système', 1000.00, TRUE, TRUE);
+('admin', 'admin@selmai.local', '$2a$10$oCxk.vmb3antkOIiS/35DOozB1ANkc2VDvXlkW0LI8TugbmY0f4la', 'Admin', 'Système', 1000, TRUE, TRUE);
 
 -- Création de quelques utilisateurs de test
 INSERT INTO users (username, email, password_hash, first_name, last_name, balance, is_admin, is_active) VALUES
-('marie.dupont', 'marie@selmai.local', '$2b$10$rQZ8kJz8k8k8k8k8k8k8kuO8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8', 'Marie', 'Dupont', 150.00, FALSE, TRUE),
-('jean.martin', 'jean@selmai.local', '$2b$10$rQZ8kJz8k8k8k8k8k8k8kuO8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8', 'Jean', 'Martin', 75.50, FALSE, TRUE),
-('sophie.bernard', 'sophie@selmai.local', '$2b$10$rQZ8kJz8k8k8k8k8k8k8kuO8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8', 'Sophie', 'Bernard', 200.00, FALSE, TRUE);
+('nathalie.jordana', 'nathalie.j@selmai.local', '$2b$10$rQZ8kJz8k8k8k8k8k8k8kuO8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8', 'Nathalie', 'Jordana', 200, FALSE, TRUE),
+('philippe.paya', 'philippe.p@selmai.local', '$2b$10$rQZ8kJz8k8k8k8k8k8k8kuO8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8', 'Philippe', 'Paya', 200, FALSE, TRUE),
+('laurent.laval', 'laurent.l@selmai.local', '$2b$10$rQZ8kJz8k8k8k8k8k8k8kuO8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8', 'Laurent', 'Laval', 200, FALSE, TRUE);
