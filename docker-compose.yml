@@ -1,5 +1,5 @@
 services:
-  database:
+  db:
     image: mariadb:10.9
     restart: always
     environment:
@@ -16,31 +16,31 @@ services:
       - selmai-network
 
   backend:
+    depends_on:
+      - db
     build: ./backend
     restart: always
     ports:
       - "3001:3001"
     environment:
-      DB_HOST: database
+      DB_HOST: db
       DB_PORT: 3306
       DB_NAME: selmai
       DB_USER: selmai_user
       DB_PASSWORD: selmai_password
       JWT_SECRET: your-secret-key-here
-    depends_on:
-      - database
     networks:
       - selmai-network
 
   frontend:
+    depends_on:
+      - backend
     build: ./frontend
     restart: always
     ports:
       - "3000:3000"
     environment:
       REACT_APP_API_URL: http://localhost:3001
-    depends_on:
-      - backend
     networks:
       - selmai-network
 
