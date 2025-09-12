@@ -1,0 +1,11 @@
+{
+  "source_url": "https://registry.npmjs.org/react-router-dom/6.15.0",
+  "last_checked": "2025-09-10T20:23:48.826281",
+  "etag": null,
+  "repository": {
+    "url": "git+https://github.com/remix-run/react-router.git",
+    "type": "git",
+    "directory": "packages/react-router-dom"
+  },
+  "from_github": true
+}

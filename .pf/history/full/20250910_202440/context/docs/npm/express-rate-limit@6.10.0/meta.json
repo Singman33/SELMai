@@ -1,0 +1,10 @@
+{
+  "source_url": "https://registry.npmjs.org/express-rate-limit/6.10.0",
+  "last_checked": "2025-09-10T20:23:40.781697",
+  "etag": null,
+  "repository": {
+    "url": "git+https://github.com/express-rate-limit/express-rate-limit.git",
+    "type": "git"
+  },
+  "from_github": true
+}

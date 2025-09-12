@@ -1,0 +1,177 @@
+{
+  "docker:mariadb": {
+    "delta": "unknown",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:25:26.002240",
+    "latest": "12.1.1-rc",
+    "locked": "10.9"
+  },
+  "docker:nginx": {
+    "delta": "unknown",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:25:26.749893",
+    "latest": "1.29.1-perl",
+    "locked": "alpine"
+  },
+  "docker:node": {
+    "delta": "unknown",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:25:28.939697",
+    "latest": "latest",
+    "locked": "0.11-onbuild"
+  },
+  "docker:selenium/node-chrome": {
+    "delta": "unknown",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:25:29.526290",
+    "latest": "138.0-20250828",
+    "locked": "latest"
+  },
+  "npm:@types/node": {
+    "delta": "major",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:25:24.875313",
+    "latest": "24.3.1",
+    "locked": "20.5.7"
+  },
+  "npm:@types/react": {
+    "delta": "major",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:25:24.110374",
+    "latest": "19.1.12",
+    "locked": "18.2.21"
+  },
+  "npm:@types/react-dom": {
+    "delta": "major",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:25:24.375199",
+    "latest": "19.1.9",
+    "locked": "18.2.7"
+  },
+  "npm:axios": {
+    "delta": "minor",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:25:23.798461",
+    "latest": "1.11.0",
+    "locked": "1.5.0"
+  },
+  "npm:bcryptjs": {
+    "delta": "major",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:25:19.673359",
+    "latest": "3.0.2",
+    "locked": "2.4.3"
+  },
+  "npm:cors": {
+    "delta": "equal",
+    "is_outdated": false,
+    "last_checked": "2025-09-10T20:25:19.892226",
+    "latest": "2.8.5",
+    "locked": "2.8.5"
+  },
+  "npm:dotenv": {
+    "delta": "major",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:25:20.103527",
+    "latest": "17.2.2",
+    "locked": "16.3.1"
+  },
+  "npm:express": {
+    "delta": "major",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:25:20.361516",
+    "latest": "5.1.0",
+    "locked": "4.18.2"
+  },
+  "npm:express-rate-limit": {
+    "delta": "major",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:25:20.600458",
+    "latest": "8.1.0",
+    "locked": "6.10.0"
+  },
+  "npm:helmet": {
+    "delta": "major",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:25:20.849932",
+    "latest": "8.1.0",
+    "locked": "7.0.0"
+  },
+  "npm:jest": {
+    "delta": "major",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:25:22.038157",
+    "latest": "30.1.3",
+    "locked": "29.6.4"
+  },
+  "npm:jsonwebtoken": {
+    "delta": "equal",
+    "is_outdated": false,
+    "last_checked": "2025-09-10T20:25:21.065194",
+    "latest": "9.0.2",
+    "locked": "9.0.2"
+  },
+  "npm:multer": {
+    "delta": "unknown",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:25:21.301032",
+    "latest": "2.0.2",
+    "locked": "1.4.5-lts.1"
+  },
+  "npm:mysql2": {
+    "delta": "minor",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:25:21.561297",
+    "latest": "3.14.5",
+    "locked": "3.6.0"
+  },
+  "npm:nodemailer": {
+    "delta": "patch",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:25:21.782377",
+    "latest": "7.0.6",
+    "locked": "7.0.5"
+  },
+  "npm:nodemon": {
+    "delta": "minor",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:25:22.278330",
+    "latest": "3.1.10",
+    "locked": "3.0.1"
+  },
+  "npm:react": {
+    "delta": "major",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:25:22.628918",
+    "latest": "19.1.1",
+    "locked": "18.2.0"
+  },
+  "npm:react-dom": {
+    "delta": "major",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:25:23.034227",
+    "latest": "19.1.1",
+    "locked": "18.2.0"
+  },
+  "npm:react-router-dom": {
+    "delta": "major",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:25:23.560842",
+    "latest": "7.8.2",
+    "locked": "6.15.0"
+  },
+  "npm:react-scripts": {
+    "delta": "equal",
+    "is_outdated": false,
+    "last_checked": "2025-09-10T20:25:23.260149",
+    "latest": "5.0.1",
+    "locked": "5.0.1"
+  },
+  "npm:typescript": {
+    "delta": "minor",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:25:25.425513",
+    "latest": "5.9.2",
+    "locked": "5.2.2"
+  }
+}

@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { User, Service, Category, Negotiation, Transaction, Notification, Rating } from '../types';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+// Force localhost même dans Docker pour éviter les problèmes CORS
+const API_BASE_URL = 'http://localhost:3001';
 
 const api = axios.create({
   baseURL: `${API_BASE_URL}/api`,

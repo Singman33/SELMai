@@ -1,0 +1,10 @@
+{
+  "source_url": "https://registry.npmjs.org/jsonwebtoken/9.0.2",
+  "last_checked": "2025-09-10T20:23:42.243830",
+  "etag": null,
+  "repository": {
+    "url": "git+https://github.com/auth0/node-jsonwebtoken.git",
+    "type": "git"
+  },
+  "from_github": true
+}

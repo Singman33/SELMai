@@ -1,0 +1,111 @@
+{
+  "generated_at": "2025-09-10T18:25:19.051465+00:00",
+  "root": ".",
+  "seed": {
+    "mode": "all",
+    "value": "all_indexed_files"
+  },
+  "max_depth": 0,
+  "counts": {
+    "seed_files": 24,
+    "expanded_files": 24
+  },
+  "paths": [
+    {
+      "path": "backend/package.json",
+      "sha256": "8c077b0ef4d4296ab0f7ab7ae07d958b28c72d0b9570221d104bd6a3f7a75ec7"
+    },
+    {
+      "path": "frontend/package.json",
+      "sha256": "2710f1dfce56ded1367d00af7f8e077ce041ac4b423d83942301516884c6b0c4"
+    },
+    {
+      "path": "frontend/src/App.tsx",
+      "sha256": "f938ab7c62a7e7d89c8c38cfa0fccce6d65020906a8608df8f67bd119fe02144"
+    },
+    {
+      "path": "frontend/src/components/ErrorDisplay.tsx",
+      "sha256": "ea76190796b5a3274a4d27055fd4b57dd4b38ca3392ed64767a6680c6472d497"
+    },
+    {
+      "path": "frontend/src/components/Layout.tsx",
+      "sha256": "36d989e078ed6b49ad230dbbfd4a65eb3d8e1ba7457d0c61bc0d2bd820db7cf7"
+    },
+    {
+      "path": "frontend/src/components/ProtectedRoute.tsx",
+      "sha256": "c36043cde27aa3c837bc54a273d3879fa789eacecbdced374d53c8b4472d449e"
+    },
+    {
+      "path": "frontend/src/components/RatingList.tsx",
+      "sha256": "e176be21eba3e43a71ad3e108f399261081f74aa0cfd6937ab750dea5ad04d80"
+    },
+    {
+      "path": "frontend/src/components/StarRating.tsx",
+      "sha256": "ab9f604bfebdde8e8e75d1840f858b98e5e389c76a0a5954d1818a4f42fc2b56"
+    },
+    {
+      "path": "frontend/src/components/TransactionRating.tsx",
+      "sha256": "49134b006947a8e212c00eeeaa7c5068d3b7151ed005c2b199764a483606247c"
+    },
+    {
+      "path": "frontend/src/context/AuthContext.tsx",
+      "sha256": "c93d82e8750024707efb51417a2c1b2e62b8eedbeb6146f19c103cada490251d"
+    },
+    {
+      "path": "frontend/src/context/ErrorContext.tsx",
+      "sha256": "59faae2315ee5625d19f8151129e774aeeedcdbdb9bff2ce0e0a686172f7ba0a"
+    },
+    {
+      "path": "frontend/src/index.tsx",
+      "sha256": "1d4578707bd376d0eeb1229ab40e450b578f4e3530e4f733c8aa723f66a6035c"
+    },
+    {
+      "path": "frontend/src/pages/Admin.tsx",
+      "sha256": "c056e30b5b14945c20c24e9d0acd2e86ba6577639f2031e2bf009a110597e3ff"
+    },
+    {
+      "path": "frontend/src/pages/Community.tsx",
+      "sha256": "7278caaa1f86ee7523dca7a265011aa728cdf8a2d278a5cfc8d49f58ddfb9120"
+    },
+    {
+      "path": "frontend/src/pages/Login.tsx",
+      "sha256": "b128c6928f41510cbe9e00edf273c3689d4abf3ae5597a6240e2cfe07894aa2a"
+    },
+    {
+      "path": "frontend/src/pages/Marketplace.tsx",
+      "sha256": "6261c905dba7f532c46187c9b3233831ef6b773d89aba865b62300d72636efc3"
+    },
+    {
+      "path": "frontend/src/pages/MyServices.tsx",
+      "sha256": "1429773a9c9b276a0e3a80713922038b1067e76c44b3e631bb76db094fe51487"
+    },
+    {
+      "path": "frontend/src/pages/Negotiations.tsx",
+      "sha256": "9a49cba8948184fa505d77b2deea9b9849f948f89bea6e4bbf23dbc44b6ca727"
+    },
+    {
+      "path": "frontend/src/pages/Notifications.tsx",
+      "sha256": "6fe364b6e05069e89b359e1c43ecc3844ecd5670ae3d9d7b353caeed8dc888a1"
+    },
+    {
+      "path": "frontend/src/pages/UserProfile.tsx",
+      "sha256": "ed80813e7ef096d3cfb43d7db82bc574414cde51c839150ce4e2be1679878c2f"
+    },
+    {
+      "path": "frontend/src/pages/Wallet.tsx",
+      "sha256": "093fa1c0823d052bb2134df47e45a7fcfc542da7718310380f66833ccae0d454"
+    },
+    {
+      "path": "frontend/src/services/api.ts",
+      "sha256": "c51ba755e2c34f8bec2a5c7a754692872c6a4e4622a999a1d1dc93986b8788c8"
+    },
+    {
+      "path": "frontend/src/types/index.ts",
+      "sha256": "3d023da59325b9f894963a456ecd2127a91583ff2c24bf06621198891cb9d7dd"
+    },
+    {
+      "path": "frontend/tsconfig.json",
+      "sha256": "6c83a2496896cdef19528dbc9642b7cf57af6920c8d3ee5fbda039ed551639de"
+    }
+  ]
+}

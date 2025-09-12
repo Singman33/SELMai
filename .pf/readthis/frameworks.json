@@ -1,0 +1,16 @@
+[
+  {
+    "framework": "express",
+    "language": "javascript",
+    "path": "backend",
+    "source": "backend/package.json",
+    "version": "^4.18.2"
+  },
+  {
+    "framework": "react",
+    "language": "javascript",
+    "path": "frontend",
+    "source": "frontend/package.json",
+    "version": "^18.2.0"
+  }
+]

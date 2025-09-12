@@ -1,0 +1,246 @@
+{
+  "cycles": [],
+  "hotspots": [
+    {
+      "centrality": 0.21530795217053225,
+      "churn": 0,
+      "id": "frontend/src/pages/Admin.tsx",
+      "in_degree": 1,
+      "loc": 1330,
+      "out_degree": 100,
+      "score": 20.49759238565116
+    },
+    {
+      "centrality": 0.4271579281395378,
+      "churn": 0,
+      "id": "frontend/src/context/AuthContext.tsx",
+      "in_degree": 9,
+      "loc": 114,
+      "out_degree": 35,
+      "score": 9.83954737844186
+    },
+    {
+      "centrality": 0.21530795217053225,
+      "churn": 0,
+      "id": "frontend/src/pages/Marketplace.tsx",
+      "in_degree": 1,
+      "loc": 378,
+      "out_degree": 45,
+      "score": 9.402392385651162
+    },
+    {
+      "centrality": 0.21530795217053225,
+      "churn": 0,
+      "id": "frontend/src/pages/MyServices.tsx",
+      "in_degree": 1,
+      "loc": 585,
+      "out_degree": 44,
+      "score": 9.223092385651162
+    },
+    {
+      "centrality": 0.5716829145060267,
+      "churn": 0,
+      "id": "frontend/src/services/api.ts",
+      "in_degree": 12,
+      "loc": 328,
+      "out_degree": 25,
+      "score": 8.804304874351807
+    },
+    {
+      "centrality": 0.21530795217053225,
+      "churn": 0,
+      "id": "frontend/src/pages/Negotiations.tsx",
+      "in_degree": 1,
+      "loc": 357,
+      "out_degree": 39,
+      "score": 8.200292385651162
+    },
+    {
+      "centrality": 0.21530795217053225,
+      "churn": 0,
+      "id": "frontend/src/pages/Community.tsx",
+      "in_degree": 1,
+      "loc": 328,
+      "out_degree": 39,
+      "score": 8.197392385651161
+    },
+    {
+      "centrality": 0.21530795217053225,
+      "churn": 0,
+      "id": "frontend/src/pages/Notifications.tsx",
+      "in_degree": 1,
+      "loc": 287,
+      "out_degree": 38,
+      "score": 7.99329238565116
+    },
+    {
+      "centrality": 0.21530795217053225,
+      "churn": 0,
+      "id": "frontend/src/pages/Wallet.tsx",
+      "in_degree": 1,
+      "loc": 277,
+      "out_degree": 35,
+      "score": 7.39229238565116
+    },
+    {
+      "centrality": 0.21530795217053225,
+      "churn": 0,
+      "id": "frontend/src/pages/UserProfile.tsx",
+      "in_degree": 1,
+      "loc": 125,
+      "out_degree": 32,
+      "score": 6.7770923856511605
+    },
+    {
+      "centrality": 0.24610534272583015,
+      "churn": 0,
+      "id": "frontend/src/components/RatingList.tsx",
+      "in_degree": 2,
+      "loc": 198,
+      "out_degree": 30,
+      "score": 6.6936316028177485
+    },
+    {
+      "centrality": 0.21530795217053225,
+      "churn": 0,
+      "id": "frontend/src/components/Layout.tsx",
+      "in_degree": 1,
+      "loc": 184,
+      "out_degree": 29,
+      "score": 6.18299238565116
+    },
+    {
+      "centrality": 0.23585856082648646,
+      "churn": 0,
+      "id": "frontend/src/App.tsx",
+      "in_degree": 1,
+      "loc": 123,
+      "out_degree": 27,
+      "score": 5.783057568247946
+    },
+    {
+      "centrality": 0.2294679100581072,
+      "churn": 0,
+      "id": "frontend/src/components/TransactionRating.tsx",
+      "in_degree": 1,
+      "loc": 220,
+      "out_degree": 25,
+      "score": 5.390840373017432
+    },
+    {
+      "centrality": 0.31180132243194525,
+      "churn": 0,
+      "id": "frontend/src/context/ErrorContext.tsx",
+      "in_degree": 4,
+      "loc": 71,
+      "out_degree": 20,
+      "score": 5.300640396729584
+    },
+    {
+      "centrality": 0.3267299933391416,
+      "churn": 0,
+      "id": "frontend/src/components/StarRating.tsx",
+      "in_degree": 5,
+      "loc": 98,
+      "out_degree": 14,
+      "score": 4.407818998001743
+    },
+    {
+      "centrality": 0.21530795217053225,
+      "churn": 0,
+      "id": "frontend/src/pages/Login.tsx",
+      "in_degree": 1,
+      "loc": 168,
+      "out_degree": 18,
+      "score": 3.9813923856511595
+    },
+    {
+      "centrality": 0.6752938198848529,
+      "churn": 0,
+      "id": "frontend/src/types/index.ts",
+      "in_degree": 11,
+      "loc": 150,
+      "out_degree": 0,
+      "score": 3.5175881459654557
+    },
+    {
+      "centrality": 0.21530795217053225,
+      "churn": 0,
+      "id": "frontend/src/components/ErrorDisplay.tsx",
+      "in_degree": 1,
+      "loc": 113,
+      "out_degree": 15,
+      "score": 3.3758923856511593
+    },
+    {
+      "centrality": 0.20659144013998818,
+      "churn": 0,
+      "id": "frontend/src/index.tsx",
+      "in_degree": 0,
+      "loc": 13,
+      "out_degree": 14,
+      "score": 2.863277432041997
+    },
+    {
+      "centrality": 0.21530795217053225,
+      "churn": 0,
+      "id": "frontend/src/components/ProtectedRoute.tsx",
+      "in_degree": 1,
+      "loc": 38,
+      "out_degree": 10,
+      "score": 2.3683923856511595
+    }
+  ],
+  "impact": null,
+  "summary": {
+    "call_graph": {
+      "edges": 498,
+      "nodes": 53
+    },
+    "cycles": {
+      "largest": 0,
+      "nodes_in_cycles": 0,
+      "total": 0
+    },
+    "health_metrics": {
+      "cycle_free": true,
+      "density": 0.3238095238095238,
+      "fragility_score": 70,
+      "health_grade": "A",
+      "health_score": 97.61904761904762,
+      "loosely_coupled": false,
+      "no_god_objects": true,
+      "well_layered": true
+    },
+    "hotspots": {
+      "max_in_degree": 12,
+      "max_out_degree": 100,
+      "top_5": [
+        "frontend/src/pages/Admin.tsx",
+        "frontend/src/context/AuthContext.tsx",
+        "frontend/src/pages/Marketplace.tsx",
+        "frontend/src/pages/MyServices.tsx",
+        "frontend/src/services/api.ts"
+      ]
+    },
+    "import_graph": {
+      "density": 0.3238095238095238,
+      "edges": 136,
+      "nodes": 21
+    },
+    "layers": {
+      "count": 6,
+      "distribution": {
+        "0": 1,
+        "1": 4,
+        "2": 17,
+        "3": 6,
+        "4": 4,
+        "5": 5
+      }
+    },
+    "recommendations": [
+      "Reduce coupling between modules (current density: 0.32)"
+    ]
+  }
+}

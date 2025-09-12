@@ -1,0 +1,81 @@
+{
+  "statistics": {
+    "total_nodes": 21,
+    "total_edges": 136,
+    "graph_density": 0.3238,
+    "isolated_nodes": 0,
+    "average_connections": 6.48
+  },
+  "top_connected_nodes": [
+    {
+      "id": "frontend/src/App.tsx",
+      "in_degree": 1,
+      "out_degree": 23,
+      "total_connections": 24
+    },
+    {
+      "id": "frontend/src/services/api.ts",
+      "in_degree": 12,
+      "out_degree": 3,
+      "total_connections": 15
+    },
+    {
+      "id": "frontend/src/context/AuthContext.tsx",
+      "in_degree": 9,
+      "out_degree": 5,
+      "total_connections": 14
+    },
+    {
+      "id": "frontend/src/pages/UserProfile.tsx",
+      "in_degree": 1,
+      "out_degree": 11,
+      "total_connections": 12
+    },
+    {
+      "id": "frontend/src/types/index.ts",
+      "in_degree": 11,
+      "out_degree": 0,
+      "total_connections": 11
+    },
+    {
+      "id": "frontend/src/components/RatingList.tsx",
+      "in_degree": 2,
+      "out_degree": 7,
+      "total_connections": 9
+    },
+    {
+      "id": "frontend/src/pages/Admin.tsx",
+      "in_degree": 1,
+      "out_degree": 8,
+      "total_connections": 9
+    },
+    {
+      "id": "frontend/src/pages/Community.tsx",
+      "in_degree": 1,
+      "out_degree": 8,
+      "total_connections": 9
+    },
+    {
+      "id": "frontend/src/pages/Marketplace.tsx",
+      "in_degree": 1,
+      "out_degree": 8,
+      "total_connections": 9
+    },
+    {
+      "id": "frontend/src/pages/Negotiations.tsx",
+      "in_degree": 1,
+      "out_degree": 8,
+      "total_connections": 9
+    }
+  ],
+  "cycles_found": [],
+  "file_types": {
+    ".tsx": 19,
+    ".ts": 2
+  },
+  "connection_distribution": {
+    "nodes_with_20_plus_connections": 1,
+    "nodes_with_30_plus_inbound": 0,
+    "cycle_count": 0
+  }
+}

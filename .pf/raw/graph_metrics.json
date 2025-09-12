@@ -1,0 +1,23 @@
+{
+  "frontend/src/pages/Admin.tsx": 0.21530795217053225,
+  "frontend/src/context/AuthContext.tsx": 0.4271579281395378,
+  "frontend/src/pages/Marketplace.tsx": 0.21530795217053225,
+  "frontend/src/pages/MyServices.tsx": 0.21530795217053225,
+  "frontend/src/services/api.ts": 0.5716829145060267,
+  "frontend/src/pages/Negotiations.tsx": 0.21530795217053225,
+  "frontend/src/pages/Community.tsx": 0.21530795217053225,
+  "frontend/src/pages/Notifications.tsx": 0.21530795217053225,
+  "frontend/src/pages/Wallet.tsx": 0.21530795217053225,
+  "frontend/src/pages/UserProfile.tsx": 0.21530795217053225,
+  "frontend/src/components/RatingList.tsx": 0.24610534272583015,
+  "frontend/src/components/Layout.tsx": 0.21530795217053225,
+  "frontend/src/App.tsx": 0.23585856082648646,
+  "frontend/src/components/TransactionRating.tsx": 0.2294679100581072,
+  "frontend/src/context/ErrorContext.tsx": 0.31180132243194525,
+  "frontend/src/components/StarRating.tsx": 0.3267299933391416,
+  "frontend/src/pages/Login.tsx": 0.21530795217053225,
+  "frontend/src/types/index.ts": 0.6752938198848529,
+  "frontend/src/components/ErrorDisplay.tsx": 0.21530795217053225,
+  "frontend/src/index.tsx": 0.20659144013998818,
+  "frontend/src/components/ProtectedRoute.tsx": 0.21530795217053225
+}

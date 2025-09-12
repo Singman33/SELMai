@@ -1,0 +1,331 @@
+{
+  "docker:mariadb": {
+    "delta": "unknown",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:23:31.265264",
+    "latest": "12.1.1-rc",
+    "locked": "10.9"
+  },
+  "docker:nginx": {
+    "delta": "unknown",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:23:32.063282",
+    "latest": "1.29.1-perl",
+    "locked": "alpine"
+  },
+  "docker:node": {
+    "delta": "unknown",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:23:34.084344",
+    "latest": "latest",
+    "locked": "0.11-onbuild"
+  },
+  "docker:selenium/node-chrome": {
+    "delta": "unknown",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:23:34.679403",
+    "latest": "138.0-20250828",
+    "locked": "latest"
+  },
+  "npm:@types/node": {
+    "delta": "major",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:23:30.637561",
+    "latest": "24.3.1",
+    "locked": "20.5.7"
+  },
+  "npm:@types/react": {
+    "delta": "major",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:23:29.923596",
+    "latest": "19.1.12",
+    "locked": "18.2.21"
+  },
+  "npm:@types/react-dom": {
+    "delta": "major",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:23:30.141013",
+    "latest": "19.1.9",
+    "locked": "18.2.7"
+  },
+  "npm:@typescript-eslint/eslint-plugin": {
+    "delta": "minor",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:21:20.041830",
+    "latest": "8.43.0",
+    "locked": "8.42.0"
+  },
+  "npm:@typescript-eslint/parser": {
+    "delta": "minor",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:21:19.510420",
+    "latest": "8.43.0",
+    "locked": "8.42.0"
+  },
+  "npm:axios": {
+    "delta": "minor",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:23:29.659084",
+    "latest": "1.11.0",
+    "locked": "1.5.0"
+  },
+  "npm:bcryptjs": {
+    "delta": "major",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:23:25.692013",
+    "latest": "3.0.2",
+    "locked": "2.4.3"
+  },
+  "npm:cors": {
+    "delta": "equal",
+    "is_outdated": false,
+    "last_checked": "2025-09-10T20:23:25.869551",
+    "latest": "2.8.5",
+    "locked": "2.8.5"
+  },
+  "npm:dotenv": {
+    "delta": "major",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:23:26.093459",
+    "latest": "17.2.2",
+    "locked": "16.3.1"
+  },
+  "npm:eslint": {
+    "delta": "equal",
+    "is_outdated": false,
+    "last_checked": "2025-09-10T20:21:18.951074",
+    "latest": "9.35.0",
+    "locked": "9.35.0"
+  },
+  "npm:express": {
+    "delta": "major",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:23:26.350948",
+    "latest": "5.1.0",
+    "locked": "4.18.2"
+  },
+  "npm:express-rate-limit": {
+    "delta": "major",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:23:26.575921",
+    "latest": "8.1.0",
+    "locked": "6.10.0"
+  },
+  "npm:helmet": {
+    "delta": "major",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:23:26.804902",
+    "latest": "8.1.0",
+    "locked": "7.0.0"
+  },
+  "npm:jest": {
+    "delta": "major",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:23:27.933960",
+    "latest": "30.1.3",
+    "locked": "29.6.4"
+  },
+  "npm:jsonwebtoken": {
+    "delta": "equal",
+    "is_outdated": false,
+    "last_checked": "2025-09-10T20:23:27.039575",
+    "latest": "9.0.2",
+    "locked": "9.0.2"
+  },
+  "npm:multer": {
+    "delta": "unknown",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:23:27.248351",
+    "latest": "2.0.2",
+    "locked": "1.4.5-lts.1"
+  },
+  "npm:mysql2": {
+    "delta": "minor",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:23:27.470476",
+    "latest": "3.14.5",
+    "locked": "3.6.0"
+  },
+  "npm:nodemailer": {
+    "delta": "patch",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:23:27.710520",
+    "latest": "7.0.6",
+    "locked": "7.0.5"
+  },
+  "npm:nodemon": {
+    "delta": "minor",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:23:28.141468",
+    "latest": "3.1.10",
+    "locked": "3.0.1"
+  },
+  "npm:prettier": {
+    "delta": "equal",
+    "is_outdated": false,
+    "last_checked": "2025-09-10T20:21:20.815559",
+    "latest": "3.6.2",
+    "locked": "3.6.2"
+  },
+  "npm:react": {
+    "delta": "major",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:23:28.521076",
+    "latest": "19.1.1",
+    "locked": "18.2.0"
+  },
+  "npm:react-dom": {
+    "delta": "major",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:23:28.896186",
+    "latest": "19.1.1",
+    "locked": "18.2.0"
+  },
+  "npm:react-router-dom": {
+    "delta": "major",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:23:29.408462",
+    "latest": "7.8.2",
+    "locked": "6.15.0"
+  },
+  "npm:react-scripts": {
+    "delta": "equal",
+    "is_outdated": false,
+    "last_checked": "2025-09-10T20:23:29.124532",
+    "latest": "5.0.1",
+    "locked": "5.0.1"
+  },
+  "npm:typescript": {
+    "delta": "minor",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:21:20.566701",
+    "latest": "5.9.2",
+    "locked": "5.2.2"
+  },
+  "py:PyYAML": {
+    "delta": "equal",
+    "is_outdated": false,
+    "last_checked": "2025-09-10T20:21:21.325729",
+    "latest": "6.0.2",
+    "locked": "6.0.2"
+  },
+  "py:bandit": {
+    "delta": "equal",
+    "is_outdated": false,
+    "last_checked": "2025-09-10T20:21:29.895323",
+    "latest": "1.8.6",
+    "locked": "1.8.6"
+  },
+  "py:black": {
+    "delta": "equal",
+    "is_outdated": false,
+    "last_checked": "2025-09-10T20:21:29.643283",
+    "latest": "25.1.0",
+    "locked": "25.1.0"
+  },
+  "py:click": {
+    "delta": "equal",
+    "is_outdated": false,
+    "last_checked": "2025-09-10T20:21:21.050880",
+    "latest": "8.2.1",
+    "locked": "8.2.1"
+  },
+  "py:dockerfile-parse": {
+    "delta": "equal",
+    "is_outdated": false,
+    "last_checked": "2025-09-10T20:21:32.601894",
+    "latest": "2.0.1",
+    "locked": "2.0.1"
+  },
+  "py:ijson": {
+    "delta": "equal",
+    "is_outdated": false,
+    "last_checked": "2025-09-10T20:21:22.051688",
+    "latest": "3.4.0",
+    "locked": "3.4.0"
+  },
+  "py:joblib": {
+    "delta": "equal",
+    "is_outdated": false,
+    "last_checked": "2025-09-10T20:21:31.518957",
+    "latest": "1.5.2",
+    "locked": "1.5.2"
+  },
+  "py:jsonschema": {
+    "delta": "equal",
+    "is_outdated": false,
+    "last_checked": "2025-09-10T20:21:21.663509",
+    "latest": "4.25.1",
+    "locked": "4.25.1"
+  },
+  "py:mypy": {
+    "delta": "equal",
+    "is_outdated": false,
+    "last_checked": "2025-09-10T20:21:29.341321",
+    "latest": "1.17.1",
+    "locked": "1.17.1"
+  },
+  "py:numpy": {
+    "delta": "patch",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:21:30.916736",
+    "latest": "2.3.3",
+    "locked": "2.3.2"
+  },
+  "py:pylint": {
+    "delta": "equal",
+    "is_outdated": false,
+    "last_checked": "2025-09-10T20:21:30.183565",
+    "latest": "3.3.8",
+    "locked": "3.3.8"
+  },
+  "py:pytest": {
+    "delta": "equal",
+    "is_outdated": false,
+    "last_checked": "2025-09-10T20:21:28.631329",
+    "latest": "8.4.2",
+    "locked": "8.4.2"
+  },
+  "py:ruff": {
+    "delta": "minor",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:21:29.017669",
+    "latest": "0.13.0",
+    "locked": "0.12.12"
+  },
+  "py:scikit-learn": {
+    "delta": "patch",
+    "is_outdated": true,
+    "last_checked": "2025-09-10T20:21:30.569914",
+    "latest": "1.7.2",
+    "locked": "1.7.1"
+  },
+  "py:scipy": {
+    "delta": "equal",
+    "is_outdated": false,
+    "last_checked": "2025-09-10T20:21:31.231900",
+    "latest": "1.16.1",
+    "locked": "1.16.1"
+  },
+  "py:sqlparse": {
+    "delta": "equal",
+    "is_outdated": false,
+    "last_checked": "2025-09-10T20:21:32.346445",
+    "latest": "0.5.3",
+    "locked": "0.5.3"
+  },
+  "py:tree-sitter": {
+    "delta": "equal",
+    "is_outdated": false,
+    "last_checked": "2025-09-10T20:21:31.800547",
+    "latest": "0.25.1",
+    "locked": "0.25.1"
+  },
+  "py:tree-sitter-language-pack": {
+    "delta": "equal",
+    "is_outdated": false,
+    "last_checked": "2025-09-10T20:21:32.072410",
+    "latest": "0.9.0",
+    "locked": "0.9.0"
+  }
+}

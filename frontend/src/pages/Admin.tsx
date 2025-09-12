@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import { User, UserDisplay, Service, ServiceDisplay, Category, Negotiation } from '../types';
-import { userAPI, serviceAPI, negotiationAPI, notificationAPI } from '../services/api';
+import { userAPI, serviceAPI, negotiationAPI, notificationAPI, categoryAPI } from '../services/api';
 import { useError } from '../context/ErrorContext';
 import { useAuth } from '../context/AuthContext';
 
@@ -642,72 +642,40 @@ const ServiceManagement: React.FC = () => {
   });
 
   useEffect(() => {
+    console.log('🔧 [FRONTEND] ServiceManagement component mounted, calling fetchData');
     fetchData();
   }, []);
 
   const fetchData = async () => {
     try {
+      console.log('🔧 [FRONTEND] Starting fetchData for services admin');
       setIsLoading(true);
       
       // Récupérer les services admin avec plus de détails
-      const response = await fetch('/api/services/admin/all', {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
-      });
+      console.log('🔧 [FRONTEND] About to call serviceAPI.getAllServices');
+      const servicesData = await serviceAPI.getAllServices();
+      console.log('🔧 [FRONTEND] Services récupérés avec succès:', servicesData.length);
+      console.log('🔧 [FRONTEND] Services data received:', servicesData.length, 'services');
       
-      if (!response.ok) {
-        throw new Error('Erreur lors du chargement des services');
-      }
-      
-      const servicesData = await response.json();
-      
-      // Mapper les données au format ServiceDisplay
-      const mappedServices = servicesData.map((service: any) => ({
-        id: service.id,
-        userId: service.user_id,
-        title: service.title,
-        description: service.description,
-        categoryId: service.category_id,
-        categoryName: service.category_name,
-        price: service.price,
-        duration: service.duration,
-        serviceType: service.service_type,
-        serviceCategory: service.service_category,
-        isActive: service.is_active,
-        username: service.username,
-        firstName: service.first_name,
-        lastName: service.last_name,
-        userRating: service.rating,
-        createdAt: service.created_at,
-        updatedAt: service.updated_at,
-        isConsumed: service.is_consumed === 1
-      }));
-      
-      setServices(mappedServices);
+      // Les données sont déjà mappées par le backend, pas besoin de re-mapper
+      setServices(servicesData);
       
       // Calculer les statistiques
       const stats = {
-        total: mappedServices.length,
-        active: mappedServices.filter((s: ServiceDisplay) => s.isActive).length,
-        inactive: mappedServices.filter((s: ServiceDisplay) => !s.isActive).length,
-        renewable: mappedServices.filter((s: ServiceDisplay) => s.serviceType === 'renewable').length,
-        consumable: mappedServices.filter((s: ServiceDisplay) => s.serviceType === 'consumable').length,
-        consumed: mappedServices.filter((s: ServiceDisplay) => s.isConsumed).length
+        total: servicesData.length,
+        active: servicesData.filter((s: ServiceDisplay) => s.isActive).length,
+        inactive: servicesData.filter((s: ServiceDisplay) => !s.isActive).length,
+        renewable: servicesData.filter((s: ServiceDisplay) => s.serviceType === 'renewable').length,
+        consumable: servicesData.filter((s: ServiceDisplay) => s.serviceType === 'consumable').length,
+        consumed: servicesData.filter((s: ServiceDisplay) => s.isConsumed).length
       };
       setStatistics(stats);
       
       // Récupérer les catégories
-      const categoriesResponse = await fetch('/api/categories', {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
-      });
-      
-      if (categoriesResponse.ok) {
-        const categoriesData = await categoriesResponse.json();
-        setCategories(categoriesData);
-      }
+      console.log('🔧 [FRONTEND] About to call categoryAPI.getAll');
+      const categoriesData = await categoryAPI.getAll();
+      console.log('🔧 [FRONTEND] Catégories récupérées avec succès:', categoriesData.length);
+      setCategories(categoriesData);
       
     } catch (error: any) {
       addError(
@@ -727,41 +695,21 @@ const ServiceManagement: React.FC = () => {
         description: formData.description,
         category_id: parseInt(formData.categoryId),
         price: parseInt(formData.price),
-        duration: formData.duration || null,
+        duration: formData.duration || undefined,
         service_type: formData.serviceType,
         service_category: formData.serviceCategory,
         is_active: formData.isActive
       };
 
       if (editingService) {
-        const response = await fetch(`/api/services/${editingService.id}`, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-          },
-          body: JSON.stringify(submitData)
-        });
-
-        if (!response.ok) {
-          throw new Error('Erreur lors de la modification');
-        }
-        
+        console.log('🔧 [FRONTEND] About to call serviceAPI.update pour ID:', editingService.id);
+        await serviceAPI.update(editingService.id, submitData);
+        console.log('🔧 [FRONTEND] Service modifié avec succès');
         addError('Service modifié avec succès !', 'success');
       } else {
-        const response = await fetch('/api/services', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-          },
-          body: JSON.stringify(submitData)
-        });
-
-        if (!response.ok) {
-          throw new Error('Erreur lors de la création');
-        }
-        
+        console.log('🔧 [FRONTEND] About to call serviceAPI.create');
+        await serviceAPI.create(submitData);
+        console.log('🔧 [FRONTEND] Service créé avec succès');
         addError('Service créé avec succès !', 'success');
       }
       
@@ -776,24 +724,47 @@ const ServiceManagement: React.FC = () => {
   };
 
   const handleDelete = async (serviceId: number, serviceTitle: string) => {
-    if (window.confirm(`Êtes-vous sûr de vouloir désactiver le service "${serviceTitle}" ? Il ne sera plus visible sur la place du marché.`)) {
+    // Récupérer le service pour connaître son statut actuel
+    const service = services.find(s => s.id === serviceId);
+    const isActive = service?.isActive;
+    const action = isActive ? 'désactiver' : 'réactiver';
+    const actionPast = isActive ? 'désactivé' : 'réactivé';
+    
+    if (window.confirm(`Êtes-vous sûr de vouloir ${action} le service "${serviceTitle}" ?`)) {
       try {
-        const response = await fetch(`/api/services/${serviceId}`, {
-          method: 'DELETE',
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-          }
-        });
+        console.log('🔧 [ADMIN] Tentative de', action, 'du service ID:', serviceId);
+        console.log('🔧 [ADMIN] Service data:', service);
 
-        if (!response.ok) {
-          throw new Error('Erreur lors de la désactivation');
+        if (isActive) {
+          // Désactiver le service avec DELETE
+          console.log('🔧 [ADMIN] Appel serviceAPI.delete pour ID:', serviceId);
+          await serviceAPI.delete(serviceId);
+          console.log('🔧 [ADMIN] Service désactivé avec succès');
+        } else {
+          // Réactiver le service avec PUT
+          const putData = {
+            title: service?.title,
+            description: service?.description,
+            category_id: service?.categoryId,
+            price: service?.price,
+            duration: service?.duration || undefined,
+            service_type: service?.serviceType,
+            service_category: service?.serviceCategory,
+            is_active: true
+          };
+
+          console.log('🔧 [ADMIN] PUT data:', putData);
+          console.log('🔧 [ADMIN] Appel serviceAPI.update pour ID:', serviceId);
+          await serviceAPI.update(serviceId, putData);
+          console.log('🔧 [ADMIN] Service réactivé avec succès');
         }
         
-        addError('Service désactivé avec succès !', 'success');
+        addError(`Service ${actionPast} avec succès !`, 'success');
         fetchData();
       } catch (error: any) {
+        console.error('🔧 [ADMIN] Catch error:', error);
         addError(
-          error.message || 'Erreur lors de la désactivation',
+          error.message || `Erreur lors de l'opération`,
           'error'
         );
       }
@@ -1247,7 +1218,7 @@ const ServiceManagement: React.FC = () => {
                         cursor: 'pointer',
                         fontSize: '0.8rem'
                       }}>
-                        Désactiver
+                        {service.isActive ? 'Désactiver' : 'Réactiver'}
                       </button>
                     </div>
                   </td>

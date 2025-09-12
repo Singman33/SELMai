@@ -1,0 +1,23 @@
+{
+  "advanced_findings": [],
+  "all_rule_findings": [],
+  "discovery_findings": [],
+  "infrastructure_issues": [],
+  "paths": [],
+  "sinks_found": 0,
+  "sources_found": 34,
+  "success": true,
+  "summary": {
+    "critical_count": 0,
+    "high_count": 0,
+    "low_count": 0,
+    "medium_count": 0,
+    "recommendation": "No direct taint paths found. Continue monitoring for indirect flows.",
+    "risk_level": "low"
+  },
+  "taint_paths": [],
+  "total_flows": 0,
+  "total_vulnerabilities": 0,
+  "vulnerabilities": [],
+  "vulnerabilities_by_type": {}
+}

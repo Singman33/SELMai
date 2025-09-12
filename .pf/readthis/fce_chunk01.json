@@ -1,0 +1,2059 @@
+{
+  "all_findings": [
+    {
+      "file": "frontend\\src\\context\\AuthContext.tsx",
+      "line": 30,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Unsafe deserialization of user-controlled data",
+      "severity": "critical"
+    },
+    {
+      "file": "frontend\\src\\services\\api.ts",
+      "line": 272,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "WebSocket broadcasting potentially sensitive data",
+      "severity": "critical"
+    },
+    {
+      "file": "frontend\\src\\App.tsx",
+      "line": 11,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using weak or deprecated cryptographic algorithms",
+      "severity": "high"
+    },
+    {
+      "file": "frontend\\src\\components\\RatingList.tsx",
+      "line": 34,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using weak or deprecated cryptographic algorithms",
+      "severity": "high"
+    },
+    {
+      "file": "frontend\\src\\components\\RatingList.tsx",
+      "line": 35,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using weak or deprecated cryptographic algorithms",
+      "severity": "high"
+    },
+    {
+      "file": "frontend\\src\\components\\RatingList.tsx",
+      "line": 50,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using weak or deprecated cryptographic algorithms",
+      "severity": "high"
+    },
+    {
+      "file": "frontend\\src\\components\\RatingList.tsx",
+      "line": 73,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using weak or deprecated cryptographic algorithms",
+      "severity": "high"
+    },
+    {
+      "file": "frontend\\src\\components\\RatingList.tsx",
+      "line": 96,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using weak or deprecated cryptographic algorithms",
+      "severity": "high"
+    },
+    {
+      "file": "frontend\\src\\context\\AuthContext.tsx",
+      "line": 31,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using weak or deprecated cryptographic algorithms",
+      "severity": "high"
+    },
+    {
+      "file": "frontend\\src\\context\\AuthContext.tsx",
+      "line": 39,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Logging of Personally Identifiable Information without masking",
+      "severity": "high"
+    },
+    {
+      "file": "frontend\\src\\context\\AuthContext.tsx",
+      "line": 55,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using weak or deprecated cryptographic algorithms",
+      "severity": "high"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 42,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using weak or deprecated cryptographic algorithms",
+      "severity": "high"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 125,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using weak or deprecated cryptographic algorithms",
+      "severity": "high"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 363,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using weak or deprecated cryptographic algorithms",
+      "severity": "high"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 398,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using weak or deprecated cryptographic algorithms",
+      "severity": "high"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 514,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using weak or deprecated cryptographic algorithms",
+      "severity": "high"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 548,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using weak or deprecated cryptographic algorithms",
+      "severity": "high"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 660,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using weak or deprecated cryptographic algorithms",
+      "severity": "high"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 714,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using weak or deprecated cryptographic algorithms",
+      "severity": "high"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 855,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using weak or deprecated cryptographic algorithms",
+      "severity": "high"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 963,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Unsafe type assertion to 'any' bypasses type checking",
+      "severity": "high"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 975,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Unsafe type assertion to 'any' bypasses type checking",
+      "severity": "high"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 1122,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using weak or deprecated cryptographic algorithms",
+      "severity": "high"
+    },
+    {
+      "file": "frontend\\src\\pages\\Community.tsx",
+      "line": 134,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using weak or deprecated cryptographic algorithms",
+      "severity": "high"
+    },
+    {
+      "file": "frontend\\src\\pages\\Marketplace.tsx",
+      "line": 33,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using weak or deprecated cryptographic algorithms",
+      "severity": "high"
+    },
+    {
+      "file": "frontend\\src\\pages\\Marketplace.tsx",
+      "line": 125,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using weak or deprecated cryptographic algorithms",
+      "severity": "high"
+    },
+    {
+      "file": "frontend\\src\\pages\\Negotiations.tsx",
+      "line": 23,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using weak or deprecated cryptographic algorithms",
+      "severity": "high"
+    },
+    {
+      "file": "frontend\\src\\pages\\Negotiations.tsx",
+      "line": 148,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using weak or deprecated cryptographic algorithms",
+      "severity": "high"
+    },
+    {
+      "file": "frontend\\src\\pages\\Notifications.tsx",
+      "line": 19,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using weak or deprecated cryptographic algorithms",
+      "severity": "high"
+    },
+    {
+      "file": "frontend\\src\\pages\\Notifications.tsx",
+      "line": 166,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using weak or deprecated cryptographic algorithms",
+      "severity": "high"
+    },
+    {
+      "file": "frontend\\src\\pages\\Wallet.tsx",
+      "line": 139,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using weak or deprecated cryptographic algorithms",
+      "severity": "high"
+    },
+    {
+      "file": "frontend\\src\\pages\\Wallet.tsx",
+      "line": 162,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using weak or deprecated cryptographic algorithms",
+      "severity": "high"
+    },
+    {
+      "file": "frontend\\src\\pages\\Wallet.tsx",
+      "line": 177,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using weak or deprecated cryptographic algorithms",
+      "severity": "high"
+    },
+    {
+      "file": "frontend\\src\\services\\api.ts",
+      "line": 71,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using weak or deprecated cryptographic algorithms",
+      "severity": "high"
+    },
+    {
+      "file": "frontend\\src\\components\\ErrorDisplay.tsx",
+      "line": 4,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\components\\ErrorDisplay.tsx",
+      "line": 4,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\components\\Layout.tsx",
+      "line": 6,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\components\\Layout.tsx",
+      "line": 6,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\components\\Layout.tsx",
+      "line": 6,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'ReactNode' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\components\\Layout.tsx",
+      "line": 6,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'ReactNode' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\components\\Layout.tsx",
+      "line": 95,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\components\\Layout.tsx",
+      "line": 95,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\components\\ProtectedRoute.tsx",
+      "line": 10,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\components\\ProtectedRoute.tsx",
+      "line": 10,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\components\\ProtectedRoute.tsx",
+      "line": 10,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'ProtectedRouteProps' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\components\\RatingList.tsx",
+      "line": 13,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\components\\RatingList.tsx",
+      "line": 13,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\components\\RatingList.tsx",
+      "line": 13,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'RatingListProps' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\components\\RatingList.tsx",
+      "line": 19,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'Rating' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\components\\RatingList.tsx",
+      "line": 33,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Explicit 'any' type annotation detected",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\components\\StarRating.tsx",
+      "line": 11,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\components\\StarRating.tsx",
+      "line": 11,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\components\\StarRating.tsx",
+      "line": 11,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'StarRatingProps' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\components\\TransactionRating.tsx",
+      "line": 15,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\components\\TransactionRating.tsx",
+      "line": 15,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\components\\TransactionRating.tsx",
+      "line": 15,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'TransactionRatingProps' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\components\\TransactionRating.tsx",
+      "line": 28,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FormEvent' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\components\\TransactionRating.tsx",
+      "line": 28,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FormEvent' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\components\\TransactionRating.tsx",
+      "line": 42,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Explicit 'any' type annotation detected",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\components\\TransactionRating.tsx",
+      "line": 60,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Explicit 'any' type annotation detected",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\context\\AuthContext.tsx",
+      "line": 5,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'AuthContextType' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\context\\AuthContext.tsx",
+      "line": 19,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\context\\AuthContext.tsx",
+      "line": 19,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\context\\AuthContext.tsx",
+      "line": 19,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'AuthProviderProps' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\context\\AuthContext.tsx",
+      "line": 19,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\context\\AuthContext.tsx",
+      "line": 20,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'User' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\context\\AuthContext.tsx",
+      "line": 51,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\context\\AuthContext.tsx",
+      "line": 65,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Explicit 'any' type annotation detected",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\context\\AuthContext.tsx",
+      "line": 76,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'Partial' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\context\\AuthContext.tsx",
+      "line": 76,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'User' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\context\\AuthContext.tsx",
+      "line": 104,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'AuthContextType' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\context\\ErrorContext.tsx",
+      "line": 18,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'ErrorContextType' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\context\\ErrorContext.tsx",
+      "line": 32,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\context\\ErrorContext.tsx",
+      "line": 32,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\context\\ErrorContext.tsx",
+      "line": 32,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'ErrorProviderProps' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\context\\ErrorContext.tsx",
+      "line": 33,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'ErrorMessage' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\context\\ErrorContext.tsx",
+      "line": 37,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'ErrorMessage' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\context\\ErrorContext.tsx",
+      "line": 41,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using naive datetime without timezone awareness",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\context\\ErrorContext.tsx",
+      "line": 63,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'ErrorContextType' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 15,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 15,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 17,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'UserDisplay' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 20,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'UserDisplay' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 40,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Explicit 'any' type annotation detected",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 51,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FormEvent' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 51,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FormEvent' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 65,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Explicit 'any' type annotation detected",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 80,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Explicit 'any' type annotation detected",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 90,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'UserDisplay' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 90,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 152,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 163,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 174,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 185,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 192,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 219,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 233,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 242,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 288,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 291,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 292,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 294,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 295,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 297,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 304,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 321,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 345,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 345,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 348,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'UserDisplay' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 361,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Explicit 'any' type annotation detected",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 370,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FormEvent' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 370,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FormEvent' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 370,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Sleep/delay in loop - potential performance issue or race condition",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 386,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Explicit 'any' type annotation detected",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 420,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 421,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 422,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 422,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 474,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 482,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 483,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 487,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 497,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 497,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 499,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'UserDisplay' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 508,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 512,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Explicit 'any' type annotation detected",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 521,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FormEvent' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 521,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FormEvent' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 521,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Sleep/delay in loop - potential performance issue or race condition",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 537,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Explicit 'any' type annotation detected",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 568,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 569,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 570,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 614,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 614,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 616,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'ServiceDisplay' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 617,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'Category' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 620,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'ServiceDisplay' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 666,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Explicit 'any' type annotation detected",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 692,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'ServiceDisplay' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 693,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'ServiceDisplay' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 694,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'ServiceDisplay' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 695,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'ServiceDisplay' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 696,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'ServiceDisplay' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 712,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Explicit 'any' type annotation detected",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 722,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FormEvent' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 722,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FormEvent' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 722,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 770,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Explicit 'any' type annotation detected",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 794,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Explicit 'any' type annotation detected",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 803,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'ServiceDisplay' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 963,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Explicit 'any' type annotation detected",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 975,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Explicit 'any' type annotation detected",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 1000,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 1010,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 1027,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 1041,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 1053,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 1062,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 1074,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 1087,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 1270,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Admin.tsx",
+      "line": 1270,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Community.tsx",
+      "line": 13,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Community.tsx",
+      "line": 13,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Community.tsx",
+      "line": 14,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'UserDisplay' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Community.tsx",
+      "line": 267,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using naive datetime without timezone awareness",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Login.tsx",
+      "line": 5,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Login.tsx",
+      "line": 5,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Login.tsx",
+      "line": 18,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FormEvent' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Login.tsx",
+      "line": 18,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FormEvent' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Login.tsx",
+      "line": 18,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Sleep/delay in loop - potential performance issue or race condition",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Login.tsx",
+      "line": 25,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Explicit 'any' type annotation detected",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Login.tsx",
+      "line": 32,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'ChangeEvent' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Login.tsx",
+      "line": 32,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'ChangeEvent' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Marketplace.tsx",
+      "line": 7,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Marketplace.tsx",
+      "line": 7,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Marketplace.tsx",
+      "line": 9,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'ServiceDisplay' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Marketplace.tsx",
+      "line": 10,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'Category' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Marketplace.tsx",
+      "line": 14,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'ServiceDisplay' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Marketplace.tsx",
+      "line": 51,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'ServiceDisplay' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Marketplace.tsx",
+      "line": 72,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Explicit 'any' type annotation detected",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\MyServices.tsx",
+      "line": 5,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\MyServices.tsx",
+      "line": 5,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\MyServices.tsx",
+      "line": 6,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'ServiceDisplay' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\MyServices.tsx",
+      "line": 7,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'Category' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\MyServices.tsx",
+      "line": 10,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'ServiceDisplay' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\MyServices.tsx",
+      "line": 40,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FormEvent' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\MyServices.tsx",
+      "line": 40,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FormEvent' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\MyServices.tsx",
+      "line": 40,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\MyServices.tsx",
+      "line": 64,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Explicit 'any' type annotation detected",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\MyServices.tsx",
+      "line": 69,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'ServiceDisplay' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\MyServices.tsx",
+      "line": 89,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Explicit 'any' type annotation detected",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\MyServices.tsx",
+      "line": 151,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\MyServices.tsx",
+      "line": 169,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\MyServices.tsx",
+      "line": 196,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\MyServices.tsx",
+      "line": 214,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\MyServices.tsx",
+      "line": 239,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\MyServices.tsx",
+      "line": 265,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\MyServices.tsx",
+      "line": 283,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Negotiations.tsx",
+      "line": 7,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Negotiations.tsx",
+      "line": 7,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Negotiations.tsx",
+      "line": 9,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'Negotiation' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Negotiations.tsx",
+      "line": 12,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'Negotiation' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Negotiations.tsx",
+      "line": 34,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Explicit 'any' type annotation detected",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Negotiations.tsx",
+      "line": 39,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'Negotiation' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Negotiations.tsx",
+      "line": 206,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using naive datetime without timezone awareness",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Notifications.tsx",
+      "line": 5,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Notifications.tsx",
+      "line": 5,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Notifications.tsx",
+      "line": 83,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using naive datetime without timezone awareness",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Notifications.tsx",
+      "line": 84,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using naive datetime without timezone awareness",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Notifications.tsx",
+      "line": 228,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using naive datetime without timezone awareness",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\UserProfile.tsx",
+      "line": 9,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\UserProfile.tsx",
+      "line": 9,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\UserProfile.tsx",
+      "line": 12,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'User' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\UserProfile.tsx",
+      "line": 37,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Explicit 'any' type annotation detected",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\UserProfile.tsx",
+      "line": 77,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\UserProfile.tsx",
+      "line": 77,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\UserProfile.tsx",
+      "line": 80,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\UserProfile.tsx",
+      "line": 82,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\UserProfile.tsx",
+      "line": 85,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\UserProfile.tsx",
+      "line": 102,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\UserProfile.tsx",
+      "line": 105,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\UserProfile.tsx",
+      "line": 118,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Wallet.tsx",
+      "line": 7,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Wallet.tsx",
+      "line": 7,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'FC' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Wallet.tsx",
+      "line": 9,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'Transaction' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Wallet.tsx",
+      "line": 31,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using naive datetime without timezone awareness",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Wallet.tsx",
+      "line": 40,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'Transaction' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Wallet.tsx",
+      "line": 49,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'Transaction' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\pages\\Wallet.tsx",
+      "line": 220,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Using naive datetime without timezone awareness",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\services\\api.ts",
+      "line": 23,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Explicit 'any' type annotation detected",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\services\\api.ts",
+      "line": 30,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\services\\api.ts",
+      "line": 36,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "User input rendered without escaping - potential XSS",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\services\\api.ts",
+      "line": 100,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'User' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\services\\api.ts",
+      "line": 105,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'User' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\services\\api.ts",
+      "line": 111,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'User' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\services\\api.ts",
+      "line": 116,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'Partial' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\services\\api.ts",
+      "line": 116,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'User' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\services\\api.ts",
+      "line": 121,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'Partial' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\services\\api.ts",
+      "line": 121,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'User' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\services\\api.ts",
+      "line": 142,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'Service' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\services\\api.ts",
+      "line": 147,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'Service' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\services\\api.ts",
+      "line": 152,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'Partial' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\services\\api.ts",
+      "line": 152,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'Service' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\services\\api.ts",
+      "line": 157,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'Partial' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\services\\api.ts",
+      "line": 157,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'Service' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\services\\api.ts",
+      "line": 168,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'Service' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\services\\api.ts",
+      "line": 176,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'Category' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\services\\api.ts",
+      "line": 184,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'Negotiation' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\services\\api.ts",
+      "line": 225,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'Negotiation' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\services\\api.ts",
+      "line": 238,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'Transaction' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\services\\api.ts",
+      "line": 302,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'Rating' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\services\\api.ts",
+      "line": 307,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'Rating' has explicit 'any' type",
+      "severity": "medium"
+    },
+    {
+      "file": "frontend\\src\\services\\api.ts",
+      "line": 312,
+      "rule": "unknown",
+      "tool": "patterns",
+      "message": "Symbol 'Rating' has explicit 'any' type",
+      "severity": "medium"
+    }
+  ],
+  "chunk_info": {
+    "chunk_number": 1,
+    "total_items_in_chunk": 256,
+    "original_total_items": 256,
+    "list_key": "all_findings",
+    "truncated": false
+  }
+}

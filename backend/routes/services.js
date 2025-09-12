@@ -196,6 +196,7 @@ router.delete('/:id', authenticateToken, async (req, res) => {
 // Admin: Obtenir tous les services
 router.get('/admin/all', authenticateToken, requireAdmin, async (req, res) => {
   try {
+    console.log('🔧 [ADMIN] Requête pour récupérer tous les services');
     const [services] = await db.execute(`
       SELECT s.*, u.username, u.first_name, u.last_name, u.rating, c.name as category_name,
              CASE 
@@ -232,9 +233,10 @@ router.get('/admin/all', authenticateToken, requireAdmin, async (req, res) => {
       updatedAt: service.updated_at
     }));
 
+    console.log('🔧 [ADMIN] Services récupérés:', mappedServices.length, 'services');
     res.json(mappedServices);
   } catch (error) {
-    console.error('Erreur lors de la récupération des services (admin):', error);
+    console.error('❌ [ADMIN] Erreur lors de la récupération des services:', error);
     res.status(500).json({ message: 'Erreur interne du serveur' });
   }
 });

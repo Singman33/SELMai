@@ -1,0 +1,280 @@
+[
+  {
+    "files": [],
+    "manager": "npm",
+    "name": "eslint",
+    "source": "package.json",
+    "version": "9.35.0",
+    "workspace_package": "package.json"
+  },
+  {
+    "files": [],
+    "manager": "npm",
+    "name": "@typescript-eslint/parser",
+    "source": "package.json",
+    "version": "8.42.0",
+    "workspace_package": "package.json"
+  },
+  {
+    "files": [],
+    "manager": "npm",
+    "name": "@typescript-eslint/eslint-plugin",
+    "source": "package.json",
+    "version": "8.42.0",
+    "workspace_package": "package.json"
+  },
+  {
+    "files": [],
+    "manager": "npm",
+    "name": "typescript",
+    "source": "package.json",
+    "version": "5.9.2",
+    "workspace_package": "package.json"
+  },
+  {
+    "files": [],
+    "manager": "npm",
+    "name": "prettier",
+    "source": "package.json",
+    "version": "3.6.2",
+    "workspace_package": "package.json"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "click",
+    "source": "pyproject.toml",
+    "version": "8.2.1"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "PyYAML",
+    "source": "pyproject.toml",
+    "version": "6.0.2"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "jsonschema",
+    "source": "pyproject.toml",
+    "version": "4.25.1"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "ijson",
+    "source": "pyproject.toml",
+    "version": "3.4.0"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "pytest",
+    "source": "pyproject.toml",
+    "version": "8.4.2"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "ruff",
+    "source": "pyproject.toml",
+    "version": "0.12.12"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "black",
+    "source": "pyproject.toml",
+    "version": "25.1.0"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "ruff",
+    "source": "pyproject.toml",
+    "version": "0.12.12"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "mypy",
+    "source": "pyproject.toml",
+    "version": "1.17.1"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "black",
+    "source": "pyproject.toml",
+    "version": "25.1.0"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "bandit",
+    "source": "pyproject.toml",
+    "version": "1.8.6"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "pylint",
+    "source": "pyproject.toml",
+    "version": "3.3.8"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "scikit-learn",
+    "source": "pyproject.toml",
+    "version": "1.7.1"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "numpy",
+    "source": "pyproject.toml",
+    "version": "2.3.2"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "scipy",
+    "source": "pyproject.toml",
+    "version": "1.16.1"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "joblib",
+    "source": "pyproject.toml",
+    "version": "1.5.2"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "tree-sitter",
+    "source": "pyproject.toml",
+    "version": "0.25.1"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "tree-sitter-language-pack",
+    "source": "pyproject.toml",
+    "version": "0.9.0"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "sqlparse",
+    "source": "pyproject.toml",
+    "version": "0.5.3"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "dockerfile-parse",
+    "source": "pyproject.toml",
+    "version": "2.0.1"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "pytest",
+    "source": "pyproject.toml",
+    "version": "8.4.2"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "ruff",
+    "source": "pyproject.toml",
+    "version": "0.12.12"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "mypy",
+    "source": "pyproject.toml",
+    "version": "1.17.1"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "black",
+    "source": "pyproject.toml",
+    "version": "25.1.0"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "bandit",
+    "source": "pyproject.toml",
+    "version": "1.8.6"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "pylint",
+    "source": "pyproject.toml",
+    "version": "3.3.8"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "scikit-learn",
+    "source": "pyproject.toml",
+    "version": "1.7.1"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "numpy",
+    "source": "pyproject.toml",
+    "version": "2.3.2"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "scipy",
+    "source": "pyproject.toml",
+    "version": "1.16.1"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "joblib",
+    "source": "pyproject.toml",
+    "version": "1.5.2"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "tree-sitter",
+    "source": "pyproject.toml",
+    "version": "0.25.1"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "tree-sitter-language-pack",
+    "source": "pyproject.toml",
+    "version": "0.9.0"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "sqlparse",
+    "source": "pyproject.toml",
+    "version": "0.5.3"
+  },
+  {
+    "files": [],
+    "manager": "py",
+    "name": "dockerfile-parse",
+    "source": "pyproject.toml",
+    "version": "2.0.1"
+  }
+]

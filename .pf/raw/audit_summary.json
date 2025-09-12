@@ -1,0 +1,66 @@
+{
+  "generated_at": "2025-09-10 20:27:13",
+  "overall_status": "CRITICAL",
+  "total_runtime_seconds": 0,
+  "total_findings_by_severity": {
+    "critical": 2,
+    "high": 32,
+    "medium": 222,
+    "low": 0,
+    "info": 0
+  },
+  "metrics_by_phase": {
+    "detect_frameworks": {
+      "frameworks_detected": 2,
+      "languages": [
+        "javascript"
+      ]
+    },
+    "dependencies": {
+      "total_dependencies": 27,
+      "outdated_packages": 0,
+      "vulnerabilities": 0
+    },
+    "patterns": {
+      "total_patterns_matched": 256,
+      "by_severity": {
+        "critical": 2,
+        "high": 32,
+        "medium": 222,
+        "low": 0,
+        "info": 0
+      }
+    },
+    "graph": {
+      "import_nodes": 21,
+      "import_edges": 136,
+      "cycles_detected": 0,
+      "hotspots_identified": 21,
+      "graph_density": 0.3238095238095238,
+      "health_grade": "A",
+      "fragility_score": 70
+    },
+    "taint_analysis": {
+      "taint_paths_found": 0,
+      "total_vulnerabilities": 0,
+      "by_severity": {
+        "critical": 0,
+        "high": 0,
+        "medium": 0,
+        "low": 0
+      }
+    },
+    "fce": {
+      "total_findings": 256,
+      "test_failures": 0,
+      "hotspots_correlated": 0,
+      "factual_clusters": 0
+    }
+  },
+  "key_statistics": {
+    "total_findings": 256,
+    "phases_with_findings": 6,
+    "total_phases_run": 6
+  },
+  "summary_generation_time": 0.0026159286499023438
+}

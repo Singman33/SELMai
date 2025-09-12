@@ -7,6 +7,7 @@ services:
       MYSQL_DATABASE: selmai
       MYSQL_USER: selmai_user
       MYSQL_PASSWORD: selmai_password
+      TZ: Europe/Paris
     ports:
       - "3306:3306"
     volumes:
@@ -29,6 +30,7 @@ services:
       DB_USER: selmai_user
       DB_PASSWORD: selmai_password
       JWT_SECRET: your-secret-key-here
+      TZ: Europe/Paris
     networks:
       - selmai-network
 
@@ -37,21 +39,11 @@ services:
       - backend
     build: ./frontend
     restart: always
-    environment:
-      REACT_APP_API_URL: https://selmai.fr/appli/api
-    networks:
-      - selmai-network
-
-  nginx:
-    depends_on:
-      - frontend
-      - backend
-    image: nginx:alpine
-    restart: always
     ports:
-      - "8080:80"
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - "3000:3000"
+    environment:
+      REACT_APP_API_URL: http://localhost:3001
+      TZ: Europe/Paris
     networks:
       - selmai-network
 

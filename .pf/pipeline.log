@@ -1,0 +1,256 @@
+TheAuditor Full Pipeline Execution Log
+Started: 2025-09-10 20:24:40
+Working Directory: F:\SELMAI\Application\SELMai
+================================================================================
+
+============================================================
+[STAGE 1] FOUNDATION - Sequential Execution
+============================================================
+
+[Phase 1/18] 1. Index repository
+[OK] 1. Index repository completed in 31.2s
+  [Full output below, truncated in terminal]
+  [Indexer] Monorepo detected. Using whitelist for 1 src directories
+  [Indexer] Created database: ./.pf/repo_index.db
+  Warning: Tree-sitter not available. Install with: pip install tree-sitter tree-sitter-python tree-sitter-javascript tree-sitter-typescript
+  [Indexer] Monorepo detected. Using whitelist for 1 src directories
+  [Indexer] Processing 24 files...
+  [Indexer] Batch processing 21 JavaScript/TypeScript files...
+  [DEBUG] Found 0 cached tsconfig files
+  [DEBUG] Loaded configs for: []
+  [DEBUG] Created singleton ModuleResolver instance
+  [Indexer] Successfully batch processed 21 JS/TS files
+  [Indexer] Indexed 24 files, 4413 symbols, 221 imports, 0 routes
+  [Indexer] Database updated: ./.pf/repo_index.db
+
+[Phase 2/18] 2. Detect frameworks
+[OK] 2. Detect frameworks completed in 7.4s
+  [Full output below, truncated in terminal]
+  Frameworks written to F:\SELMAI\Application\SELMai\.pf\raw\frameworks.json
+  FRAMEWORK          LANGUAGE      PATH            VERSION          SOURCE
+  --------------------------------------------------------------------------------
+  express            javascript   backend         ^4.18.2         backend/package.json
+  react              javascript   frontend        ^18.2.0         frontend/package.json
+  
+  Detected 2 framework(s)
+
+============================================================
+[STAGE 2] CONCURRENT ANALYSIS - Parallel Execution
+============================================================
+Launching 3 parallel tracks:
+  Track A: Network I/O (deps, docs)
+  Track B: Code Analysis (workset, lint, patterns)
+  Track C: Graph & Taint Analysis
+
+[SYNC] Waiting for parallel tracks to complete...
+[OK] Track C (Graph & Taint) completed in 2.8s
+[OK] Track A (Network I/O) completed in 23.4s
+[OK] Track B (Code Analysis) completed in 112.1s
+
+============================================================
+[STAGE 2 RESULTS] Parallel Track Outputs
+============================================================
+
+============================================================
+[Track C (Graph & Taint)] 9. Build graph
+============================================================
+[OK] 9. Build graph completed in 0.5s
+  [DEBUG] Found 1 cached tsconfig files
+  [DEBUG] frontend/tsconfig.json: baseUrl='.', 0 path mappings
+  [DEBUG] Loaded configs for: ['frontend']
+  Warning: Tree-sitter not available. Install with: pip install tree-sitter tree-sitter-python tree-sitter-javascript tree-sitter-typescript
+  Loading file manifest...
+  ... (11 more lines)
+  [Full output available in pipeline.log]
+
+============================================================
+[Track C (Graph & Taint)] 10. Analyze graph
+============================================================
+[OK] 10. Analyze graph completed in 0.3s
+  Detecting cycles...
+    Found 0 cycles
+  Ranking hotspots...
+    Top 10 hotspots:
+      1. frontend/src/pages/Admin.tsx (score: 20.49759238565116)
+  ... (18 more lines)
+  [Full output available in pipeline.log]
+
+============================================================
+[Track C (Graph & Taint)] 11. Visualize graph (full)
+============================================================
+[OK] 11. Visualize graph (full) completed in 0.3s
+  Loaded analysis: 0 cycles, 21 hotspots
+  Generating DOT visualization (view: full)...
+    Nodes: 21 (limit: 500)
+    Edges: 136
+  [OK] DOT file saved to: .pf\raw\import_graph.dot
+  ... (6 more lines)
+  [Full output available in pipeline.log]
+
+============================================================
+[Track C (Graph & Taint)] 12. Visualize graph (cycles)
+============================================================
+[OK] 12. Visualize graph (cycles) completed in 0.3s
+  Loaded analysis: 0 cycles, 21 hotspots
+  Generating DOT visualization (view: cycles)...
+  [INFO] No dependency cycles detected in the codebase (good architecture!).
+         Showing full graph instead...
+  [OK] DOT file saved to: .pf\raw\import_graph_cycles.dot
+  ... (5 more lines)
+  [Full output available in pipeline.log]
+
+============================================================
+[Track C (Graph & Taint)] 13. Visualize graph (hotspots)
+============================================================
+[OK] 13. Visualize graph (hotspots) completed in 0.3s
+  Loaded analysis: 0 cycles, 21 hotspots
+  Generating DOT visualization (view: hotspots)...
+    Showing top 10 hotspots
+  [OK] DOT file saved to: .pf\raw\import_graph_hotspots.dot
+  
+  ... (5 more lines)
+  [Full output available in pipeline.log]
+
+============================================================
+[Track C (Graph & Taint)] 14. Visualize graph (layers)
+============================================================
+[OK] 14. Visualize graph (layers) completed in 0.3s
+  Loaded analysis: 0 cycles, 21 hotspots
+  Generating DOT visualization (view: layers)...
+    Found 6 architectural layers
+      Layer 0: 1 nodes
+      Layer 1: 4 nodes
+  ... (11 more lines)
+  [Full output available in pipeline.log]
+
+============================================================
+[Track C (Graph & Taint)] 15. Taint analysis
+============================================================
+[OK] 15. Taint analysis completed in 0.7s
+  Initializing security analysis infrastructure...
+  Running infrastructure and configuration analysis...
+    Found 0 infrastructure issues
+  Discovering framework-specific patterns...
+    Registry now has 86 sinks, 108 sources
+  ... (38 more lines)
+  [Full output available in pipeline.log]
+
+============================================================
+[Track A (Network I/O)] 3. Check dependencies
+============================================================
+[OK] 3. Check dependencies completed in 11.0s
+  Checking 27 dependencies for updates...
+    Unique packages to check: 25
+    Connecting to: npm registry and PyPI
+    [OK] Checked 25/25 unique packages
+  Dependencies written to ./.pf/raw/deps.json
+  ... (11 more lines)
+  [Full output available in pipeline.log]
+
+============================================================
+[Track A (Network I/O)] 4. Fetch documentation
+============================================================
+[OK] 4. Fetch documentation completed in 11.4s
+  Documentation fetch complete:
+    Fetched: 21
+    Cached: 0
+    Skipped: 6
+
+============================================================
+[Track A (Network I/O)] 5. Summarize documentation
+============================================================
+[OK] 5. Summarize documentation completed in 1.0s
+  Documentation capsules created:
+    Capsules: 21
+    Skipped: 0
+    Index: .pf\context\doc_index.json
+
+============================================================
+[Track B (Code Analysis)] 6. Create workset (all files)
+============================================================
+[OK] 6. Create workset (all files) completed in 0.3s
+  Workset written to ./.pf/workset.json
+    Seed files: 24
+    Expanded files: 24
+
+============================================================
+[Track B (Code Analysis)] 7. Run linting
+============================================================
+[OK] 7. Run linting completed in 0.4s
+  [WARNING] No external linters found!
+  [ERROR] Environment is not properly configured - industry tools are required
+    Install at least one linter:
+      JavaScript/TypeScript: npm install --save-dev eslint
+      Python: pip install ruff
+  ... (8 more lines)
+  [Full output available in pipeline.log]
+
+============================================================
+[Track B (Code Analysis)] 8. Detect patterns
+============================================================
+[OK] 8. Detect patterns completed in 111.4s
+  Warning: Tree-sitter not available. Install with: pip install tree-sitter tree-sitter-python tree-sitter-javascript tree-sitter-typescript
+  Detected frameworks: express, react
+  Querying indexed files from database...
+  Found 24 files to scan...
+  [DEBUG] Found 1 cached tsconfig files
+  ... (91 more lines)
+  [Full output available in pipeline.log]
+
+============================================================
+[STAGE 4] FINAL AGGREGATION - Sequential Execution
+============================================================
+
+[Phase 16/18] 16. Factual correlation engine
+[OK] 16. Factual correlation engine completed in 1.7s
+  [Full output below, truncated in terminal]
+  [FCE] Sorted 256 findings
+  [FCE] First: critical from patterns
+  [FCE] Last: medium from patterns
+  Found 256 failures
+  FCE report written to: .pf\raw\fce.json
+
+============================================================
+[EXTRACTION] Creating AI-consumable chunks from raw data
+============================================================
+[OK] Chunk extraction completed in 0.0s
+[INFO] AI-readable chunks available in .pf/readthis/
+
+[Phase 17/18] 17. Generate report
+[OK] 17. Generate report completed in 0.2s
+
+[Phase 18/18] 18. Generate audit summary
+[OK] 18. Generate audit summary completed in 0.3s
+  [Full output below, truncated in terminal]
+  [OK] Audit summary generated in 0.0s
+    Overall status: CRITICAL
+    Total findings: 256
+    Critical: 2, High: 32, Medium: 222, Low: 0
+    Summary saved to: .pf\raw\audit_summary.json
+
+============================================================
+[OK] AUDIT COMPLETE - All 18 phases successful
+[TIME] Total time: 153.0s (2.5 minutes)
+
+============================================================
+[FILES] ALL CREATED FILES
+============================================================
+
+[STATS] Summary:
+  Total files created: 178
+  .pf/ files: 178
+  .pf/readthis/ files: 16
+  Root files: 0
+
+[SAVED] Complete file list saved to: .pf/allfiles.md
+
+[TIP] Key artifacts:
+  * .pf/readthis/ - All AI-consumable chunks
+  * .pf/allfiles.md - Complete file list
+  * .pf/pipeline.log - Full execution log
+  * .pf/findings.json - Pattern detection results
+  * .pf/risk_scores.json - Risk analysis
+
+============================================================
+[COMPLETE] AUDIT SUITE EXECUTION COMPLETE
+============================================================

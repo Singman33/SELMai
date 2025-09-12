@@ -1,0 +1,212 @@
+[
+  {
+    "files": [],
+    "manager": "npm",
+    "name": "bcryptjs",
+    "source": "package.json",
+    "version": "2.4.3",
+    "workspace_package": "backend/package.json"
+  },
+  {
+    "files": [],
+    "manager": "npm",
+    "name": "cors",
+    "source": "package.json",
+    "version": "2.8.5",
+    "workspace_package": "backend/package.json"
+  },
+  {
+    "files": [],
+    "manager": "npm",
+    "name": "dotenv",
+    "source": "package.json",
+    "version": "16.3.1",
+    "workspace_package": "backend/package.json"
+  },
+  {
+    "files": [],
+    "manager": "npm",
+    "name": "express",
+    "source": "package.json",
+    "version": "4.18.2",
+    "workspace_package": "backend/package.json"
+  },
+  {
+    "files": [],
+    "manager": "npm",
+    "name": "express-rate-limit",
+    "source": "package.json",
+    "version": "6.10.0",
+    "workspace_package": "backend/package.json"
+  },
+  {
+    "files": [],
+    "manager": "npm",
+    "name": "helmet",
+    "source": "package.json",
+    "version": "7.0.0",
+    "workspace_package": "backend/package.json"
+  },
+  {
+    "files": [],
+    "manager": "npm",
+    "name": "jsonwebtoken",
+    "source": "package.json",
+    "version": "9.0.2",
+    "workspace_package": "backend/package.json"
+  },
+  {
+    "files": [],
+    "manager": "npm",
+    "name": "multer",
+    "source": "package.json",
+    "version": "1.4.5-lts.1",
+    "workspace_package": "backend/package.json"
+  },
+  {
+    "files": [],
+    "manager": "npm",
+    "name": "mysql2",
+    "source": "package.json",
+    "version": "3.6.0",
+    "workspace_package": "backend/package.json"
+  },
+  {
+    "files": [],
+    "manager": "npm",
+    "name": "nodemailer",
+    "source": "package.json",
+    "version": "7.0.5",
+    "workspace_package": "backend/package.json"
+  },
+  {
+    "files": [],
+    "manager": "npm",
+    "name": "jest",
+    "source": "package.json",
+    "version": "29.6.4",
+    "workspace_package": "backend/package.json"
+  },
+  {
+    "files": [],
+    "manager": "npm",
+    "name": "nodemon",
+    "source": "package.json",
+    "version": "3.0.1",
+    "workspace_package": "backend/package.json"
+  },
+  {
+    "files": [],
+    "manager": "npm",
+    "name": "react",
+    "source": "package.json",
+    "version": "18.2.0",
+    "workspace_package": "frontend/package.json"
+  },
+  {
+    "files": [],
+    "manager": "npm",
+    "name": "react-dom",
+    "source": "package.json",
+    "version": "18.2.0",
+    "workspace_package": "frontend/package.json"
+  },
+  {
+    "files": [],
+    "manager": "npm",
+    "name": "react-scripts",
+    "source": "package.json",
+    "version": "5.0.1",
+    "workspace_package": "frontend/package.json"
+  },
+  {
+    "files": [],
+    "manager": "npm",
+    "name": "react-router-dom",
+    "source": "package.json",
+    "version": "6.15.0",
+    "workspace_package": "frontend/package.json"
+  },
+  {
+    "files": [],
+    "manager": "npm",
+    "name": "axios",
+    "source": "package.json",
+    "version": "1.5.0",
+    "workspace_package": "frontend/package.json"
+  },
+  {
+    "files": [],
+    "manager": "npm",
+    "name": "@types/react",
+    "source": "package.json",
+    "version": "18.2.21",
+    "workspace_package": "frontend/package.json"
+  },
+  {
+    "files": [],
+    "manager": "npm",
+    "name": "@types/react-dom",
+    "source": "package.json",
+    "version": "18.2.7",
+    "workspace_package": "frontend/package.json"
+  },
+  {
+    "files": [],
+    "manager": "npm",
+    "name": "@types/node",
+    "source": "package.json",
+    "version": "20.5.7",
+    "workspace_package": "frontend/package.json"
+  },
+  {
+    "files": [],
+    "manager": "npm",
+    "name": "typescript",
+    "source": "package.json",
+    "version": "5.2.2",
+    "workspace_package": "frontend/package.json"
+  },
+  {
+    "files": [],
+    "manager": "docker",
+    "name": "mariadb",
+    "source": "docker-compose.yml",
+    "version": "10.9"
+  },
+  {
+    "files": [],
+    "manager": "docker",
+    "name": "nginx",
+    "source": "docker-compose.yml",
+    "version": "alpine"
+  },
+  {
+    "files": [],
+    "manager": "docker",
+    "name": "node",
+    "source": "backend\\Dockerfile",
+    "version": "18-alpine"
+  },
+  {
+    "files": [],
+    "manager": "docker",
+    "name": "node",
+    "source": "frontend\\Dockerfile",
+    "version": "18-alpine"
+  },
+  {
+    "files": [],
+    "manager": "docker",
+    "name": "node",
+    "source": "frontend\\node_modules\\jsonpath\\Dockerfile",
+    "version": "0.11-onbuild"
+  },
+  {
+    "files": [],
+    "manager": "docker",
+    "name": "selenium/node-chrome",
+    "source": "frontend\\node_modules\\@surma\\rollup-plugin-off-main-thread\\Dockerfile",
+    "version": "latest"
+  }
+]

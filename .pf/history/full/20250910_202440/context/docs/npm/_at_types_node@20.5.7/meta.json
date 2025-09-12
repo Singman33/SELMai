@@ -1,0 +1,11 @@
+{
+  "source_url": "https://registry.npmjs.org/%40types%2Fnode/20.5.7",
+  "last_checked": "2025-09-10T20:23:51.947289",
+  "etag": null,
+  "repository": {
+    "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+    "type": "git",
+    "directory": "types/node"
+  },
+  "from_github": true
+}
