@@ -59,10 +59,28 @@ Thumbs.db
 *.tmp
 *.temp
 
-# MariaDB data (if running locally)
+# Database data directories
 /mysql-data/
+/mariadb-data/
+/postgres-data/
 
 # Backup files
 *.backup
 *.bak
-backend/test-reports/daily-report-2025-08-29.html
+*.sql
+*.sql.gz
+*.sql.gz.gpg
+backups/
+
+# Production files (contain secrets)
+.env.production
+.env
+
+# SSL certificates
+*.pem
+*.key
+*.crt
+*.csr
+
+# Logs
+*.log

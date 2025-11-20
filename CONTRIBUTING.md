@@ -121,7 +121,7 @@ router.get('/users/:id', (req, res) => {
 
 2. **Tests d'intégration** : Testez avec Docker
    ```bash
-   docker-compose up -d
+   docker compose up -d
    # Testez manuellement les fonctionnalités
    ```
 

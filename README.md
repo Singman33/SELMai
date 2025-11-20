@@ -35,7 +35,7 @@ SELMai est une application web de gestion d'un système d'échange local (SEL) p
 
 2. **Lancez l'application**
    ```bash
-   docker-compose up -d
+   docker compose up -d
    ```
 
 3. **Accédez à l'application**
@@ -55,7 +55,7 @@ SELMai/
 ├── frontend/          # Application React TypeScript
 ├── backend/           # API Node.js Express
 ├── database/          # Scripts SQL MariaDB
-└── docker-compose.yml # Configuration des conteneurs
+└── docker compose.yml # Configuration des conteneurs
 ```
 
 ### Technologies utilisées
@@ -96,7 +96,7 @@ SELMai/
 
 ### Variables d'environnement
 
-Le backend utilise les variables suivantes (configurées dans docker-compose.yml) :
+Le backend utilise les variables suivantes (configurées dans docker compose.yml) :
 
 ```bash
 DB_HOST=database
@@ -213,7 +213,7 @@ L'application inclut :
 
 2. **Build et déploiement**
    ```bash
-   docker-compose -f docker-compose.prod.yml up -d
+   docker compose -f docker compose.prod.yml up -d
    ```
 
 ### Recommandations production
