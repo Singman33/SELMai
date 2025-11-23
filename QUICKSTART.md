@@ -60,7 +60,7 @@ Suivez les instructions dans [DEPLOYMENT.md](DEPLOYMENT.md) section "Configurati
 - `docker-compose.prod.yml` - Configuration Docker Compose production
 - `frontend/Dockerfile.prod` - Build optimisé du frontend
 - `backend/Dockerfile.prod` - Build optimisé du backend
-- `nginx/nginx.conf` - Reverse proxy avec SSL/TLS
+- `apache/selmai-le-ssl.conf` - Configuration Apache avec reverse proxy et SSL
 - `.env.example` - Template des variables d'environnement
 
 ---

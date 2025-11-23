@@ -5,16 +5,22 @@
 
 set -e  # Exit on error
 
-echo "🚀 Starting SELMai deployment..."
-
 # Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
+echo -e "${GREEN}🚀 Starting SELMai deployment...${NC}"
+
+# Ensure we are in the project root
+# This allows the script to be run from anywhere
+cd "$(dirname "$0")/.."
+PROJECT_ROOT=$(pwd)
+echo "📂 Working directory: $PROJECT_ROOT"
+
 # Check if .env file exists
-if [ ! -f "$(dirname "$0")/../.env" ]; then
+if [ ! -f ".env" ]; then
     echo -e "${RED}❌ Error: .env file not found!${NC}"
     echo "Please copy .env.example to .env and configure it:"
     echo "  cp .env.example .env"
@@ -23,76 +29,112 @@ if [ ! -f "$(dirname "$0")/../.env" ]; then
 fi
 
 # Check if Docker is running
-if ! docker info > /dev/null 2>&1; then
-    echo -e "${RED}❌ Error: Docker is not running!${NC}"
-    exit 1
-fi
+#if ! docker info > /dev/null 2>&1; then
+#    echo -e "${RED}❌ Error: Docker is not running!${NC}"
+#    exit 1
+#fi
 
-# Check if Docker Compose is available
+# Check if Docker Compose (v2) is available
 if ! docker compose version &> /dev/null; then
-    echo -e "${RED}❌ Error: docker compose is not available!${NC}"
+    echo -e "${RED}❌ Error: 'docker compose' (v2) is not available!${NC}"
+    echo "Please install Docker Compose v2 plugin."
     exit 1
 fi
 
 echo -e "${GREEN}✓${NC} Prerequisites check passed"
 
 # Pull latest changes (if in git repo)
-if [ -d "$(dirname "$0")/../.git" ]; then
+if [ -d ".git" ]; then
     echo "📥 Pulling latest changes from git..."
-    cd "$(dirname "$0")/.."
     git pull
     echo -e "${GREEN}✓${NC} Git pull completed"
 fi
 
-# Stop existing containers
-echo "🛑 Stopping existing containers..."
-docker compose -f "$(dirname "$0")/../docker-compose.prod.yml" down
-
-# Build images
-echo "🔨 Building Docker images..."
-docker compose -f "$(dirname "$0")/../docker-compose.prod.yml" build --no-cache
-
-# Start services
-echo "🚀 Starting services..."
-docker compose -f "$(dirname "$0")/../docker-compose.prod.yml" up -d
+# Build and Start services
+# --remove-orphans: Remove containers for services not defined in the Compose file
+# --build: Build images before starting containers
+echo "🚀 Building and starting services..."
+docker compose -f docker-compose.prod.yml up -d --build --remove-orphans
 
 # Wait for services to be healthy
-echo "⏳ Waiting for services to be healthy..."
-sleep 10
+echo "⏳ Waiting for services to be healthy (this may take up to 60 seconds)..."
+SERVICES=("db" "backend" "frontend")
+MAX_WAIT=60
+ELAPSED=0
+ALL_HEALTHY=false
 
-# Check service health
-echo "🏥 Checking service health..."
-SERVICES=("db" "backend" "frontend" "nginx")
-ALL_HEALTHY=true
+while [ $ELAPSED -lt $MAX_WAIT ]; do
+    sleep 5
+    ELAPSED=$((ELAPSED + 5))
+    ALL_HEALTHY=true
+    
+    echo -n "🏥 Checking service health (${ELAPSED}s)... "
+    
+    for service in "${SERVICES[@]}"; do
+        # Get container ID for the service using docker compose ps
+        CONTAINER_ID=$(docker compose -f docker-compose.prod.yml ps -q $service)
+        
+        if [ -z "$CONTAINER_ID" ]; then
+            echo -e "${RED}✗${NC} Service $service is not running"
+            ALL_HEALTHY=false
+            break
+        fi
 
+        HEALTH=$(docker inspect --format='{{.State.Health.Status}}' "$CONTAINER_ID" 2>/dev/null || echo "no-health-check")
+        
+        if [ "$HEALTH" != "healthy" ] && [ "$HEALTH" != "no-health-check" ]; then
+            ALL_HEALTHY=false
+            break
+        fi
+    done
+    
+    if [ "$ALL_HEALTHY" = true ]; then
+        echo -e "${GREEN}All services healthy!${NC}"
+        break
+    else
+        echo "waiting..."
+    fi
+done
+
+# Final health check report
+echo ""
+echo "📊 Final health status:"
 for service in "${SERVICES[@]}"; do
-    HEALTH=$(docker inspect --format='{{.State.Health.Status}}' selmai-${service}-1 2>/dev/null || echo "no-health-check")
+    CONTAINER_ID=$(docker compose -f docker-compose.prod.yml ps -q $service)
+    
+    if [ -z "$CONTAINER_ID" ]; then
+         echo -e "${RED}✗${NC} Service $service is not running"
+         continue
+    fi
+
+    HEALTH=$(docker inspect --format='{{.State.Health.Status}}' "$CONTAINER_ID" 2>/dev/null || echo "no-health-check")
     
     if [ "$HEALTH" = "healthy" ] || [ "$HEALTH" = "no-health-check" ]; then
         echo -e "${GREEN}✓${NC} $service is healthy"
     else
         echo -e "${RED}✗${NC} $service is not healthy (status: $HEALTH)"
-        ALL_HEALTHY=false
     fi
 done
 
 # Show running containers
 echo ""
 echo "📊 Running containers:"
-docker compose -f "$(dirname "$0")/../docker-compose.prod.yml" ps
+docker compose -f docker-compose.prod.yml ps
 
 if [ "$ALL_HEALTHY" = true ]; then
     echo ""
     echo -e "${GREEN}✅ Deployment completed successfully!${NC}"
     echo ""
     echo "🌐 Your application should be accessible at:"
-    echo "   - Frontend: http://localhost:8080 (or https://localhost:8443)"
-    echo "   - API: http://localhost:8080/api (or https://localhost:8443/api)"
+    echo "   - Site web: https://selmai.fr (port 443)"
+    echo "   - Application SELMai: https://selmai.fr:3000"
+    echo "   - API: https://selmai.fr:3000/api"
     echo ""
     echo "📝 To view logs:"
-    echo "   docker compose -f ../docker-compose.prod.yml logs -f"
+    echo "   docker compose -f docker-compose.prod.yml logs -f"
 else
     echo ""
     echo -e "${YELLOW}⚠️  Some services are not healthy. Check logs:${NC}"
-    echo "   docker compose -f ../docker-compose.prod.yml logs"
+    echo "   docker compose -f docker-compose.prod.yml logs"
+    exit 1
 fi

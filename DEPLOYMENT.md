@@ -1,6 +1,6 @@
 # Guide de Déploiement en Production - SELMai
 
-Ce guide vous accompagne pas à pas pour déployer l'application SELMai en production sur un serveur VPS.
+Ce guide vous accompagne pas à pas pour déployer l'application SELMai en production sur un serveur VPS avec Apache.
 
 ## 📋 Prérequis
 
@@ -14,6 +14,7 @@ Ce guide vous accompagne pas à pas pour déployer l'application SELMai en produ
 ### Logiciels requis
 - Docker (version 20.10+)
 - Docker Compose (version 2.0+)
+- Apache2 avec SSL configuré
 - Git
 - Nom de domaine pointant vers votre serveur
 
@@ -47,16 +48,13 @@ exit
 
 ### 2. Configuration du pare-feu
 
-> [!IMPORTANT]
-> **Configuration des ports** : L'application SELMai est configurée pour utiliser les ports **8080** (HTTP) et **8443** (HTTPS) pour éviter les conflits avec Apache qui utilise déjà les ports 80 et 443.
-
 ```bash
 # Autoriser SSH
 sudo ufw allow OpenSSH
 
-# Autoriser les ports de l'application SELMai
-sudo ufw allow 8080/tcp
-sudo ufw allow 8443/tcp
+# Autoriser HTTP et HTTPS pour Apache
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
 
 # Activer le pare-feu
 sudo ufw enable
@@ -101,51 +99,44 @@ DB_PASSWORD=$(openssl rand -base64 32)
 JWT_SECRET=$(openssl rand -base64 64)
 
 # Configurer votre domaine
-DOMAIN=votre-domaine.com
-REACT_APP_API_URL=https://votre-domaine.com/api
+DOMAIN=selmai.fr
+REACT_APP_API_URL=https://selmai.fr/api
 ```
 
 > [!IMPORTANT]
 > **Sauvegardez ces valeurs dans un endroit sûr !** Vous en aurez besoin pour les restaurations.
 
-### 5. Configuration SSL avec Let's Encrypt
+### 5. Configuration Apache
 
-Avant de démarrer l'application, configurez SSL :
-
-```bash
-# Créer les répertoires nécessaires
-mkdir -p nginx/ssl
-
-# Modifier temporairement nginx.conf pour la validation HTTP
-# Commentez les lignes SSL dans nginx/nginx.conf (lignes 73-78)
-nano nginx/nginx.conf
-```
-
-Commentez temporairement ces lignes :
-```nginx
-# ssl_certificate /etc/letsencrypt/live/yourdomain.com/fullchain.pem;
-# ssl_certificate_key /etc/letsencrypt/live/yourdomain.com/privkey.pem;
-```
+#### Activer les modules Apache nécessaires
 
 ```bash
-# Démarrer uniquement nginx pour obtenir le certificat
-docker compose -f docker-compose.prod.yml up -d nginx certbot
+# Activer les modules proxy et headers
+sudo a2enmod proxy
+sudo a2enmod proxy_http
+sudo a2enmod headers
+sudo a2enmod deflate
+sudo a2enmod ssl
+sudo a2enmod rewrite
 
-# Obtenir le certificat SSL
-docker compose -f docker-compose.prod.yml run --rm certbot certonly \
-  --webroot \
-  --webroot-path=/var/www/certbot \
-  --email votre-email@example.com \
-  --agree-tos \
-  --no-eff-email \
-  -d votre-domaine.com
-
-# Décommentez les lignes SSL dans nginx.conf
-nano nginx/nginx.conf
-
-# Remplacez 'yourdomain.com' par votre vrai domaine
-sed -i 's/yourdomain.com/votre-domaine.com/g' nginx/nginx.conf
+# Redémarrer Apache pour appliquer les changements
+sudo systemctl restart apache2
 ```
+
+#### Copier la configuration Apache
+
+```bash
+# Sauvegarder la configuration actuelle
+sudo cp /etc/apache2/sites-available/selmai-le-ssl.conf /etc/apache2/sites-available/selmai-le-ssl.conf.backup
+
+# Copier la nouvelle configuration
+sudo cp apache/selmai-le-ssl.conf /etc/apache2/sites-available/selmai-le-ssl.conf
+
+# Vérifier la configuration
+sudo apache2ctl configtest
+```
+
+Si la configuration est correcte, vous devriez voir : `Syntax OK`
 
 ### 6. Déploiement de l'application
 
@@ -163,25 +154,36 @@ Le script va :
 3. 🚀 Démarrer tous les services
 4. 🏥 Vérifier la santé des services
 
-### 7. Vérification du déploiement
+### 7. Redémarrer Apache
+
+```bash
+# Recharger la configuration Apache
+sudo systemctl reload apache2
+
+# Vérifier le statut
+sudo systemctl status apache2
+```
+
+### 8. Vérification du déploiement
 
 ```bash
 # Vérifier que tous les conteneurs sont en cours d'exécution
 docker compose -f docker-compose.prod.yml ps
 
+# Vérifier que les ports sont exposés
+netstat -tlnp | grep -E ':(3000|3001)'
+
 # Vérifier les logs
 docker compose -f docker-compose.prod.yml logs -f
 
 # Tester l'accès à l'application
-curl https://votre-domaine.com
-curl https://votre-domaine.com/api/health
+curl https://selmai.fr
+curl https://selmai.fr/api/health
 ```
 
-Accédez à votre application via : 
-- **HTTP** : http://votre-domaine.com:8080
-- **HTTPS** : https://votre-domaine.com:8443
+Accédez à votre application via : **https://selmai.fr**
 
-### 8. Connexion initiale
+### 9. Connexion initiale
 
 Utilisez les identifiants par défaut :
 - **Nom d'utilisateur** : `admin`
@@ -202,6 +204,9 @@ cd /opt/selmai
 
 # Déployer la nouvelle version
 ./scripts/deploy.sh
+
+# Recharger Apache si la configuration a changé
+sudo systemctl reload apache2
 ```
 
 ## 🗄️ Sauvegardes
@@ -241,14 +246,17 @@ ls -lh ./backups/
 ### Vérifier les logs
 
 ```bash
-# Tous les services
+# Logs Docker
 docker compose -f docker-compose.prod.yml logs -f
 
 # Un service spécifique
 docker compose -f docker-compose.prod.yml logs -f backend
 docker compose -f docker-compose.prod.yml logs -f frontend
 docker compose -f docker-compose.prod.yml logs -f db
-docker compose -f docker-compose.prod.yml logs -f nginx
+
+# Logs Apache
+sudo tail -f /var/log/apache2/error.log
+sudo tail -f /var/log/apache2/access.log
 ```
 
 ### Vérifier l'état des services
@@ -259,16 +267,19 @@ docker compose -f docker-compose.prod.yml ps
 
 # Utilisation des ressources
 docker stats
+
+# Statut Apache
+sudo systemctl status apache2
 ```
 
 ### Health checks
 
 ```bash
 # Backend API
-curl https://votre-domaine.com/api/health
+curl https://selmai.fr/api/health
 
 # Frontend
-curl https://votre-domaine.com/health
+curl https://selmai.fr/
 ```
 
 ## 🛠️ Maintenance
@@ -276,17 +287,24 @@ curl https://votre-domaine.com/health
 ### Redémarrer un service
 
 ```bash
-# Redémarrer un service spécifique
+# Redémarrer un service Docker spécifique
 docker compose -f docker-compose.prod.yml restart backend
 
-# Redémarrer tous les services
+# Redémarrer tous les services Docker
 docker compose -f docker-compose.prod.yml restart
+
+# Redémarrer Apache
+sudo systemctl restart apache2
 ```
 
 ### Arrêter l'application
 
 ```bash
+# Arrêter les conteneurs Docker
 docker compose -f docker-compose.prod.yml down
+
+# Arrêter Apache (déconseillé si d'autres sites sont hébergés)
+sudo systemctl stop apache2
 ```
 
 ### Nettoyer les ressources Docker
@@ -321,14 +339,18 @@ docker exec -it selmai-db-1 mysql -u selmai_user -p
 docker compose -f docker-compose.prod.yml config | grep DB_
 ```
 
-### Erreur SSL/TLS
+### Erreurs de proxy Apache
 
 ```bash
-# Renouveler le certificat manuellement
-docker compose -f docker-compose.prod.yml run --rm certbot renew
+# Vérifier la configuration Apache
+sudo apache2ctl configtest
 
-# Redémarrer nginx
-docker compose -f docker-compose.prod.yml restart nginx
+# Vérifier les logs Apache
+sudo tail -f /var/log/apache2/error.log
+
+# Vérifier que les services Docker sont accessibles
+curl http://localhost:3000
+curl http://localhost:3001/api/health
 ```
 
 ### L'application est lente
@@ -344,19 +366,49 @@ df -h
 docker compose -f docker-compose.prod.yml logs --tail=100 > /dev/null
 ```
 
-## 📚 Documentation supplémentaire
+## 🔒 Sécurité
 
-- [Guide de sécurité](docs/SECURITY.md)
-- [Guide de sauvegarde](docs/BACKUP.md)
-- [Guide de monitoring](docs/MONITORING.md)
-- [Configuration Apache Reverse Proxy](docs/APACHE_REVERSE_PROXY.md)
+### Renouvellement SSL
+
+Si vous utilisez Let's Encrypt avec Apache :
+
+```bash
+# Renouveler le certificat
+sudo certbot renew
+
+# Recharger Apache
+sudo systemctl reload apache2
+```
+
+### Mise à jour des headers de sécurité
+
+Les headers de sécurité sont configurés dans Apache :
+- `X-Frame-Options`
+- `X-Content-Type-Options`
+- `X-XSS-Protection`
+- `Referrer-Policy`
+- `Strict-Transport-Security`
+
+## 📚 Architecture
+
+L'application utilise l'architecture suivante :
+
+```
+Internet
+    ↓
+Apache (Port 443 HTTPS)
+    ↓
+    ├─→ /api/* → Docker Backend (Port 3001)
+    └─→ /* → Docker Frontend (Port 3000)
+```
 
 ## 🆘 Support
 
 En cas de problème :
-1. Consultez les logs : `docker compose -f docker-compose.prod.yml logs`
-2. Vérifiez la documentation dans le dossier `docs/`
-3. Créez une issue sur GitHub avec les détails de l'erreur
+1. Consultez les logs Docker : `docker compose -f docker-compose.prod.yml logs`
+2. Consultez les logs Apache : `sudo tail -f /var/log/apache2/error.log`
+3. Vérifiez la documentation dans le dossier `docs/`
+4. Créez une issue sur GitHub avec les détails de l'erreur
 
 ---
 

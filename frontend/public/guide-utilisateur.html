@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Guide d'utilisation de SELMai - Système d'échange local pour Martignas-sur-Jalle et Saint-Jean-d'Illac">
+    <title>Guide Utilisateur - SELMai</title>
+    <style>
+        :root {
+            --primary-color: #2e8b57;
+            --secondary-color: #3cb371;
+            --accent-color: #20b2aa;
+            --dark-bg: #1a1a2e;
+            --light-bg: #eafbfb;
+            --text-dark: #2c3e50;
+            --text-light: #ecf0f1;
+            --border-color: #e0e0e0;
+            --success-color: #2e8b57;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+            --border-radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--light-bg) 0%, #f0ffff 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* En-tête */
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--text-light);
+            padding: 1.5rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo img {
+            width: 60px;
+            height: 60px;
+            margin-right: 1rem;
+            border-radius: 50%;
+            transition: var(--transition);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo img:hover {
+            transform: rotate(360deg);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--accent-color) 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            position: sticky;
+            top: 20px;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        nav a {
+            color: var(--text-light);
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        section {
+            background: white;
+            margin-bottom: 2rem;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            border-left: 5px solid var(--primary-color);
+            padding-left: 1rem;
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        h4 {
+            color: var(--accent-color);
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateX(10px);
+            box-shadow: var(--shadow);
+        }
+
+        .feature-card h4 {
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .icon {
+            font-size: 1.5rem;
+        }
+
+        .step-list {
+            counter-reset: step-counter;
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .step-list li {
+            counter-increment: step-counter;
+            margin-bottom: 1.5rem;
+            padding-left: 3.5rem;
+            position: relative;
+        }
+
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: var(--shadow);
+        }
+
+        .alert {
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            border-color: #0c5460;
+            color: #0c5460;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            border-color: var(--success-color);
+            color: #155724;
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            border-color: var(--warning-color);
+            color: #856404;
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            border-color: var(--danger-color);
+            color: #721c24;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin: 0.25rem;
+        }
+
+        .badge-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .badge-secondary {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .badge-warning {
+            background: var(--warning-color);
+            color: white;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        thead {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+
+        th,
+        td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        tbody tr:hover {
+            background: #f8f9fa;
+        }
+
+        .screenshot-placeholder {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem;
+            text-align: center;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            font-style: italic;
+        }
+
+        footer {
+            background: var(--dark-bg);
+            color: var(--text-light);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .workflow-diagram {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .workflow-step {
+            display: inline-block;
+            background: white;
+            padding: 1rem 1.5rem;
+            margin: 0.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .workflow-step::after {
+            content: '→';
+            position: absolute;
+            right: -1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .workflow-step:last-child::after {
+            content: '';
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .logo h1 {
+                font-size: 1.4rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 1.5rem;
+            }
+
+            .workflow-step {
+                display: block;
+                margin: 1rem 0;
+            }
+
+            .workflow-step::after {
+                content: '↓';
+                right: 50%;
+                top: auto;
+                bottom: -1.5rem;
+                transform: translateX(50%);
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .logo {
+                justify-content: center;
+            }
+        }
+
+        .toc {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 1rem;
+        }
+
+        .toc a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .toc a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- En-tête avec logo et titre -->
+    <header>
+        <div class="logo">
+            <img src="ressources/logo.png" alt="Logo du site">
+            <h1>SEL.Mai - <span style="color: #CF1679;">S</span>ystème d'<span style="color: #CF1679;">É</span>change
+                <span style="color: #CF1679;">L</span>ocal <span style="color: #CF1679;">Ma</span>rtignas / <span
+                    style="color: #CF1679;">I</span>llac
+            </h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav>
+            <ul>
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#connexion">Connexion</a></li>
+                <li><a href="#marketplace">Place du marché</a></li>
+                <li><a href="#services">Mes services</a></li>
+                <li><a href="#negotiations">Négociations</a></li>
+                <li><a href="#wallet">Porte-monnaie</a></li>
+                <li><a href="#community">Communauté</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+        </nav>
+
+        <!-- Introduction -->
+        <section id="introduction">
+            <h2>📖 Introduction</h2>
+
+            <p>Bienvenue dans <strong>SELMai</strong>, votre plateforme d'échange local pour les communes de
+                Martignas-sur-Jalle et Saint-Jean-d'Illac. Cette application vous permet d'échanger des services et des
+                biens avec vos voisins en utilisant notre monnaie locale : <span class="highlight">le radis</span>.</p>
+
+            <div class="alert alert-info">
+                <strong>💡 Qu'est-ce qu'un SEL ?</strong><br>
+                Un Système d'Échange Local (SEL) est un réseau d'échange de services et de savoirs, basé sur une monnaie
+                locale et l'entraide communautaire.
+            </div>
+
+            <h3>✨ Fonctionnalités principales</h3>
+            <ul>
+                <li><strong>Place du marché</strong> : Découvrez tous les services proposés par les membres</li>
+                <li><strong>Mes services</strong> : Créez et gérez vos propres annonces</li>
+                <li><strong>Négociations</strong> : Échangez avec les membres pour finaliser vos transactions</li>
+                <li><strong>Porte-monnaie</strong> : Suivez votre solde en radis et votre historique</li>
+                <li><strong>Communauté</strong> : Consultez l'annuaire des membres</li>
+                <li><strong>Notifications</strong> : Restez informé de toutes vos interactions</li>
+            </ul>
+        </section>
+
+        <!-- Connexion -->
+        <section id="connexion">
+            <h2>🔐 Connexion et premier pas</h2>
+
+            <h3>Se connecter à l'application</h3>
+            <ol class="step-list">
+                <li>
+                    <strong>Accédez à l'application</strong><br>
+                    Ouvrez votre navigateur et rendez-vous sur l'URL de SELMai (fournie par votre administrateur).
+                </li>
+                <li>
+                    <strong>Entrez vos identifiants</strong><br>
+                    Saisissez votre nom d'utilisateur et votre mot de passe.
+                </li>
+                <li>
+                    <strong>Cliquez sur "Se connecter"</strong><br>
+                    Vous serez redirigé vers la page d'accueil de l'application.
+                </li>
+            </ol>
+
+            <div class="alert alert-warning">
+                <strong>⚠️ Première connexion</strong><br>
+                Si c'est votre première connexion, contactez l'administrateur pour obtenir vos identifiants. Pensez à
+                changer votre mot de passe après la première connexion.
+            </div>
+
+            <h3>Navigation dans l'interface</h3>
+            <p>Une fois connecté, vous verrez le menu principal avec les sections suivantes :</p>
+            <ul>
+                <li><span class="badge badge-primary">Place du marché</span> - Parcourir les services disponibles</li>
+                <li><span class="badge badge-primary">Mes services</span> - Gérer vos annonces</li>
+                <li><span class="badge badge-primary">Négociations</span> - Suivre vos échanges</li>
+                <li><span class="badge badge-primary">Porte-monnaie</span> - Consulter votre solde</li>
+                <li><span class="badge badge-primary">Communauté</span> - Voir les membres</li>
+                <li><span class="badge badge-primary">Notifications</span> - Vos messages</li>
+            </ul>
+        </section>
+
+        <!-- Place du marché -->
+        <section id="marketplace">
+            <h2>🏪 Place du marché</h2>
+
+            <p>La place du marché est l'endroit où vous pouvez découvrir tous les services proposés par les membres de
+                la communauté.</p>
+
+            <h3>Parcourir les services</h3>
+            <ol class="step-list">
+                <li>
+                    <strong>Accédez à la place du marché</strong><br>
+                    Cliquez sur "Place du marché" dans le menu principal.
+                </li>
+                <li>
+                    <strong>Utilisez les filtres</strong><br>
+                    Filtrez par catégorie ou utilisez la barre de recherche pour trouver un service spécifique.
+                </li>
+                <li>
+                    <strong>Consultez les détails</strong><br>
+                    Chaque carte de service affiche :
+                    <ul>
+                        <li>Le titre du service</li>
+                        <li>La description</li>
+                        <li>Le prix en radis</li>
+                        <li>La catégorie</li>
+                        <li>Le nom du prestataire</li>
+                        <li>La note moyenne du prestataire ⭐</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h3>Catégories disponibles</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>🔧 Bricolage</h4>
+                    <p>Réparations, montage de meubles, petits travaux...</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🌿 Jardinage</h4>
+                    <p>Entretien, taille, conseils en jardinage...</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📚 Cours & Formation</h4>
+                    <p>Soutien scolaire, cours de langue, informatique...</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🍳 Cuisine</h4>
+                    <p>Préparation de repas, cours de cuisine...</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🚗 Transport</h4>
+                    <p>Covoiturage, aide au déménagement...</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🎨 Autres services</h4>
+                    <p>Tous les autres services proposés...</p>
+                </div>
+            </div>
+
+            <h3>Initier une négociation</h3>
+            <ol class="step-list">
+                <li>
+                    <strong>Trouvez le service qui vous intéresse</strong><br>
+                    Parcourez la place du marché et identifiez le service souhaité.
+                </li>
+                <li>
+                    <strong>Cliquez sur "Négocier"</strong><br>
+                    Un formulaire s'ouvrira pour démarrer la négociation.
+                </li>
+                <li>
+                    <strong>Proposez votre prix</strong><br>
+                    Entrez le montant en radis que vous proposez (le prix affiché est indicatif).
+                </li>
+                <li>
+                    <strong>Ajoutez un message</strong><br>
+                    Expliquez votre besoin, proposez une date, etc.
+                </li>
+                <li>
+                    <strong>Envoyez votre demande</strong><br>
+                    Le prestataire recevra une notification et pourra accepter ou refuser.
+                </li>
+            </ol>
+
+            <div class="alert alert-info">
+                <strong>💡 Astuce</strong><br>
+                Soyez précis dans votre message : indiquez vos disponibilités, l'urgence de la demande, et tout détail
+                pertinent pour faciliter l'échange.
+            </div>
+        </section>
+
+        <!-- Mes services -->
+        <section id="services">
+            <h2>📝 Mes services</h2>
+
+            <p>Cette section vous permet de créer et gérer vos propres annonces de services que vous proposez à la
+                communauté.</p>
+
+            <h3>Créer un nouveau service</h3>
+            <ol class="step-list">
+                <li>
+                    <strong>Accédez à "Mes services"</strong><br>
+                    Cliquez sur "Mes services" dans le menu principal.
+                </li>
+                <li>
+                    <strong>Remplissez le formulaire</strong><br>
+                    <ul>
+                        <li><strong>Titre</strong> : Un titre clair et accrocheur (ex: "Cours de guitare débutant")</li>
+                        <li><strong>Description</strong> : Détaillez votre service, vos compétences, ce qui est inclus
+                        </li>
+                        <li><strong>Prix</strong> : Indiquez le prix en radis (ce prix est négociable)</li>
+                        <li><strong>Catégorie</strong> : Sélectionnez la catégorie appropriée</li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Cliquez sur "Créer le service"</strong><br>
+                    Votre annonce sera immédiatement visible sur la place du marché.
+                </li>
+            </ol>
+
+            <div class="alert alert-success">
+                <strong>✅ Bonnes pratiques</strong><br>
+                <ul>
+                    <li>Soyez honnête sur vos compétences et disponibilités</li>
+                    <li>Fixez un prix juste basé sur le temps et l'effort requis</li>
+                    <li>Mettez à jour régulièrement vos annonces</li>
+                    <li>Répondez rapidement aux demandes de négociation</li>
+                </ul>
+            </div>
+
+            <h3>Modifier un service existant</h3>
+            <ol class="step-list">
+                <li>
+                    <strong>Trouvez votre service</strong><br>
+                    Dans la liste "Mes services", localisez le service à modifier.
+                </li>
+                <li>
+                    <strong>Cliquez sur "Modifier"</strong><br>
+                    Le formulaire se remplira avec les informations actuelles.
+                </li>
+                <li>
+                    <strong>Effectuez vos modifications</strong><br>
+                    Changez les informations souhaitées.
+                </li>
+                <li>
+                    <strong>Enregistrez les changements</strong><br>
+                    Cliquez sur "Mettre à jour le service".
+                </li>
+            </ol>
+
+            <h3>Supprimer un service</h3>
+            <ol class="step-list">
+                <li>
+                    <strong>Cliquez sur "Supprimer"</strong><br>
+                    À côté du service que vous souhaitez retirer.
+                </li>
+                <li>
+                    <strong>Confirmez la suppression</strong><br>
+                    Une confirmation vous sera demandée.
+                </li>
+            </ol>
+
+            <div class="alert alert-warning">
+                <strong>⚠️ Attention</strong><br>
+                La suppression d'un service est définitive. Assurez-vous de n'avoir aucune négociation en cours pour ce
+                service.
+            </div>
+
+            <h3>Conseils pour une bonne annonce</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Élément</th>
+                        <th>À faire ✅</th>
+                        <th>À éviter ❌</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Titre</strong></td>
+                        <td>"Cours de piano tous niveaux"</td>
+                        <td>"Piano"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Description</strong></td>
+                        <td>Détaillée avec expérience, durée, matériel nécessaire</td>
+                        <td>Vague et sans détails</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Prix</strong></td>
+                        <td>Basé sur le temps et l'effort (ex: 20 radis/heure)</td>
+                        <td>Prix excessif ou dérisoire</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Catégorie</strong></td>
+                        <td>Catégorie la plus pertinente</td>
+                        <td>Catégorie incorrecte</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Négociations -->
+        <section id="negotiations">
+            <h2>💬 Négociations</h2>
+
+            <p>La section Négociations vous permet de gérer toutes vos demandes d'échange, que vous soyez acheteur ou
+                vendeur.</p>
+
+            <h3>Comprendre le processus de négociation</h3>
+            <div class="workflow-diagram">
+                <div class="workflow-step">
+                    <strong>1. Demande</strong><br>
+                    L'acheteur initie
+                </div>
+                <div class="workflow-step">
+                    <strong>2. En attente</strong><br>
+                    Le vendeur examine
+                </div>
+                <div class="workflow-step">
+                    <strong>3. Réponse</strong><br>
+                    Accepté ou refusé
+                </div>
+                <div class="workflow-step">
+                    <strong>4. Transaction</strong><br>
+                    Échange réalisé
+                </div>
+                <div class="workflow-step">
+                    <strong>5. Évaluation</strong><br>
+                    Notes et avis
+                </div>
+            </div>
+
+            <h3>Statuts des négociations</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Statut</th>
+                        <th>Description</th>
+                        <th>Actions possibles</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge badge-warning">En attente</span></td>
+                        <td>La demande a été envoyée et attend une réponse</td>
+                        <td>Attendre la réponse du vendeur</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-primary">Acceptée</span></td>
+                        <td>Le vendeur a accepté votre proposition</td>
+                        <td>Réaliser l'échange, puis évaluer</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-secondary">Refusée</span></td>
+                        <td>Le vendeur a décliné votre demande</td>
+                        <td>Aucune action (négociation terminée)</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-primary">Complétée</span></td>
+                        <td>L'échange a été réalisé et évalué</td>
+                        <td>Consulter l'historique</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Gérer vos demandes (en tant qu'acheteur)</h3>
+            <ol class="step-list">
+                <li>
+                    <strong>Consultez vos demandes</strong><br>
+                    Dans l'onglet "Mes demandes", vous verrez toutes les négociations que vous avez initiées.
+                </li>
+                <li>
+                    <strong>Suivez le statut</strong><br>
+                    Chaque négociation affiche son statut actuel et les détails de la demande.
+                </li>
+                <li>
+                    <strong>Attendez la réponse</strong><br>
+                    Vous recevrez une notification quand le vendeur répondra.
+                </li>
+                <li>
+                    <strong>Évaluez après l'échange</strong><br>
+                    Une fois le service rendu, cliquez sur "Évaluer" pour noter le vendeur.
+                </li>
+            </ol>
+
+            <h3>Gérer vos offres (en tant que vendeur)</h3>
+            <ol class="step-list">
+                <li>
+                    <strong>Consultez les demandes reçues</strong><br>
+                    Dans l'onglet "Demandes reçues", vous verrez toutes les négociations pour vos services.
+                </li>
+                <li>
+                    <strong>Examinez la proposition</strong><br>
+                    Lisez le message de l'acheteur et le prix proposé.
+                </li>
+                <li>
+                    <strong>Acceptez ou refusez</strong><br>
+                    Cliquez sur "Accepter" si vous êtes d'accord, ou "Refuser" dans le cas contraire.
+                </li>
+                <li>
+                    <strong>Réalisez le service</strong><br>
+                    Contactez l'acheteur (coordonnées visibles après acceptation) pour organiser l'échange.
+                </li>
+                <li>
+                    <strong>Attendez l'évaluation</strong><br>
+                    L'acheteur vous évaluera après le service rendu.
+                </li>
+            </ol>
+
+            <div class="alert alert-info">
+                <strong>💡 Communication</strong><br>
+                Le système de négociation inclut un message initial. Pour des échanges plus détaillés, utilisez les
+                coordonnées des membres visibles après acceptation d'une négociation.
+            </div>
+
+            <h3>Système d'évaluation</h3>
+            <p>Après chaque transaction acceptée, l'acheteur peut évaluer le vendeur :</p>
+            <ul>
+                <li><strong>Note</strong> : De 1 à 5 étoiles ⭐</li>
+                <li><strong>Commentaire</strong> : Un avis textuel (optionnel)</li>
+            </ul>
+
+            <div class="alert alert-success">
+                <strong>✅ Importance des évaluations</strong><br>
+                Les évaluations construisent la réputation des membres et la confiance dans la communauté. Soyez honnête
+                et constructif dans vos avis.
+            </div>
+        </section>
+
+        <!-- Porte-monnaie -->
+        <section id="wallet">
+            <h2>💰 Porte-monnaie</h2>
+
+            <p>Votre porte-monnaie vous permet de suivre votre solde en radis et l'historique de toutes vos
+                transactions.</p>
+
+            <h3>Comprendre le système de radis</h3>
+            <div class="alert alert-info">
+                <strong>💡 Qu'est-ce qu'un radis ?</strong><br>
+                Le radis est la monnaie locale de SELMai. Il n'a pas de valeur monétaire réelle mais représente le temps
+                et l'effort échangés entre membres. 1 radis ≈ 1 unité de valeur d'échange.
+            </div>
+
+            <h3>Consulter votre solde</h3>
+            <ol class="step-list">
+                <li>
+                    <strong>Accédez au porte-monnaie</strong><br>
+                    Cliquez sur "Porte-monnaie" dans le menu principal.
+                </li>
+                <li>
+                    <strong>Visualisez votre solde actuel</strong><br>
+                    Affiché en haut de la page en gros caractères.
+                </li>
+                <li>
+                    <strong>Consultez l'historique</strong><br>
+                    Toutes vos transactions sont listées chronologiquement.
+                </li>
+            </ol>
+
+            <h3>Types de transactions</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th>Impact sur le solde</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge badge-primary">Paiement reçu</span></td>
+                        <td>Vous avez fourni un service</td>
+                        <td>➕ Augmentation</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-secondary">Paiement envoyé</span></td>
+                        <td>Vous avez reçu un service</td>
+                        <td>➖ Diminution</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-warning">Ajustement admin</span></td>
+                        <td>Modification par un administrateur</td>
+                        <td>➕ ou ➖</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge badge-primary">Crédit initial</span></td>
+                        <td>Solde de départ pour nouveaux membres</td>
+                        <td>➕ Augmentation</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Détails d'une transaction</h3>
+            <p>Chaque transaction affiche :</p>
+            <ul>
+                <li><strong>Date et heure</strong> : Quand la transaction a eu lieu</li>
+                <li><strong>Type</strong> : Nature de la transaction</li>
+                <li><strong>Montant</strong> : Nombre de radis échangés</li>
+                <li><strong>Contrepartie</strong> : Avec qui vous avez échangé</li>
+                <li><strong>Service concerné</strong> : Quel service a été échangé</li>
+                <li><strong>Description</strong> : Détails supplémentaires</li>
+            </ul>
+
+            <div class="alert alert-warning">
+                <strong>⚠️ Solde négatif</strong><br>
+                Il est possible d'avoir un solde négatif temporairement. Cela signifie que vous devez rendre des
+                services à la communauté pour rééquilibrer votre compte. Un solde trop négatif peut limiter vos
+                possibilités d'achat.
+            </div>
+
+            <h3>Bonnes pratiques financières</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>⚖️ Équilibrer les échanges</h4>
+                    <p>Essayez de maintenir un équilibre entre services rendus et reçus.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📊 Suivre régulièrement</h4>
+                    <p>Consultez votre porte-monnaie régulièrement pour suivre vos échanges.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🤝 Participer activement</h4>
+                    <p>Plus vous proposez de services, plus vous pouvez en recevoir.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Communauté -->
+        <section id="community">
+            <h2>👥 Communauté</h2>
+
+            <p>L'annuaire de la communauté vous permet de découvrir tous les membres actifs de SELMai et de consulter
+                leurs profils.</p>
+
+            <h3>Explorer l'annuaire</h3>
+            <ol class="step-list">
+                <li>
+                    <strong>Accédez à la communauté</strong><br>
+                    Cliquez sur "Communauté" dans le menu principal.
+                </li>
+                <li>
+                    <strong>Parcourez les membres</strong><br>
+                    Tous les membres actifs sont affichés sous forme de cartes.
+                </li>
+                <li>
+                    <strong>Utilisez la recherche</strong><br>
+                    Recherchez un membre spécifique par son nom.
+                </li>
+            </ol>
+
+            <h3>Informations visibles sur chaque membre</h3>
+            <ul>
+                <li><strong>Nom d'utilisateur</strong> : Identifiant du membre</li>
+                <li><strong>Nom complet</strong> : Prénom et nom</li>
+                <li><strong>Email</strong> : Adresse de contact</li>
+                <li><strong>Téléphone</strong> : Numéro de téléphone (si renseigné)</li>
+                <li><strong>Adresse</strong> : Localisation (si renseignée)</li>
+                <li><strong>Solde en radis</strong> : Solde actuel du membre</li>
+                <li><strong>Note moyenne</strong> : Évaluation basée sur les transactions ⭐</li>
+                <li><strong>Nombre d'évaluations</strong> : Combien de fois le membre a été noté</li>
+            </ul>
+
+            <h3>Consulter le profil d'un membre</h3>
+            <ol class="step-list">
+                <li>
+                    <strong>Cliquez sur "Voir le profil"</strong><br>
+                    Sur la carte du membre qui vous intéresse.
+                </li>
+                <li>
+                    <strong>Consultez les détails</strong><br>
+                    Vous verrez toutes les informations du membre et ses évaluations.
+                </li>
+                <li>
+                    <strong>Lisez les avis</strong><br>
+                    Les commentaires des autres membres vous donnent une idée de la fiabilité.
+                </li>
+            </ol>
+
+            <div class="alert alert-info">
+                <strong>💡 Confidentialité</strong><br>
+                Seuls les membres connectés peuvent voir l'annuaire. Les informations personnelles (email, téléphone) ne
+                sont visibles qu'après acceptation d'une négociation.
+            </div>
+
+            <h3>Système de réputation</h3>
+            <p>La réputation d'un membre se base sur :</p>
+            <ul>
+                <li><strong>Note moyenne</strong> : Moyenne de toutes les évaluations reçues (1-5 étoiles)</li>
+                <li><strong>Nombre d'évaluations</strong> : Plus il y en a, plus la note est fiable</li>
+                <li><strong>Commentaires</strong> : Avis détaillés des autres membres</li>
+            </ul>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>⭐⭐⭐⭐⭐ Excellent (4.5-5.0)</h4>
+                    <p>Membre très fiable et apprécié de la communauté.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>⭐⭐⭐⭐ Bon (3.5-4.4)</h4>
+                    <p>Membre fiable avec de bonnes évaluations.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>⭐⭐⭐ Moyen (2.5-3.4)</h4>
+                    <p>Membre avec des évaluations mitigées.</p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- FAQ -->
+        <section id="faq">
+            <h2>❓ Foire aux questions (FAQ)</h2>
+
+            <h3>Questions générales</h3>
+
+            <h4>Qu'est-ce que SELMai ?</h4>
+            <p>SELMai est un Système d'Échange Local pour les communes de Martignas-sur-Jalle et Saint-Jean-d'Illac.
+                C'est une plateforme qui permet aux habitants et aux associations d'échanger des services et des biens
+                en utilisant une
+                monnaie locale appelée "le radis".</p>
+
+            <h4>Comment devenir membre ?</h4>
+            <p>Contactez l'administrateur de votre SEL local pour obtenir vos identifiants de connexion. L'inscription
+                se fait exclusivement sur <a
+                    href="https://www.helloasso.com/associations/systeme-d-echange-local-martignas-illac/adhesions/adhesion-pour-un-particulier">HelloAsso</a>.
+            </p>
+
+            <h4>Le radis a-t-il une valeur monétaire ?</h4>
+            <p>Non, le radis n'a pas de valeur monétaire réelle. C'est une unité d'échange symbolique qui représente le
+                temps et l'effort. On ne peut ni l'acheter ni le vendre contre de l'argent réel.</p>
+
+            <h3>Questions sur les services</h3>
+
+            <h4>Combien de services puis-je proposer ?</h4>
+            <p>Il n'y a pas de limite ! Vous pouvez proposer autant de services que vous le souhaitez, dans différentes
+                catégories.</p>
+
+            <h4>Puis-je modifier le prix de mes services ?</h4>
+            <p>Oui, vous pouvez modifier vos services à tout moment, y compris le prix. Les négociations en cours ne
+                seront pas affectées.</p>
+
+            <h4>Que faire si personne ne demande mes services ?</h4>
+            <p>Assurez-vous que vos annonces sont claires et attractives. Participez aux événements communautaires pour
+                vous faire connaître. Vous pouvez aussi proposer des services plus demandés.</p>
+
+            <h3>Questions sur les négociations</h3>
+
+            <h4>Puis-je négocier le prix affiché ?</h4>
+            <p>Oui ! Le prix affiché est indicatif. Vous pouvez proposer un prix différent lors de la négociation. Le
+                vendeur est libre d'accepter ou de refuser.</p>
+
+            <h4>Que se passe-t-il si ma demande est refusée ?</h4>
+            <p>Rien de grave ! Le vendeur peut avoir de bonnes raisons (indisponibilité, prix trop bas, etc.). Vous
+                pouvez chercher un autre prestataire ou contacter le vendeur pour discuter.</p>
+
+            <h4>Comment contacter le vendeur après acceptation ?</h4>
+            <p>Une fois la négociation acceptée, les coordonnées complètes (email, téléphone) du vendeur deviennent
+                visibles dans les détails de la négociation.</p>
+
+            <h3>Questions sur le porte-monnaie</h3>
+
+            <h4>Quel est le solde de départ ?</h4>
+            <p>Le solde de départ est défini par votre administrateur, généralement 200 radis pour permettre
+                vos premiers échanges.</p>
+
+            <h4>Que faire si mon solde est négatif ?</h4>
+            <p>Un solde négatif signifie que vous avez reçu plus de services que vous n'en avez rendus. Proposez vos
+                services et réalisez des échanges pour rééquilibrer votre compte.</p>
+
+            <h4>Y a-t-il une limite de solde ?</h4>
+            <p>Il n'y a généralement pas de limite maximale, mais certains SEL peuvent définir des seuils. Consultez
+                votre administrateur pour les règles spécifiques.</p>
+
+            <h3>Questions techniques</h3>
+
+            <h4>Sur quels appareils puis-je utiliser SELMai ?</h4>
+            <p>SELMai est une application web accessible depuis n'importe quel navigateur moderne (Chrome, Firefox,
+                Safari, Edge) sur ordinateur, tablette ou smartphone.</p>
+
+            <h4>J'ai oublié mon mot de passe, que faire ?</h4>
+            <p>Contactez votre administrateur qui pourra réinitialiser votre mot de passe.</p>
+
+            <h4>Mes données sont-elles sécurisées ?</h4>
+            <p>Oui, SELMai utilise des protocoles de sécurité modernes (HTTPS, hashage non réversible des mots de passe)
+                pour
+                protéger vos données. Vos informations personnelles ne sont visibles que par les membres avec qui vous
+                échangez.</p>
+
+            <h4>L'application est-elle disponible hors ligne ?</h4>
+            <p>Non, SELMai nécessite une connexion Internet pour fonctionner car c'est une application web.</p>
+
+            <h3>Questions sur la communauté</h3>
+
+            <h4>Comment améliorer ma note ?</h4>
+            <p>Fournissez des services de qualité, soyez ponctuel, respectueux et professionnel. Les bonnes évaluations
+                viendront naturellement.</p>
+
+            <h4>Puis-je signaler un comportement inapproprié ?</h4>
+            <p>Oui, contactez immédiatement votre administrateur si vous rencontrez un problème avec un membre.</p>
+
+            <h4>Comment participer davantage à la communauté ?</h4>
+            <p>Proposez des services variés, répondez rapidement aux demandes, participez aux événements du SEL, et
+                soyez actif dans les échanges.</p>
+
+            <div class="alert alert-info">
+                <strong>💡 Besoin d'aide supplémentaire ?</strong><br>
+                Si vous ne trouvez pas la réponse à votre question, contactez votre administrateur local <a
+                    href="mailto:selmai33127@gmail.com">selmai33127@gmail.com</a>.
+            </div>
+        </section>
+
+        <div class="alert alert-success">
+            <strong>✅ Merci d'utiliser SELMai !</strong><br>
+            Votre participation contribue à créer une communauté locale solidaire et dynamique. Ensemble,
+            construisons une économie locale plus humaine et durable.
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p><strong>SELMai</strong> - Système d'échange local</p>
+            <p>Martignas-sur-Jalle & Saint-Jean-d'Illac</p>
+            <p style="margin-top: 1rem; opacity: 0.8;">
+                🌱 <em>Échanger local, vivre solidaire</em> 🌱
+            </p>
+            <p style="margin-top: 1rem; font-size: 0.9rem;">
+                Version 1.0.0 | Licence Apache 2.0 | © 2025
+            </p>
+        </div>
+    </footer>
+</body>
+
+</html>

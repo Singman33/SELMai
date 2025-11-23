@@ -22,21 +22,59 @@ app.set('trust proxy', 1);
 // Middleware CORS (en premier pour gérer les preflight requests)
 const corsOptions = {
   origin: function (origin, callback) {
+    // Permettre les requêtes sans origin (Postman, mobile apps, curl, etc.)
+    if (!origin) {
+      callback(null, true);
+      return;
+    }
+
+    // Liste des origines explicitement autorisées
     const allowedOrigins = [
+      // Développement local
       'http://localhost:3000',
+      'http://localhost:8080',
       'http://127.0.0.1:3000',
+      'http://127.0.0.1:8080',
+      // Docker interne
       'http://backend:3001',
       'http://frontend:3000',
+      'http://frontend:80',
+      // Production - selmai.fr
+      'http://selmai.fr',
+      'https://selmai.fr',
+      'http://selmai.fr:80',
+      'http://selmai.fr:8080',
+      'https://selmai.fr:443',
+      'https://selmai.fr:8443',
+      'http://www.selmai.fr',
+      'https://www.selmai.fr',
+      'http://www.selmai.fr:80',
+      'http://www.selmai.fr:8080',
+      'https://www.selmai.fr:443',
+      'https://www.selmai.fr:8443',
       process.env.FRONTEND_URL
     ].filter(Boolean);
-    
-    // Permettre les requêtes sans origin (Postman, mobile apps, etc.)
-    if (!origin || allowedOrigins.includes(origin)) {
+
+    // Vérifier si l'origine est dans la liste autorisée
+    if (allowedOrigins.includes(origin)) {
       callback(null, true);
-    } else {
-      console.log('❌ CORS blocked origin:', origin);
-      callback(new Error('Not allowed by CORS'));
+      return;
     }
+
+    // Permettre tout domaine sur les ports 80, 8080, 3000 et 443 (pour les domaines personnalisés)
+    try {
+      const url = new URL(origin);
+      const allowedPorts = ['80', '8080', '3000', '443', '8443', ''];
+      if (allowedPorts.includes(url.port)) {
+        callback(null, true);
+        return;
+      }
+    } catch (e) {
+      // URL invalide, bloquer
+    }
+
+    console.log('❌ CORS blocked origin:', origin);
+    callback(new Error('Not allowed by CORS'));
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'HEAD'],

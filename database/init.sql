@@ -134,9 +134,3 @@ INSERT INTO categories (name, description) VALUES
 -- Création de l'utilisateur admin par défaut (mot de passe: 1234)
 INSERT INTO users (username, email, password_hash, first_name, last_name, balance, is_admin, is_active) VALUES
 ('admin', 'admin@selmai.local', '$2a$10$oCxk.vmb3antkOIiS/35DOozB1ANkc2VDvXlkW0LI8TugbmY0f4la', 'Admin', 'Système', 1000, TRUE, TRUE);
-
--- Création de quelques utilisateurs de test
-INSERT INTO users (username, email, password_hash, first_name, last_name, balance, is_admin, is_active) VALUES
-('nathalie.jordana', 'nathalie.j@selmai.local', '$2b$10$rQZ8kJz8k8k8k8k8k8k8kuO8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8', 'Nathalie', 'Jordana', 200, FALSE, TRUE),
-('philippe.paya', 'philippe.p@selmai.local', '$2b$10$rQZ8kJz8k8k8k8k8k8k8kuO8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8', 'Philippe', 'Paya', 200, FALSE, TRUE),
-('laurent.laval', 'laurent.l@selmai.local', '$2b$10$rQZ8kJz8k8k8k8k8k8k8kuO8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8k8', 'Laurent', 'Laval', 200, FALSE, TRUE);

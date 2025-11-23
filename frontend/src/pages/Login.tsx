@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useError } from '../context/ErrorContext';
 
 const Login: React.FC = () => {
   const { user, login } = useAuth();
+  const { addError } = useError();
   const location = useLocation();
   const [credentials, setCredentials] = useState({ username: '', password: '' });
-  const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const from = location.state?.from?.pathname || '/marketplace';
@@ -17,13 +18,12 @@ const Login: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
     setIsLoading(true);
 
     try {
       await login(credentials.username, credentials.password);
     } catch (err: any) {
-      setError(err.message);
+      addError(err.message, 'error');
     } finally {
       setIsLoading(false);
     }
@@ -116,18 +116,7 @@ const Login: React.FC = () => {
             />
           </div>
 
-          {error && (
-            <div style={{
-              backgroundColor: '#fee',
-              color: '#c33',
-              padding: '0.75rem',
-              borderRadius: '4px',
-              marginBottom: '1rem',
-              border: '1px solid #fcc'
-            }}>
-              {error}
-            </div>
-          )}
+
 
           <button
             type="submit"
@@ -156,9 +145,6 @@ const Login: React.FC = () => {
           fontSize: '0.9rem',
           color: '#7f8c8d'
         }}>
-          <strong>Compte de test :</strong><br />
-          Utilisateur : admin<br />
-          Mot de passe : 1234
         </div>
       </div>
     </div>

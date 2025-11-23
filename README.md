@@ -218,8 +218,8 @@ L'application inclut :
 
 ### Recommandations production
 - Utilisez des secrets sécurisés pour JWT_SECRET
-- Configurez un reverse proxy (nginx)
-- Activez HTTPS
+- Configurez Apache comme reverse proxy (voir DEPLOYMENT.md)
+- Activez HTTPS avec Let's Encrypt
 - Configurez des sauvegardes automatiques de la DB
 - Monitoring et alertes
 

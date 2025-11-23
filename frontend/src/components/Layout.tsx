@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { notificationAPI } from '../services/api';
+import './Layout.css';
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user, logout, refreshUser } = useAuth();
@@ -50,9 +51,9 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     { path: '/negotiations', label: 'Négociations' },
     { path: '/wallet', label: 'Porte-monnaie' },
     { path: '/community', label: 'Communauté' },
-    { 
-      path: '/notifications', 
-      label: `Notifications${unreadCount > 0 ? ` (${unreadCount})` : ''}` 
+    {
+      path: '/notifications',
+      label: `Notifications${unreadCount > 0 ? ` (${unreadCount})` : ''}`
     },
   ];
 
@@ -60,40 +61,57 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     navItems.push({ path: '/admin', label: 'Administration' });
   }
 
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
+    <div className="layout-container">
       {/* Header */}
-      <header style={{
-        backgroundColor: '#2c3e50',
-        color: 'white',
-        padding: '1rem',
-        boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-      }}>
-        <div style={{
-          maxWidth: '1200px',
-          margin: '0 auto',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-            <img 
-              src="/logo.svg" 
-              alt="SELMai Logo" 
-              style={{ 
-                height: '40px',
-                width: '40px'
-              }}
+      <header className="header">
+        <div className="header-content">
+          <div className="logo-section">
+            <img
+              src="/logo.svg"
+              alt="SELMai Logo"
+              className="logo-image"
             />
-            <h1 style={{ margin: 0, fontSize: '1.5rem' }}>
-              SELMai - Système d'échange local
+            <h1 className="site-title">
+              SELMai
             </h1>
           </div>
+
+          {/* Help Button */}
+          <button
+            onClick={() => window.open('/guide-utilisateur.html', '_blank')}
+            className="help-btn"
+            title="Guide utilisateur"
+          >
+            ?
+          </button>
+
+          {/* Desktop User Controls */}
           {user && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <div className="user-controls">
               <span>
-                Bonjour, {user.firstName} ({Number(user.balance) || 0} radis)
+                {user.firstName} ({Number(user.balance) || 0} radis)
               </span>
+              <Link
+                to="/settings"
+                style={{
+                  padding: '0.5rem 1rem',
+                  backgroundColor: '#3498db',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  textDecoration: 'none',
+                  cursor: 'pointer'
+                }}
+              >
+                ⚙️ Paramètres
+              </Link>
               <button
                 onClick={handleLogout}
                 style={{
@@ -109,44 +127,67 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               </button>
             </div>
           )}
-        </div>
-      </header>
 
-      {/* Navigation */}
-      {user && (
-        <nav style={{
-          backgroundColor: '#34495e',
-          padding: '0.5rem 0',
-          boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-        }}>
-          <div style={{
-            maxWidth: '1200px',
-            margin: '0 auto',
-            display: 'flex',
-            gap: '0'
-          }}>
+          {/* Mobile Hamburger Button */}
+          {user && (
+            <button className="hamburger-btn" onClick={toggleMobileMenu}>
+              ☰
+            </button>
+          )}
+        </div>
+
+        {/* Mobile Menu Dropdown */}
+        {user && isMobileMenuOpen && (
+          <div className="mobile-menu open">
+            <div className="mobile-user-info">
+              <p>Bonjour, {user.firstName}</p>
+              <p>Solde: {Number(user.balance) || 0} radis</p>
+            </div>
             {navItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
-                style={{
-                  padding: '1rem 1.5rem',
-                  color: 'white',
-                  textDecoration: 'none',
-                  backgroundColor: isActive(item.path) ? '#2c3e50' : 'transparent',
-                  borderRadius: '4px 4px 0 0',
-                  transition: 'background-color 0.3s'
-                }}
-                onMouseEnter={(e) => {
-                  if (!isActive(item.path)) {
-                    e.currentTarget.style.backgroundColor = '#2c3e50';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (!isActive(item.path)) {
-                    e.currentTarget.style.backgroundColor = 'transparent';
-                  }
-                }}
+                className="mobile-nav-link"
+                onClick={() => setIsMobileMenuOpen(false)}
+                style={{ backgroundColor: isActive(item.path) ? '#34495e' : 'transparent' }}
+              >
+                {item.label}
+              </Link>
+            ))}
+            <Link
+              to="/settings"
+              className="mobile-nav-link"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              ⚙️ Paramètres
+            </Link>
+            <button
+              onClick={() => { window.open('/guide-utilisateur.html', '_blank'); setIsMobileMenuOpen(false); }}
+              className="mobile-nav-link"
+              style={{ width: '100%', textAlign: 'left', background: 'none', border: 'none', cursor: 'pointer' }}
+            >
+              ? Guide utilisateur
+            </button>
+            <button
+              onClick={handleLogout}
+              className="mobile-nav-link"
+              style={{ width: '100%', textAlign: 'left', background: 'none', border: 'none', cursor: 'pointer', color: '#e74c3c' }}
+            >
+              Déconnexion
+            </button>
+          </div>
+        )}
+      </header>
+
+      {/* Desktop Navigation */}
+      {user && (
+        <nav className="nav-bar">
+          <div className="nav-container">
+            {navItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`nav-link ${isActive(item.path) ? 'active' : ''}`}
               >
                 {item.label}
               </Link>
@@ -156,25 +197,14 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       )}
 
       {/* Main Content */}
-      <main style={{
-        maxWidth: '1200px',
-        margin: '0 auto',
-        padding: '2rem',
-        minHeight: 'calc(100vh - 140px)'
-      }}>
+      <main className="main-content">
         {children}
       </main>
 
       {/* Footer */}
-      <footer style={{
-        backgroundColor: '#2c3e50',
-        color: 'white',
-        textAlign: 'center',
-        padding: '1rem',
-        marginTop: '2rem'
-      }}>
+      <footer className="footer">
         <p style={{ margin: 0 }}>
-          © 2024 SELMai - Martignas / Saint Jean d'Illac - Tous droits réservés
+          © 2025 SELMai - Eric Delcamp - Tous droits réservés
         </p>
       </footer>
     </div>
