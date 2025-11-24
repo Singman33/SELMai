@@ -8,7 +8,7 @@ La configuration CORS du backend autorise les requêtes depuis plusieurs origine
 
 ### Développement local
 - `http://localhost:3000` - Frontend en développement
-- `http://localhost:8080` - Frontend via nginx
+- `http://localhost:8080` - Frontend Docker
 - `http://127.0.0.1:3000`
 - `http://127.0.0.1:8080`
 
@@ -43,9 +43,8 @@ Cela permet d'utiliser des domaines personnalisés comme `selmai.domain.lan:8080
 ## Ports utilisés
 
 ### En production (`docker-compose.prod.yml`)
-- **3001** : Port interne du backend (non exposé à l'extérieur)
-- **8080** : Port HTTP nginx (exposé)
-- **8443** : Port HTTPS nginx (exposé, actuellement sans SSL)
+- **3000** : Port frontend exposé (Docker)
+- **3001** : Port backend exposé (Docker)
 - **3306** : Port MySQL/MariaDB (exposé pour administration)
 
 ### En développement (`docker-compose.yml`)

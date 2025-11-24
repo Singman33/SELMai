@@ -14,7 +14,7 @@ Ce guide détaille les stratégies de sauvegarde et les procédures de restaurat
 2. **Fichiers de configuration** (important)
    - `.env` (secrets et configuration)
    - `docker compose.prod.yml`
-   - Configuration nginx
+   - Configuration Apache
 
 3. **Uploads utilisateurs** (si applicable)
    - Images de profil
@@ -87,8 +87,7 @@ gzip backup_${TIMESTAMP}.sql
 tar -czf config_backup_$(date +%Y%m%d).tar.gz \
   .env \
   docker compose.prod.yml \
-  nginx/ \
-  --exclude=nginx/ssl
+  apache/
 ```
 
 ## 🔐 Sauvegardes Chiffrées
@@ -228,7 +227,7 @@ mkdir -p /tmp/selmai-test
 cd /tmp/selmai-test
 
 # 2. Copier les fichiers de configuration
-cp -r /opt/selmai/{docker compose.prod.yml,nginx,backend,frontend,database} .
+cp -r /opt/selmai/{docker compose.prod.yml,apache,backend,frontend,database} .
 
 # 3. Modifier les ports pour éviter les conflits
 sed -i 's/80:80/8080:80/g' docker compose.prod.yml

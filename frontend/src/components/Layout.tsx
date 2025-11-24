@@ -83,15 +83,6 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             </h1>
           </div>
 
-          {/* Help Button */}
-          <button
-            onClick={() => window.open('/guide-utilisateur.html', '_blank')}
-            className="help-btn"
-            title="Guide utilisateur"
-          >
-            ?
-          </button>
-
           {/* Desktop User Controls */}
           {user && (
             <div className="user-controls">
@@ -127,6 +118,15 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               </button>
             </div>
           )}
+
+          {/* Help Button */}
+          <button
+            onClick={() => window.open('/guide-utilisateur.html', '_blank')}
+            className="help-btn"
+            title="Guide utilisateur"
+          >
+            ?
+          </button>
 
           {/* Mobile Hamburger Button */}
           {user && (

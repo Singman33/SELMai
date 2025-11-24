@@ -23,7 +23,6 @@ Tous les services ont des health checks configurés :
 docker inspect --format='{{.State.Health.Status}}' selmai-backend-1
 docker inspect --format='{{.State.Health.Status}}' selmai-frontend-1
 docker inspect --format='{{.State.Health.Status}}' selmai-db-1
-docker inspect --format='{{.State.Health.Status}}' selmai-nginx-1
 
 # Endpoints de health check
 curl https://votre-domaine.com/health          # Frontend
@@ -42,7 +41,6 @@ docker compose -f docker compose.prod.yml logs -f
 docker compose -f docker compose.prod.yml logs -f backend
 docker compose -f docker compose.prod.yml logs -f frontend
 docker compose -f docker compose.prod.yml logs -f db
-docker compose -f docker compose.prod.yml logs -f nginx
 
 # Dernières 100 lignes
 docker compose -f docker compose.prod.yml logs --tail=100
@@ -60,9 +58,9 @@ docker compose -f docker compose.prod.yml logs | grep -i error
 # Rechercher les tentatives de connexion
 docker compose -f docker compose.prod.yml logs backend | grep -i login
 
-# Rechercher par code HTTP
-docker compose -f docker compose.prod.yml logs nginx | grep " 500 "
-docker compose -f docker compose.prod.yml logs nginx | grep " 404 "
+# Rechercher les erreurs HTTP dans les logs Apache
+sudo tail -n 1000 /var/log/apache2/access.log | grep " 500 "
+sudo tail -n 1000 /var/log/apache2/access.log | grep " 404 "
 ```
 
 ### Rotation des logs
@@ -184,37 +182,37 @@ docker exec selmai-db-1 mysqladmin -u root -p status
 docker exec selmai-db-1 mysqladmin -u root -p extended-status
 ```
 
-## 🌐 Monitoring Nginx
+## 🌐 Monitoring Apache
 
-### Statistiques nginx
+### Statistiques Apache
 
 ```bash
 # Vérifier la configuration
-docker exec selmai-nginx-1 nginx -t
+sudo apache2ctl configtest
 
 # Recharger la configuration sans downtime
-docker exec selmai-nginx-1 nginx -s reload
+sudo systemctl reload apache2
 
-# Logs d'accès
-docker compose -f docker compose.prod.yml logs nginx | grep "GET\|POST"
+# Logs d'accès en temps réel
+sudo tail -f /var/log/apache2/access.log
 
 # Codes de statut HTTP
-docker compose -f docker compose.prod.yml logs nginx | awk '{print $9}' | sort | uniq -c | sort -rn
+sudo tail -n 1000 /var/log/apache2/access.log | awk '{print $9}' | sort | uniq -c | sort -rn
 ```
 
-### Analyse des logs nginx
+### Analyse des logs Apache
 
 ```bash
 # Top 10 des IPs
-docker compose -f docker compose.prod.yml logs nginx | \
+sudo tail -n 10000 /var/log/apache2/access.log | \
   awk '{print $1}' | sort | uniq -c | sort -rn | head -10
 
 # Top 10 des URLs
-docker compose -f docker compose.prod.yml logs nginx | \
+sudo tail -n 10000 /var/log/apache2/access.log | \
   awk '{print $7}' | sort | uniq -c | sort -rn | head -10
 
 # Requêtes par heure
-docker compose -f docker compose.prod.yml logs nginx | \
+sudo tail -n 10000 /var/log/apache2/access.log | \
   awk '{print $4}' | cut -d: -f2 | sort | uniq -c
 ```
 
@@ -317,7 +315,7 @@ ls -lh /opt/selmai/backups/
 docker image prune -a -f
 
 # Vérifier les certificats SSL
-docker compose -f docker compose.prod.yml exec certbot certbot certificates
+sudo certbot certificates
 
 # Vérifier les mises à jour système
 sudo apt update && sudo apt list --upgradable
@@ -329,8 +327,8 @@ sudo apt update && sudo apt list --upgradable
 # Tester une restauration de backup
 # (voir docs/BACKUP.md)
 
-# Vérifier les logs nginx pour les patterns suspects
-docker compose -f docker compose.prod.yml logs nginx | grep -E "404|500" | wc -l
+# Vérifier les logs Apache pour les patterns suspects
+sudo tail -n 10000 /var/log/apache2/access.log | grep -E "404|500" | wc -l
 
 # Analyser les performances de la base de données
 docker exec selmai-db-1 mysqlcheck -u root -p --optimize --all-databases
@@ -426,7 +424,7 @@ docker exec selmai-db-1 mysql --version
 ## 📚 Ressources
 
 - [Docker Monitoring Best Practices](https://docs.docker.com/config/daemon/prometheus/)
-- [Nginx Monitoring](https://www.nginx.com/blog/monitoring-nginx/)
+- [Apache Monitoring](https://httpd.apache.org/docs/2.4/logs.html)
 - [MariaDB Monitoring](https://mariadb.com/kb/en/monitoring-and-troubleshooting/)
 
 ---

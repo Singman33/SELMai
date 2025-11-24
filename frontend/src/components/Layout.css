@@ -82,9 +82,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: auto;
-  margin-right: 1rem;
+  margin-left: 1rem;
 }
+
 
 .help-btn:hover {
   background-color: #2980b9;

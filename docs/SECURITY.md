@@ -95,11 +95,6 @@ maxretry = 5
 enabled = true
 port = ssh
 logpath = /var/log/auth.log
-
-[nginx-limit-req]
-enabled = true
-filter = nginx-limit-req
-logpath = /var/log/nginx/error.log
 ```
 
 ```bash
@@ -152,15 +147,7 @@ gpg --symmetric --cipher-algo AES256 backups/selmai_backup_*.sql.gz
 gpg --decrypt backups/selmai_backup_*.sql.gz.gpg > backup_decrypted.sql.gz
 ```
 
-## 🌐 Sécurité Nginx et SSL/TLS
-
-### Configuration SSL optimale
-
-Le fichier `nginx/nginx.conf` inclut déjà :
-- ✅ TLS 1.2 et 1.3 uniquement
-- ✅ Ciphers sécurisés
-- ✅ HSTS (HTTP Strict Transport Security)
-- ✅ Headers de sécurité
+## 🔒 Sécurité SSL/TLS
 
 ### Vérification SSL
 
@@ -174,29 +161,14 @@ curl -I https://votre-domaine.com
 
 ### Renouvellement automatique des certificats
 
-Le conteneur `certbot` renouvelle automatiquement les certificats. Vérifiez :
+Les certificats Let's Encrypt doivent être renouvelés automatiquement via certbot sur le serveur :
 
 ```bash
 # Vérifier les certificats
-docker compose -f docker compose.prod.yml exec certbot certbot certificates
+sudo certbot certificates
 
 # Test de renouvellement
-docker compose -f docker compose.prod.yml run --rm certbot renew --dry-run
-```
-
-## 🚦 Rate Limiting
-
-La configuration nginx inclut déjà du rate limiting :
-
-- **API générale** : 10 requêtes/seconde
-- **Login** : 5 tentatives/minute
-
-Pour ajuster :
-
-```nginx
-# Dans nginx/nginx.conf
-limit_req_zone $binary_remote_addr zone=api_limit:10m rate=10r/s;
-limit_req_zone $binary_remote_addr zone=login_limit:10m rate=5r/m;
+sudo certbot renew --dry-run
 ```
 
 ## 🔍 Audit et Logs
@@ -204,14 +176,15 @@ limit_req_zone $binary_remote_addr zone=login_limit:10m rate=5r/m;
 ### Activer les logs d'audit
 
 ```bash
-# Vérifier les logs nginx
-docker compose -f docker compose.prod.yml logs nginx | grep -i error
-
 # Vérifier les logs backend
 docker compose -f docker compose.prod.yml logs backend | grep -i error
 
 # Surveiller les tentatives de connexion
 docker compose -f docker compose.prod.yml logs backend | grep -i "login"
+
+# Vérifier les logs Apache
+sudo tail -f /var/log/apache2/error.log
+sudo tail -f /var/log/apache2/access.log
 ```
 
 ### Rotation des logs
@@ -264,13 +237,7 @@ Pour une protection DDoS robuste, utilisez Cloudflare :
 4. Activez le proxy (nuage orange)
 5. Activez les règles de sécurité
 
-### Rate limiting nginx
 
-Déjà configuré dans `nginx/nginx.conf` :
-
-```nginx
-limit_req_zone $binary_remote_addr zone=api_limit:10m rate=10r/s;
-```
 
 ## 📋 Checklist de Sécurité
 

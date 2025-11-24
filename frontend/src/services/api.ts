@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { User, Service, Category, Negotiation, Transaction, Notification, Rating } from '../types';
 
-// Utiliser une URL relative pour passer par le proxy nginx
+// Utiliser une URL relative pour passer par le reverse proxy
 // En production, les requêtes iront vers /api qui sera proxifié vers le backend
 const API_BASE_URL = '';
 
