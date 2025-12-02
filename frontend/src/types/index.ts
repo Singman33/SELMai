@@ -140,6 +140,30 @@ export interface ServiceDisplay {
   isConsumed?: boolean;
 }
 
+export interface Log {
+  id: number;
+  user_id: number;
+  username?: string;
+  first_name?: string;
+  last_name?: string;
+  action: string;
+  entity_type?: string;
+  entity_id?: number;
+  details?: any;
+  ip_address?: string;
+  created_at: string;
+}
+
+export interface LogStats {
+  total: number;
+  byAction: Record<string, number>;
+  byEntityType: Record<string, number>;
+  period: {
+    startDate: string | null;
+    endDate: string | null;
+  };
+}
+
 export interface AuthContextType {
   user: User | null;
   login: (username: string, password: string) => Promise<void>;

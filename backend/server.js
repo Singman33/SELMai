@@ -12,6 +12,7 @@ const transactionRoutes = require('./routes/transactions');
 const notificationRoutes = require('./routes/notifications');
 const categoryRoutes = require('./routes/categories');
 const ratingRoutes = require('./routes/ratings');
+const logsRoutes = require('./routes/logs');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -134,6 +135,7 @@ app.use('/api/transactions', transactionRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/ratings', ratingRoutes);
+app.use('/api/logs', logsRoutes);
 
 // Route de santé
 app.get('/health', (req, res) => {

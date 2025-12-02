@@ -348,4 +348,74 @@ export const ratingAPI = {
   },
 };
 
+// Logs (Admin)
+export const logsAPI = {
+  getAll: async (filters?: {
+    userId?: number;
+    action?: string;
+    entityType?: string;
+    entityId?: number;
+    startDate?: string;
+    endDate?: string;
+    limit?: number;
+    offset?: number;
+  }) => {
+    const params = new URLSearchParams();
+    if (filters) {
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          params.append(key, value.toString());
+        }
+      });
+    }
+    const response = await api.get(`/logs?${params.toString()}`);
+    return response.data;
+  },
+
+  getActions: async () => {
+    const response = await api.get('/logs/actions');
+    return response.data;
+  },
+
+  getStats: async (filters?: {
+    startDate?: string;
+    endDate?: string;
+  }) => {
+    const params = new URLSearchParams();
+    if (filters) {
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          params.append(key, value.toString());
+        }
+      });
+    }
+    const response = await api.get(`/logs/stats?${params.toString()}`);
+    return response.data;
+  },
+
+  getUserLogs: async (userId: number, filters?: {
+    action?: string;
+    limit?: number;
+    offset?: number;
+  }) => {
+    const params = new URLSearchParams();
+    if (filters) {
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value !== undefined && value !== null) {
+          params.append(key, value.toString());
+        }
+      });
+    }
+    const response = await api.get(`/logs/user/${userId}?${params.toString()}`);
+    return response.data;
+  },
+
+  cleanup: async (beforeDate: string) => {
+    const response = await api.delete('/logs/cleanup', {
+      data: { beforeDate }
+    });
+    return response.data;
+  }
+};
+
 export default api;

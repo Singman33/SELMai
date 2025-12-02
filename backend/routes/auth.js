@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const db = require('../config/database');
 const { authenticateToken } = require('../middleware/auth');
+const { logAction, LogActions } = require('../logger');
 
 const router = express.Router();
 
@@ -36,13 +37,24 @@ router.post('/login', async (req, res) => {
 
     // Générer le token JWT
     const token = jwt.sign(
-      { 
-        userId: user.id, 
+      {
+        userId: user.id,
         username: user.username,
-        isAdmin: user.is_admin 
+        isAdmin: user.is_admin
       },
       process.env.JWT_SECRET || 'your-secret-key-here',
       { expiresIn: '24h' }
+    );
+
+    // Enregistrer la connexion dans les logs
+    const ipAddress = req.ip || req.connection.remoteAddress;
+    await logAction(
+      user.id,
+      LogActions.LOGIN,
+      'user',
+      user.id,
+      { username: user.username },
+      ipAddress
     );
 
     res.json({
@@ -74,8 +86,24 @@ router.get('/verify', authenticateToken, (req, res) => {
 });
 
 // Déconnexion (côté client principalement)
-router.post('/logout', (req, res) => {
-  res.json({ message: 'Déconnexion réussie' });
+router.post('/logout', authenticateToken, async (req, res) => {
+  try {
+    // Enregistrer la déconnexion dans les logs
+    const ipAddress = req.ip || req.connection.remoteAddress;
+    await logAction(
+      req.user.id,
+      LogActions.LOGOUT,
+      'user',
+      req.user.id,
+      { username: req.user.username },
+      ipAddress
+    );
+
+    res.json({ message: 'Déconnexion réussie' });
+  } catch (error) {
+    console.error('Erreur lors de la déconnexion:', error);
+    res.json({ message: 'Déconnexion réussie' }); // Toujours réussir la déconnexion
+  }
 });
 
 module.exports = router;

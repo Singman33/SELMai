@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
-import { User, UserDisplay, Service, ServiceDisplay, Category, Negotiation } from '../types';
-import { userAPI, serviceAPI, negotiationAPI, notificationAPI, categoryAPI } from '../services/api';
+import { User, UserDisplay, Service, ServiceDisplay, Category, Negotiation, Log, LogStats } from '../types';
+import { userAPI, serviceAPI, negotiationAPI, notificationAPI, categoryAPI, logsAPI } from '../services/api';
 import { useError } from '../context/ErrorContext';
 import { useAuth } from '../context/AuthContext';
 
@@ -150,52 +150,52 @@ const UserManagement: React.FC = () => {
               <input
                 type="text"
                 value={formData.username}
-                onChange={(e) => setFormData({...formData, username: e.target.value})}
+                onChange={(e) => setFormData({ ...formData, username: e.target.value })}
                 required
                 style={{ width: '100%', padding: '0.5rem', border: '1px solid #ddd', borderRadius: '4px' }}
               />
             </div>
-            
+
             <div>
               <label>Email *</label>
               <input
                 type="email"
                 value={formData.email}
-                onChange={(e) => setFormData({...formData, email: e.target.value})}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 required
                 style={{ width: '100%', padding: '0.5rem', border: '1px solid #ddd', borderRadius: '4px' }}
               />
             </div>
-            
+
             <div>
               <label>Prénom *</label>
               <input
                 type="text"
                 value={formData.firstName}
-                onChange={(e) => setFormData({...formData, firstName: e.target.value})}
+                onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                 required
                 style={{ width: '100%', padding: '0.5rem', border: '1px solid #ddd', borderRadius: '4px' }}
               />
             </div>
-            
+
             <div>
               <label>Nom *</label>
               <input
                 type="text"
                 value={formData.lastName}
-                onChange={(e) => setFormData({...formData, lastName: e.target.value})}
+                onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                 required
                 style={{ width: '100%', padding: '0.5rem', border: '1px solid #ddd', borderRadius: '4px' }}
               />
             </div>
-            
+
             {!editingUser ? (
               <div>
                 <label>Mot de passe *</label>
                 <input
                   type="password"
                   value={formData.password}
-                  onChange={(e) => setFormData({...formData, password: e.target.value})}
+                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                   required
                   style={{ width: '100%', padding: '0.5rem', border: '1px solid #ddd', borderRadius: '4px' }}
                 />
@@ -217,7 +217,7 @@ const UserManagement: React.FC = () => {
                     <input
                       type="password"
                       value={formData.password}
-                      onChange={(e) => setFormData({...formData, password: e.target.value})}
+                      onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                       required={changePassword}
                       style={{ width: '100%', padding: '0.5rem', border: '1px solid #ddd', borderRadius: '4px' }}
                     />
@@ -225,27 +225,27 @@ const UserManagement: React.FC = () => {
                 )}
               </div>
             )}
-            
+
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
               <label>
                 <input
                   type="checkbox"
                   checked={formData.isAdmin}
-                  onChange={(e) => setFormData({...formData, isAdmin: e.target.checked})}
+                  onChange={(e) => setFormData({ ...formData, isAdmin: e.target.checked })}
                 />
                 Administrateur
               </label>
-              
+
               <label>
                 <input
                   type="checkbox"
                   checked={formData.isActive}
-                  onChange={(e) => setFormData({...formData, isActive: e.target.checked})}
+                  onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
                 />
                 Actif
               </label>
             </div>
-            
+
             <div style={{ gridColumn: '1 / -1', display: 'flex', gap: '1rem' }}>
               <button type="submit" style={{
                 padding: '0.5rem 1rem',
@@ -257,7 +257,7 @@ const UserManagement: React.FC = () => {
               }}>
                 {editingUser ? 'Modifier' : 'Créer'}
               </button>
-              
+
               <button type="button" onClick={resetForm} style={{
                 padding: '0.5rem 1rem',
                 backgroundColor: '#95a5a6',
@@ -317,7 +317,7 @@ const UserManagement: React.FC = () => {
                     }}>
                       Modifier
                     </button>
-                    
+
                     {user.id !== 1 && (
                       <button onClick={() => handleDelete(user.id)} style={{
                         padding: '0.25rem 0.5rem',
@@ -379,7 +379,7 @@ const BalanceManagement: React.FC = () => {
       setAmount('');
       setDescription('');
       await fetchUsers();
-      
+
       // Rafraîchir immédiatement le profil utilisateur
       console.log('🔄 Rafraîchissement du profil après ajustement...');
       await refreshUser();
@@ -396,7 +396,7 @@ const BalanceManagement: React.FC = () => {
   return (
     <div>
       <h2>Gestion des soldes</h2>
-      
+
       <div style={{
         backgroundColor: 'white',
         padding: '1.5rem',
@@ -404,7 +404,7 @@ const BalanceManagement: React.FC = () => {
         marginBottom: '2rem'
       }}>
         <h3>Ajuster le solde d'un utilisateur</h3>
-        
+
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '500px' }}>
           <div>
             <label htmlFor="balance-user-select">Utilisateur</label>
@@ -424,7 +424,7 @@ const BalanceManagement: React.FC = () => {
               ))}
             </select>
           </div>
-          
+
           <div>
             <label htmlFor="balance-amount-input">Montant (positif pour crédit, négatif pour débit)</label>
             <input
@@ -438,7 +438,7 @@ const BalanceManagement: React.FC = () => {
               style={{ width: '100%', padding: '0.5rem', border: '1px solid #ddd', borderRadius: '4px' }}
             />
           </div>
-          
+
           <div>
             <label htmlFor="balance-description-input">Description</label>
             <input
@@ -451,7 +451,7 @@ const BalanceManagement: React.FC = () => {
               style={{ width: '100%', padding: '0.5rem', border: '1px solid #ddd', borderRadius: '4px' }}
             />
           </div>
-          
+
           <button type="submit" style={{
             padding: '0.75rem',
             backgroundColor: '#27ae60',
@@ -469,7 +469,7 @@ const BalanceManagement: React.FC = () => {
         <h3 style={{ padding: '1rem', margin: 0, backgroundColor: '#f8f9fa', borderBottom: '1px solid #ddd' }}>
           Soldes actuels
         </h3>
-        
+
         <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
           {users.map(user => (
             <div key={user.id} style={{
@@ -530,7 +530,7 @@ const NotificationManagement: React.FC = () => {
         await notificationAPI.sendToUser(selectedUser as number, title, message);
         addError('Notification envoyée !', 'success');
       }
-      
+
       setSelectedUser('');
       setTitle('');
       setMessage('');
@@ -546,14 +546,14 @@ const NotificationManagement: React.FC = () => {
   return (
     <div>
       <h2>Gestion des notifications</h2>
-      
+
       <div style={{
         backgroundColor: 'white',
         padding: '1.5rem',
         borderRadius: '8px'
       }}>
         <h3>Envoyer une notification</h3>
-        
+
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '600px' }}>
           <div>
             <label>Destinataire</label>
@@ -572,7 +572,7 @@ const NotificationManagement: React.FC = () => {
               ))}
             </select>
           </div>
-          
+
           <div>
             <label>Titre</label>
             <input
@@ -583,7 +583,7 @@ const NotificationManagement: React.FC = () => {
               style={{ width: '100%', padding: '0.5rem', border: '1px solid #ddd', borderRadius: '4px' }}
             />
           </div>
-          
+
           <div>
             <label>Message</label>
             <textarea
@@ -594,7 +594,7 @@ const NotificationManagement: React.FC = () => {
               style={{ width: '100%', padding: '0.5rem', border: '1px solid #ddd', borderRadius: '4px', resize: 'vertical' }}
             />
           </div>
-          
+
           <button type="submit" style={{
             padding: '0.75rem',
             backgroundColor: '#3498db',
@@ -629,7 +629,7 @@ const ServiceManagement: React.FC = () => {
     consumable: 0,
     consumed: 0
   });
-  
+
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -650,16 +650,16 @@ const ServiceManagement: React.FC = () => {
     try {
       console.log('🔧 [FRONTEND] Starting fetchData for services admin');
       setIsLoading(true);
-      
+
       // Récupérer les services admin avec plus de détails
       console.log('🔧 [FRONTEND] About to call serviceAPI.getAllServices');
       const servicesData = await serviceAPI.getAllServices();
       console.log('🔧 [FRONTEND] Services récupérés avec succès:', servicesData.length);
       console.log('🔧 [FRONTEND] Services data received:', servicesData.length, 'services');
-      
+
       // Les données sont déjà mappées par le backend, pas besoin de re-mapper
       setServices(servicesData);
-      
+
       // Calculer les statistiques
       const stats = {
         total: servicesData.length,
@@ -670,13 +670,13 @@ const ServiceManagement: React.FC = () => {
         consumed: servicesData.filter((s: ServiceDisplay) => s.isConsumed).length
       };
       setStatistics(stats);
-      
+
       // Récupérer les catégories
       console.log('🔧 [FRONTEND] About to call categoryAPI.getAll');
       const categoriesData = await categoryAPI.getAll();
       console.log('🔧 [FRONTEND] Catégories récupérées avec succès:', categoriesData.length);
       setCategories(categoriesData);
-      
+
     } catch (error: any) {
       addError(
         error.message || 'Erreur lors du chargement des données',
@@ -712,7 +712,7 @@ const ServiceManagement: React.FC = () => {
         console.log('🔧 [FRONTEND] Service créé avec succès');
         addError('Service créé avec succès !', 'success');
       }
-      
+
       resetForm();
       fetchData();
     } catch (error: any) {
@@ -729,7 +729,7 @@ const ServiceManagement: React.FC = () => {
     const isActive = service?.isActive;
     const action = isActive ? 'désactiver' : 'réactiver';
     const actionPast = isActive ? 'désactivé' : 'réactivé';
-    
+
     if (window.confirm(`Êtes-vous sûr de vouloir ${action} le service "${serviceTitle}" ?`)) {
       try {
         console.log('🔧 [ADMIN] Tentative de', action, 'du service ID:', serviceId);
@@ -758,7 +758,7 @@ const ServiceManagement: React.FC = () => {
           await serviceAPI.update(serviceId, putData);
           console.log('🔧 [ADMIN] Service réactivé avec succès');
         }
-        
+
         addError(`Service ${actionPast} avec succès !`, 'success');
         fetchData();
       } catch (error: any) {
@@ -803,18 +803,18 @@ const ServiceManagement: React.FC = () => {
 
   // Filtrer les services
   const filteredServices = services.filter(service => {
-    const matchesSearch = !searchTerm || 
+    const matchesSearch = !searchTerm ||
       service.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       service.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       service.username?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       formatUserName(service.firstName, service.lastName, service.username).toLowerCase().includes(searchTerm.toLowerCase());
-    
-    const matchesStatus = statusFilter === 'all' || 
+
+    const matchesStatus = statusFilter === 'all' ||
       (statusFilter === 'active' && service.isActive) ||
       (statusFilter === 'inactive' && !service.isActive);
-    
+
     const matchesType = typeFilter === 'all' || service.serviceType === typeFilter;
-    
+
     return matchesSearch && matchesStatus && matchesType;
   });
 
@@ -969,17 +969,17 @@ const ServiceManagement: React.FC = () => {
               <input
                 type="text"
                 value={formData.title}
-                onChange={(e) => setFormData({...formData, title: e.target.value})}
+                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                 required
                 style={{ width: '100%', padding: '0.5rem', border: '1px solid #ddd', borderRadius: '4px' }}
               />
             </div>
-            
+
             <div>
               <label>Catégorie *</label>
               <select
                 value={formData.categoryId}
-                onChange={(e) => setFormData({...formData, categoryId: e.target.value})}
+                onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
                 required
                 style={{ width: '100%', padding: '0.5rem', border: '1px solid #ddd', borderRadius: '4px' }}
               >
@@ -991,18 +991,18 @@ const ServiceManagement: React.FC = () => {
                 ))}
               </select>
             </div>
-            
+
             <div style={{ gridColumn: '1 / -1' }}>
               <label>Description *</label>
               <textarea
                 value={formData.description}
-                onChange={(e) => setFormData({...formData, description: e.target.value})}
+                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 required
                 rows={3}
                 style={{ width: '100%', padding: '0.5rem', border: '1px solid #ddd', borderRadius: '4px', resize: 'vertical' }}
               />
             </div>
-            
+
             <div>
               <label>Prix (radis) *</label>
               <input
@@ -1010,59 +1010,59 @@ const ServiceManagement: React.FC = () => {
                 step="0.01"
                 min="0"
                 value={formData.price}
-                onChange={(e) => setFormData({...formData, price: e.target.value})}
+                onChange={(e) => setFormData({ ...formData, price: e.target.value })}
                 required
                 style={{ width: '100%', padding: '0.5rem', border: '1px solid #ddd', borderRadius: '4px' }}
               />
             </div>
-            
+
             <div>
               <label>Durée</label>
               <input
                 type="text"
                 placeholder="ex: 2 heures, 1 semaine..."
                 value={formData.duration}
-                onChange={(e) => setFormData({...formData, duration: e.target.value})}
+                onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
                 style={{ width: '100%', padding: '0.5rem', border: '1px solid #ddd', borderRadius: '4px' }}
               />
             </div>
-            
+
             <div>
               <label>Catégorie de service</label>
               <select
                 value={formData.serviceCategory}
-                onChange={(e) => setFormData({...formData, serviceCategory: e.target.value as 'offer' | 'request'})}
+                onChange={(e) => setFormData({ ...formData, serviceCategory: e.target.value as 'offer' | 'request' })}
                 style={{ width: '100%', padding: '0.5rem', border: '1px solid #ddd', borderRadius: '4px' }}
               >
                 <option value="offer">Offre</option>
                 <option value="request">Demande</option>
               </select>
             </div>
-            
+
             <div>
               <label>Type de service</label>
               <select
                 value={formData.serviceType}
-                onChange={(e) => setFormData({...formData, serviceType: e.target.value as 'renewable' | 'consumable'})}
+                onChange={(e) => setFormData({ ...formData, serviceType: e.target.value as 'renewable' | 'consumable' })}
                 style={{ width: '100%', padding: '0.5rem', border: '1px solid #ddd', borderRadius: '4px' }}
               >
                 <option value="consumable">Consommable (usage unique)</option>
                 <option value="renewable">Renouvelable (usage multiple)</option>
               </select>
             </div>
-            
+
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <label>
                 <input
                   type="checkbox"
                   checked={formData.isActive}
-                  onChange={(e) => setFormData({...formData, isActive: e.target.checked})}
+                  onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
                   style={{ marginRight: '0.5rem' }}
                 />
                 Service actif
               </label>
             </div>
-            
+
             <div style={{ gridColumn: '1 / -1', display: 'flex', gap: '1rem' }}>
               <button type="submit" style={{
                 padding: '0.5rem 1rem',
@@ -1074,7 +1074,7 @@ const ServiceManagement: React.FC = () => {
               }}>
                 {editingService ? 'Modifier' : 'Créer'}
               </button>
-              
+
               <button type="button" onClick={resetForm} style={{
                 padding: '0.5rem 1rem',
                 backgroundColor: '#95a5a6',
@@ -1095,7 +1095,7 @@ const ServiceManagement: React.FC = () => {
         <div style={{ padding: '1rem', backgroundColor: '#f8f9fa', borderBottom: '1px solid #ddd', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <h3 style={{ margin: 0 }}>Services ({filteredServices.length})</h3>
         </div>
-        
+
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: '800px' }}>
             <thead style={{ backgroundColor: '#f8f9fa' }}>
@@ -1112,7 +1112,7 @@ const ServiceManagement: React.FC = () => {
             </thead>
             <tbody>
               {filteredServices.map(service => (
-                <tr key={service.id} style={{ 
+                <tr key={service.id} style={{
                   backgroundColor: service.serviceCategory === 'offer' ? '#f0f8ff' : '#fff0f8'
                 }}>
                   <td style={{ padding: '1rem', borderBottom: '1px solid #eee', verticalAlign: 'top' }}>
@@ -1208,7 +1208,7 @@ const ServiceManagement: React.FC = () => {
                       }}>
                         Modifier
                       </button>
-                      
+
                       <button onClick={() => handleDelete(service.id, service.title || '')} style={{
                         padding: '0.25rem 0.5rem',
                         backgroundColor: '#e74c3c',
@@ -1226,7 +1226,7 @@ const ServiceManagement: React.FC = () => {
               ))}
             </tbody>
           </table>
-          
+
           {filteredServices.length === 0 && (
             <div style={{ padding: '2rem', textAlign: 'center', color: '#7f8c8d' }}>
               Aucun service trouvé
@@ -1238,14 +1238,348 @@ const ServiceManagement: React.FC = () => {
   );
 };
 
+const LogsManagement: React.FC = () => {
+  const { addError } = useError();
+  const [logs, setLogs] = useState<Log[]>([]);
+  const [users, setUsers] = useState<UserDisplay[]>([]);
+  const [stats, setStats] = useState<LogStats | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Filtres
+  const [selectedUser, setSelectedUser] = useState<number | ''>('');
+  const [selectedAction, setSelectedAction] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalLogs, setTotalLogs] = useState(0);
+  const logsPerPage = 50;
+
+  useEffect(() => {
+    fetchUsers();
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [selectedUser, selectedAction, startDate, endDate, currentPage]);
+
+  const fetchUsers = async () => {
+    try {
+      const data = await userAPI.getAllUsers();
+      setUsers(data);
+    } catch (error: any) {
+      console.error('Erreur lors du chargement des utilisateurs:', error);
+    }
+  };
+
+  const fetchData = async () => {
+    try {
+      setIsLoading(true);
+
+      const filters: any = {
+        limit: logsPerPage,
+        offset: currentPage * logsPerPage
+      };
+
+      if (selectedUser) filters.userId = selectedUser;
+      if (selectedAction) filters.action = selectedAction;
+      if (startDate) filters.startDate = startDate;
+      if (endDate) filters.endDate = endDate;
+
+      const [logsData, statsData] = await Promise.all([
+        logsAPI.getAll(filters),
+        logsAPI.getStats({ startDate, endDate })
+      ]);
+
+      setLogs(logsData.logs || []);
+      setTotalLogs(logsData.pagination?.total || 0);
+      setStats(statsData);
+    } catch (error: any) {
+      addError(
+        error.userMessage || 'Erreur lors du chargement des logs',
+        'error',
+        error.userDetails
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const resetFilters = () => {
+    setSelectedUser('');
+    setSelectedAction('');
+    setStartDate('');
+    setEndDate('');
+    setCurrentPage(0);
+  };
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleString('fr-FR', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
+  const getActionColor = (action: string) => {
+    if (action.includes('login')) return '#27ae60';
+    if (action.includes('logout')) return '#95a5a6';
+    if (action.includes('create')) return '#3498db';
+    if (action.includes('update')) return '#f39c12';
+    if (action.includes('delete') || action.includes('reject')) return '#e74c3c';
+    if (action.includes('accept') || action.includes('complete')) return '#27ae60';
+    return '#7f8c8d';
+  };
+
+  const totalPages = Math.ceil(totalLogs / logsPerPage);
+
+  if (isLoading && logs.length === 0) return <div>Chargement...</div>;
+
+  return (
+    <div>
+      <h2>Gestion des logs</h2>
+
+      {/* Statistiques */}
+      {stats && (
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+          gap: '1rem',
+          marginBottom: '2rem'
+        }}>
+          <div style={{
+            backgroundColor: 'white',
+            padding: '1.5rem',
+            borderRadius: '8px',
+            border: '1px solid #ddd'
+          }}>
+            <div style={{ fontSize: '2rem', fontWeight: 'bold', color: '#3498db' }}>
+              {stats.total}
+            </div>
+            <div style={{ color: '#7f8c8d', marginTop: '0.5rem' }}>Total des logs</div>
+          </div>
+
+          <div style={{
+            backgroundColor: 'white',
+            padding: '1.5rem',
+            borderRadius: '8px',
+            border: '1px solid #ddd'
+          }}>
+            <div style={{ fontSize: '1.2rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>
+              Par action
+            </div>
+            <div style={{ fontSize: '0.9rem', color: '#7f8c8d' }}>
+              {Object.entries(stats.byAction).slice(0, 3).map(([action, count]) => (
+                <div key={action}>{action}: {count}</div>
+              ))}
+            </div>
+          </div>
+
+          <div style={{
+            backgroundColor: 'white',
+            padding: '1.5rem',
+            borderRadius: '8px',
+            border: '1px solid #ddd'
+          }}>
+            <div style={{ fontSize: '1.2rem', fontWeight: 'bold', marginBottom: '0.5rem' }}>
+              Par entité
+            </div>
+            <div style={{ fontSize: '0.9rem', color: '#7f8c8d' }}>
+              {Object.entries(stats.byEntityType).slice(0, 3).map(([type, count]) => (
+                <div key={type}>{type}: {count}</div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Filtres */}
+      <div style={{
+        backgroundColor: 'white',
+        padding: '1.5rem',
+        borderRadius: '8px',
+        marginBottom: '2rem',
+        border: '1px solid #ddd'
+      }}>
+        <h3>Filtres</h3>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
+          <div>
+            <label>Utilisateur</label>
+            <select
+              value={selectedUser}
+              onChange={(e) => { setSelectedUser(e.target.value ? parseInt(e.target.value) : ''); setCurrentPage(0); }}
+              style={{ width: '100%', padding: '0.5rem', border: '1px solid #ddd', borderRadius: '4px' }}
+            >
+              <option value="">Tous les utilisateurs</option>
+              {users.map(user => (
+                <option key={user.id} value={user.id}>
+                  {formatUserName(user.firstName, user.lastName, user.username)}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label>Action</label>
+            <input
+              type="text"
+              value={selectedAction}
+              onChange={(e) => { setSelectedAction(e.target.value); setCurrentPage(0); }}
+              placeholder="ex: login, service_create..."
+              style={{ width: '100%', padding: '0.5rem', border: '1px solid #ddd', borderRadius: '4px' }}
+            />
+          </div>
+
+          <div>
+            <label>Date début</label>
+            <input
+              type="date"
+              value={startDate}
+              onChange={(e) => { setStartDate(e.target.value); setCurrentPage(0); }}
+              style={{ width: '100%', padding: '0.5rem', border: '1px solid #ddd', borderRadius: '4px' }}
+            />
+          </div>
+
+          <div>
+            <label>Date fin</label>
+            <input
+              type="date"
+              value={endDate}
+              onChange={(e) => { setEndDate(e.target.value); setCurrentPage(0); }}
+              style={{ width: '100%', padding: '0.5rem', border: '1px solid #ddd', borderRadius: '4px' }}
+            />
+          </div>
+        </div>
+
+        <button onClick={resetFilters} style={{
+          marginTop: '1rem',
+          padding: '0.5rem 1rem',
+          backgroundColor: '#95a5a6',
+          color: 'white',
+          border: 'none',
+          borderRadius: '4px',
+          cursor: 'pointer'
+        }}>
+          Réinitialiser les filtres
+        </button>
+      </div>
+
+      {/* Liste des logs */}
+      <div style={{ backgroundColor: 'white', borderRadius: '8px', overflow: 'hidden' }}>
+        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+          <thead style={{ backgroundColor: '#f8f9fa' }}>
+            <tr>
+              <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #ddd' }}>Date/Heure</th>
+              <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #ddd' }}>Utilisateur</th>
+              <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #ddd' }}>Action</th>
+              <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #ddd' }}>Entité</th>
+              <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #ddd' }}>Détails</th>
+              <th style={{ padding: '1rem', textAlign: 'left', borderBottom: '1px solid #ddd' }}>IP</th>
+            </tr>
+          </thead>
+          <tbody>
+            {logs.map(log => (
+              <tr key={log.id}>
+                <td style={{ padding: '1rem', borderBottom: '1px solid #eee', fontSize: '0.9rem' }}>
+                  {formatDate(log.created_at)}
+                </td>
+                <td style={{ padding: '1rem', borderBottom: '1px solid #eee' }}>
+                  {formatUserName(log.first_name, log.last_name, log.username)}
+                </td>
+                <td style={{ padding: '1rem', borderBottom: '1px solid #eee' }}>
+                  <span style={{
+                    backgroundColor: getActionColor(log.action),
+                    color: 'white',
+                    padding: '0.2rem 0.5rem',
+                    borderRadius: '4px',
+                    fontSize: '0.85rem'
+                  }}>
+                    {log.action}
+                  </span>
+                </td>
+                <td style={{ padding: '1rem', borderBottom: '1px solid #eee', fontSize: '0.9rem' }}>
+                  {log.entity_type && log.entity_id ? `${log.entity_type} #${log.entity_id}` : '-'}
+                </td>
+                <td style={{ padding: '1rem', borderBottom: '1px solid #eee', fontSize: '0.85rem', maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                  {log.details ? JSON.stringify(log.details) : '-'}
+                </td>
+                <td style={{ padding: '1rem', borderBottom: '1px solid #eee', fontSize: '0.85rem', color: '#7f8c8d' }}>
+                  {log.ip_address || '-'}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        {logs.length === 0 && (
+          <div style={{ padding: '2rem', textAlign: 'center', color: '#7f8c8d' }}>
+            Aucun log trouvé
+          </div>
+        )}
+      </div>
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '1rem',
+          marginTop: '2rem'
+        }}>
+          <button
+            onClick={() => setCurrentPage(Math.max(0, currentPage - 1))}
+            disabled={currentPage === 0}
+            style={{
+              padding: '0.5rem 1rem',
+              backgroundColor: currentPage === 0 ? '#ddd' : '#3498db',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: currentPage === 0 ? 'not-allowed' : 'pointer'
+            }}
+          >
+            Précédent
+          </button>
+
+          <span style={{ color: '#7f8c8d' }}>
+            Page {currentPage + 1} sur {totalPages} ({totalLogs} logs)
+          </span>
+
+          <button
+            onClick={() => setCurrentPage(Math.min(totalPages - 1, currentPage + 1))}
+            disabled={currentPage >= totalPages - 1}
+            style={{
+              padding: '0.5rem 1rem',
+              backgroundColor: currentPage >= totalPages - 1 ? '#ddd' : '#3498db',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: currentPage >= totalPages - 1 ? 'not-allowed' : 'pointer'
+            }}
+          >
+            Suivant
+          </button>
+        </div>
+      )}
+    </div>
+  );
+};
+
 const Admin: React.FC = () => {
   const location = useLocation();
-  
+
   const navItems = [
     { path: '/admin', label: 'Utilisateurs', exact: true },
     { path: '/admin/balances', label: 'Soldes' },
     { path: '/admin/notifications', label: 'Notifications' },
-    { path: '/admin/services', label: 'Services' }
+    { path: '/admin/services', label: 'Services' },
+    { path: '/admin/logs', label: 'Logs' }
   ];
 
   const isActive = (path: string, exact = false) => {
@@ -1258,7 +1592,7 @@ const Admin: React.FC = () => {
   return (
     <div>
       <h1>Administration</h1>
-      
+
       {/* Navigation admin */}
       <div style={{
         backgroundColor: 'white',
@@ -1284,13 +1618,14 @@ const Admin: React.FC = () => {
             </Link>
           ))}
         </div>
-        
+
         <div style={{ padding: '1.5rem' }}>
           <Routes>
             <Route path="/" element={<UserManagement />} />
             <Route path="/balances" element={<BalanceManagement />} />
             <Route path="/notifications" element={<NotificationManagement />} />
             <Route path="/services" element={<ServiceManagement />} />
+            <Route path="/logs" element={<LogsManagement />} />
           </Routes>
         </div>
       </div>
