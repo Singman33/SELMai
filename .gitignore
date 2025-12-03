@@ -67,9 +67,6 @@ Thumbs.db
 # Backup files
 *.backup
 *.bak
-*.sql
-*.sql.gz
-*.sql.gz.gpg
 backups/
 
 # Production files (contain secrets)

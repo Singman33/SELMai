@@ -118,6 +118,28 @@ CREATE TABLE service_consumptions (
     INDEX idx_service_consumptions_buyer (buyer_id)
 );
 
+-- Table des logs d'activité
+CREATE TABLE IF NOT EXISTS logs (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL COMMENT 'ID de l''utilisateur ayant effectué l''action',
+  action VARCHAR(50) NOT NULL COMMENT 'Type d''action effectuée',
+  entity_type VARCHAR(50) COMMENT 'Type d''entité concernée (service, negotiation, etc.)',
+  entity_id INT COMMENT 'ID de l''entité concernée',
+  details JSON COMMENT 'Détails supplémentaires en JSON',
+  ip_address VARCHAR(45) COMMENT 'Adresse IP de l''utilisateur',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  
+  -- Index pour optimiser les requêtes
+  INDEX idx_user_id (user_id),
+  INDEX idx_action (action),
+  INDEX idx_entity (entity_type, entity_id),
+  INDEX idx_created_at (created_at),
+  
+  -- Clé étrangère vers la table users
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+COMMENT='Table de logs pour tracer toutes les actions des utilisateurs';
+
 -- Insertion des catégories par défaut
 INSERT INTO categories (name, description) VALUES
 ('Services à la personne', 'Aide ménagère, garde d\'enfants, courses...'),
